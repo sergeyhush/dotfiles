@@ -1,0 +1,2 @@
+LOCAL_ENV="$HOME/.zshenv.local"
+[[ -r "$LOCAL_ENV" ]] && source $LOCAL_ENV

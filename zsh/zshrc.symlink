@@ -1,0 +1,29 @@
+# Autoload module functions
+() {
+  setopt LOCAL_OPTIONS EXTENDED_GLOB
+
+  # autoload searches fpath for function locations; add enabled module function paths
+  fpath=(${HOME}/.zsh/functions ${fpath})
+  autoload -U ${HOME}/.zsh/functions/*(:t)
+}
+
+configs=(
+    aliases.zsh
+    aliases_git.zsh
+    async.zsh
+    autocompletion.zsh
+    autosuggestions.zsh
+    directory.zsh
+    dotenv.zsh
+    environment.zsh
+    fasd.zsh
+    history.zsh
+    prompt.zsh
+    python.zsh
+    sdkman.zsh
+    syntax.zsh
+    tmux.zsh
+    localrc.zsh
+)
+
+for config in $configs; source ~/.zsh/$config

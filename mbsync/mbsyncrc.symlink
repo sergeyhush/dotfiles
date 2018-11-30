@@ -1,0 +1,23 @@
+Create Both
+
+# sergey@cumulusnetworks.com
+
+IMAPAccount cumulus
+    Host imap.gmail.com
+    User sergey@cumulusnetworks.com
+    PassCmd "keybase pgp decrypt -i ~/.mail/accounts.gpg | awk '/machine imap.gmail.com login sergey@cumulusnetworks.com/ {print $NF}'"
+    SSLType IMAPS
+    AuthMechs Plain
+
+IMAPStore cumulus-remote
+    Account cumulus
+
+MaildirStore cumulus-local
+    Path ~/.mail/sergey@cumulusnetworks.com/
+    Inbox ~/.mail/sergey@cumulusnetworks.com/Inbox
+
+Channel cumulus
+  Master :cumulus-remote:
+  Slave :cumulus-local:
+  Patterns "INBOX"
+  Sync All

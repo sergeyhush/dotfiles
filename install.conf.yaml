@@ -1,0 +1,13 @@
+- clean: ['~']
+
+- link:
+    ~/.tmux.conf: tmux/tmux.conf.symlink
+    ~/.tmux-osx.conf: tmux/tmux-osx.conf.symlink
+    ~/.vimrc: vim/vimrc.symlink
+    ~/.zlogin: zsh/zlogin.symlink
+    ~/.zprestorc: zsh/zpreztorc.symlink
+    ~/.zprofile: zsh/zprofile.symlink
+    ~/.zshenv: zsh/zshenv.symlink
+    ~/.zshrc: zsh/zshrc.symlink
+    ~/.muttrc: mutt/muttrc.symlink
+    ~/.ackrc: ack/ackrc.symlink

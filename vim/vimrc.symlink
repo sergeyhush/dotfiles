@@ -1,0 +1,419 @@
+" vim: set sw=4 ts=4 sts=4 et tw=78 foldmarker={,} foldlevel=0 foldmethod=marker spell:
+"
+" Basic {
+set nocompatible              " be iMproved, required
+
+set encoding=utf-8
+" }
+
+" Auto-install vim-plug {
+if empty(glob('~/.vim/autoload/plug.vim'))
+    silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
+                \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+    autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
+endif
+" }
+
+" Vim plugins {
+call plug#begin('~/.vim/plugged')
+
+    " General {
+    Plug 'tpope/vim-repeat'
+    Plug 'tpope/vim-surround'
+    Plug 'Townk/vim-autoclose'
+    Plug 'Chiel92/vim-autoformat'
+    Plug 'sheerun/vim-polyglot'
+    Plug 'tpope/vim-commentary'
+    Plug 'nathanaelkane/vim-indent-guides'
+    Plug 'tpope/vim-sensible'
+    Plug 'ctrlpvim/ctrlp.vim'
+    Plug 'tacahiroy/ctrlp-funky'
+    Plug 'vim-airline/vim-airline'
+    Plug 'benmills/vimux'
+    Plug 'ervandew/supertab'
+    Plug 'terryma/vim-multiple-cursors'
+    Plug 'majutsushi/tagbar', { 'on': 'TagbarToggle' }
+    Plug 'tpope/vim-dispatch'
+    Plug '/usr/local/opt/fzf' | Plug 'junegunn/fzf.vim'
+    Plug 'rking/ag.vim'
+    Plug 'wellle/targets.vim'
+    Plug 'davidhalter/jedi-vim'
+    Plug 'easymotion/vim-easymotion'
+    Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
+    Plug 'janko-m/vim-test'
+    Plug 'kana/vim-textobj-user' | Plug 'kana/vim-textobj-function'
+    Plug 'michaeljsmith/vim-indent-object'
+    Plug 'christoomey/vim-tmux-navigator'
+    Plug 'terryma/vim-expand-region'
+    Plug 'craigemery/vim-autotag'
+    Plug 'w0rp/ale'
+    Plug 'rizzatti/dash.vim'
+    Plug 'junegunn/vim-easy-align'
+    Plug 'terryma/vim-expand-region'
+    Plug 'tpope/vim-endwise'
+    " }
+    "
+    " Colors {
+    Plug 'altercation/vim-colors-solarized'
+    Plug 'dracula/vim'
+    Plug 'blueyed/vim-diminactive'
+    Plug 'morhetz/gruvbox'
+    " }
+
+    " Git {
+    Plug 'tpope/vim-git'
+    Plug 'tpope/vim-fugitive'
+    Plug 'airblade/vim-gitgutter'
+    " }
+
+    " Python {
+    Plug 'klen/python-mode', { 'for': 'python' }
+    Plug 'python-rope/ropevim', { 'for': 'python' }
+    Plug 'fisadev/vim-isort', { 'for': 'python' }
+    Plug 'jeetsukumaran/vim-pythonsense', { 'for': 'python' }
+    " }
+
+    " Ruby {
+    Plug 'vim-ruby/vim-ruby', { 'for': 'ruby' }
+    " }
+
+    " Golang {
+    Plug 'fatih/vim-go', { 'for': 'go', 'do': ':GoUpdateBinaries' }
+    Plug 'nsf/gocode', { 'rtp': 'vim' }
+    " }
+
+    " Groovy {
+    Plug 'vim-scripts/groovy.vim'
+    Plug 'tfnico/vim-gradle'
+    " }
+
+    " Ansible {
+    Plug 'chase/vim-ansible-yaml', { 'for': ['yaml'] }
+    Plug 'pearofducks/ansible-vim'
+    " }
+    " Hashicorp {
+    Plug 'hashivim/vim-terraform', { 'for': ['terraform'] }
+    " }
+" Langs
+
+
+call plug#end()
+"}
+
+" General {
+set background=dark
+filetype plugin indent on   " Automatically detect file types.
+syntax on                   " Syntax highlighting
+set mouse=a                 " Automatically enable mouse usage
+set mousehide               " Hide the mouse cursor while typing
+scriptencoding utf-8    "
+set autowrite                 " write content on :make
+set shortmess+=filmnrxoOtT          " Abbrev. of messages (avoids 'hit enter')
+set viewoptions=folds,options,cursor,unix,slash " Better Unix / Windows compatibility
+set virtualedit=onemore             " Allow for cursor beyond last character
+set history=1000                    " Store a ton of history (default is 20)
+set spell                           " Spell checking on
+set hidden                          " Allow buffer switching without saving
+set iskeyword-=.                    " '.' is an end of word designator
+set iskeyword-=#                    " '#' is an end of word designator
+set iskeyword-=-                    " '-' is an end of word designator         "
+set visualbell           " don't beep
+set noerrorbells         " don't beep
+" tabs and spaces handling
+set copyindent
+set smarttab
+
+if has('clipboard')
+    if has('unnamedplus')
+        set clipboard=unnamed,unnamedplus
+    else
+        set clipboard=unnamed
+    endif
+    if $TMUX == ''
+        set clipboard=unnamed
+    endif
+endif
+
+    " Setup backup {
+    set backup                  " Backups are nice ...
+    if has('persistent_undo')
+        set undofile                " So is persistent undo ...
+        set undolevels=1000         " Maximum number of changes that can be undone
+        set undoreload=10000        " Maximum number lines to save for undo on a buffer reload
+    endif   "
+
+    function! InitializeDirectories()
+        let parent = $HOME
+        let prefix = '.vim'
+        let common_dir = parent . '/'. prefix
+        let dir_list = {
+                    \ 'backup_files': 'backupdir',
+                    \ 'views': 'viewdir',
+                    \ 'swap_files': 'directory' }
+
+        if has('persistent_undo')
+            let dir_list['undo_files'] = 'undodir'
+        endif
+
+        for [dirname, settingname] in items(dir_list)
+            let directory = common_dir . '/' . dirname . '/'
+            if exists("*mkdir")
+                if !isdirectory(directory)
+                    call mkdir(directory, "p")
+                endif
+            endif
+            if !isdirectory(directory)
+                echo "Warning: Unable to create backup directory: " . directory
+                echo "Try: mkdir -p " . directory
+            else
+                let directory = substitute(directory, " ", "\\\\ ", "g")
+                exec "set " . settingname . "=" . directory
+            endif")
+        endfor
+    endfunction
+    call InitializeDirectories()
+    " }
+" }
+
+" Vim UI {
+set tabpagemax=15               " Only show 15 tabs
+set showmode                    " Display the current mode
+
+set cursorline                  " Highlight current line   "
+set backspace=indent,eol,start  " Backspace for dummies
+set linespace=0                 " No extra spaces between rows
+set number                      " Line numbers on
+set showmatch                   " Show matching brackets/parenthesis
+set incsearch                   " Find as you type search
+set hlsearch                    " Highlight search terms
+set winminheight=0              " Windows can be 0 line high
+set ignorecase                  " Case insensitive search
+set smartcase                   " Case sensitive when uc present
+set wildmenu                    " Show list instead of just completing
+set wildmode=list:longest,full  " Command <Tab> completion, list matches, then longest common part, then all.
+set whichwrap=b,s,h,l,<,>,[,]   " Backspace and cursor keys wrap too
+set scrolljump=5                " Lines to scroll when cursor leaves screen
+set scrolloff=3                 " Minimum lines to keep above and below cursor
+set foldenable                  " Auto fold code
+set list
+set listchars=tab:›\ ,trail:•,extends:#,nbsp:. " Highlight problematic whitespace                "
+
+if has('statusline')
+    set laststatus=2
+
+    set statusline =%#identifier#
+    set statusline+=[%t]    "tail of the filename
+    set statusline+=%*
+    "display a warning if fileformat isnt unix
+    set statusline+=%#warningmsg#
+    set statusline+=%{&ff!='unix'?'['.&ff.']':''}
+    set statusline+=%*
+
+    "display a warning if file encoding isnt utf-8
+    set statusline+=%#warningmsg#
+    set statusline+=%{(&fenc!='utf-8'&&&fenc!='')?'['.&fenc.']':''}
+    set statusline+=%*
+
+    set statusline+=%h      "help file flag
+    set statusline+=%y      "filetype
+
+    "read only flag
+    set statusline+=%#identifier#
+    set statusline+=%r
+    set statusline+=%*
+
+    "modified flag
+    set statusline+=%#identifier#
+    set statusline+=%m
+    set statusline+=%*
+
+    set statusline+=%{fugitive#statusline()}
+
+    set statusline+=%=      "left/right separator
+    set statusline+=%{StatuslineCurrentHighlight()}\ \ "current highlight
+    set statusline+=%c,     "cursor column
+    set statusline+=%l/%L   "cursor line/total lines
+    set statusline+=\ %P    "percent through file
+endif
+
+"return the syntax highlight group under the cursor ''
+function! StatuslineCurrentHighlight()
+    let name = synIDattr(synID(line('.'),col('.'),1),'name')
+    if name == ''
+        return ''
+    else
+        return '[' . name . ']'
+    endif
+endfunction
+
+" }
+
+" Formatting {
+set nowrap                      " Do not wrap long lines
+set autoindent                  " Indent at the same level of the previous line
+set shiftwidth=4                " Use indents of 4 spaces
+set expandtab                   " Tabs are spaces, not tabs
+set tabstop=4                   " An indentation every four columns
+set softtabstop=4               " Let backspace delete indent
+set nojoinspaces                " Prevents inserting two spaces after punctuation on a join (J)
+set splitright                  " Puts new vsplit windows to the right of the current
+set splitbelow                  " Puts new split windows to the bottom of the current         "
+" }
+
+" Key Mappings {
+
+" change the mapleader from \ to <space>
+let mapleader = "\<Space>"
+
+" Leader most frequent actions
+" - save file
+nnoremap <Leader>w :w<CR>
+
+nnoremap <C-n> :bnext<CR>
+nnoremap <C-p> :bprevious<CR>
+
+nmap <C-j> <C-w>j
+nmap <C-k> <C-w>k
+nmap <C-h> <C-w>h
+nmap <C-l> <C-w>l
+
+nnoremap <Down> gj
+nnoremap <Up> gk
+vnoremap <Down> gj
+vnoremap <Up> gk
+
+nmap <silent> ,/ :nohlsearch<CR>
+
+" In case you forget sudo, write to file anyways
+cmap w!! w !sudo tee % >/dev/null
+
+" Make 'jk' act as Escape
+imap jk <Esc>
+
+nnoremap <silent><leader>t :TagbarToggle<CR>
+map <Leader><Tab> :bprevious<CR>
+" }
+
+" GUI {
+if $TERM == "xterm"
+    set t_Co=256              " 256 colors
+endif
+" }
+
+" allow plugins by file type (required for plugins!)
+filetype plugin on
+filetype indent on
+
+" UI {
+" syntax highlight on
+syntax on
+set background=dark
+colorscheme gruvbox
+" }
+
+" Save all on lost focus
+au FocusLost * :wa
+
+" Plugin options {
+
+    " fzf {
+    nmap ; :Buffers<CR>
+    nmap <Leader>f :Files<CR>
+    nmap <Leader>t :Tags<CR>
+    " }
+
+    " NERDTree {
+    noremap <F2> :NERDTreeToggle<CR>
+    " nnorema <silent> <F3> :NERDTreeFind<CR>
+    let NERDTreeIgnore=['\.pyc', '\.o', '\.class', '\.lo']
+    let g:NERDTreeChDirMode=2
+    let g:NERDTreeIgnore=['\.rbc$', '\~$', '\.pyc$', '\.db$', '\.sqlite$', '__pycache__']
+    let g:NERDTreeSortOrder=['^__\.py$', '\/$', '*', '\.swp$', '\.bak$', '\~$']
+    let g:NERDTreeShowBookmarks=1
+    let g:nerdtree_tabs_focus_on_files=1
+    let g:NERDTreeMapOpenInTabSilent = '<RightMouse>'
+    let g:NERDTreeWinSize = 20
+    set wildignore+=*/tmp/*,*.so,*.swp,*.zip,*.pyc,*.db,*.sqlite
+    " }
+
+    " NERDCommenter {
+    " Add spaces after comment delimiters by default
+    let g:NERDSpaceDelims = 1
+    " Allow commenting and inverting empty lines (useful when commenting a region)
+    let g:NERDCommentEmptyLines = 1
+    " }
+
+    " vimux {
+    " Prompt for a command to run
+    map <Leader>vp :VimuxPromptCommand<CR>
+    " }
+
+    " Gundo {
+    nnoremap <Leader>u :GundoToggle<CR>
+    " }
+
+    " ag {
+    if executable('ag')
+        set grepprg=ag\ --nogroup\ --nocolor
+        if exists("g:ctrlp_user_command")
+            unlet g:ctrlp_user_command
+        endif
+        let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
+        let g:ctrlp_use_caching = 0
+    endif
+    " }
+
+    " Ale {
+    " let g:ale_fix_on_save = 1
+    let b:ale_linters = ['flake8']
+    let b:ale_fixers = [
+                \   'remove_trailing_lines',
+                \   'isort',
+                \   'ale#fixers#generic_python#BreakUpLongLines',
+                \   'yapf',
+                \]
+    nnoremap <buffer> <silent> <LocalLeader>= :ALEFix<CR>
+    " }
+
+    " CtrlP {
+    "let g:ctrlp_cache_dir = $HOME . '/.cache/ctrlp'
+    " let g:ctrlp_user_command = ['.git', 'cd %s && git ls-files . -co --exclude-standard', 'find %s -type f']
+    let g:ctrlp_prompt_mappings = {
+                \ 'AcceptSelection("e")': ['<space>', '<cr>', '<2-LeftMouse>'],
+                \ }
+    " }
+
+    " vim-go {
+    let g:go_fmt_command = "goimports""
+    " }
+
+    " Pymode {
+    if !has('python') && !has('python3')
+        let g:pymode = 0
+    else
+        let g:pymode = 1
+        let g:pymode_lint = 1
+        let g:pymode_rope = 0
+        let g:pymode_rope_lookup_project = 0
+        let g:pymode_rope_autoimport = 0
+        let g:pymode_doc = 1
+        let g:pymode_virtualenv = 1
+        let g:pymode_lint_ignore = "E501"
+    endif
+    " }
+
+    " indent-guides {
+    let g:indent_guides_enable_on_vim_startup = 1
+    let g:indent_guides_auto_colors = 0
+    let g:indent_guides_start_level = 2
+    let g:indent_guides_guide_size = 1
+    let g:indent_guides_color_change_percent = 5
+    autocmd VimEnter,Colorscheme * :hi IndentGuidesOdd  guibg=darkgrey ctermbg=8
+    autocmd VimEnter,Colorscheme * :hi IndentGuidesEven guibg=darkgrey ctermbg=61
+    autocmd VimEnter * :IndentGuidesEnable
+    " }
+
+    " Autoformat {
+    " au BufWrite * :Autoformat
+    " }
+" }

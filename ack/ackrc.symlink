@@ -1,0 +1,9 @@
+# only search with case sensitivity if there is mixed case
+--smart-case
+# follow symlinks
+--follow
+# Always color, even if piping to a another program
+--color
+
+# Ignore search in build dir (hopefully this will not mess anything up)
+--ignore-directory=is:build/
