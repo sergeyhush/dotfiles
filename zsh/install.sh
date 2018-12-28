@@ -5,7 +5,7 @@ case "$(uname -s)" in
     Darwin*)
         sudo dscl . -create "/Users/$USER" UserShell /usr/local/bin/zsh;;
     Linux*)
-        chsh -s =zsh;;
+        sudo chsh -s $(which zsh);;
 esac
 
 ZSH_DIR=$HOME/.zsh
