@@ -17,6 +17,7 @@ configs=(
     dotenv.zsh
     environment.zsh
     fasd.zsh
+    fzf.zsh
     history.zsh
     prompt.zsh
     python.zsh
