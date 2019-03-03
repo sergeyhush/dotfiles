@@ -2,3 +2,5 @@
     path = .gitconfig.personal
 [includeIf "gitdir:~/work/"]
     path = .gitconfig.work
+[core]
+	excludesfile = ~/.gitignore_global
