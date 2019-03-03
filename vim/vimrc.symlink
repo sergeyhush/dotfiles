@@ -67,10 +67,11 @@ call plug#begin('~/.vim/plugged')
     " }
 
     " Python {
-    Plug 'klen/python-mode', { 'for': 'python' }
-    Plug 'python-rope/ropevim', { 'for': 'python' }
+    Plug 'python-mode/python-mode', { 'for': 'python' }
+    " Plug 'python-rope/ropevim', { 'for': 'python' }
     Plug 'fisadev/vim-isort', { 'for': 'python' }
     Plug 'jeetsukumaran/vim-pythonsense', { 'for': 'python' }
+    Plug 'tmhedberg/SimpylFold', { 'for': 'python' }
     " }
 
     " Ruby {
@@ -79,7 +80,8 @@ call plug#begin('~/.vim/plugged')
 
     " Golang {
     Plug 'fatih/vim-go', { 'for': 'go', 'do': ':GoUpdateBinaries' }
-    Plug 'nsf/gocode', { 'rtp': 'vim' }
+    " Plug 'nsf/gocode', { 'rtp': 'vim' }
+    Plug 'mdempsky/gocode', { 'rtp': 'vim', 'do': '~/.vim/plugged/gocode/vim/symlink.sh' }
     " }
 
     " Groovy {
@@ -94,6 +96,7 @@ call plug#begin('~/.vim/plugged')
     " Hashicorp {
     Plug 'hashivim/vim-terraform', { 'for': ['terraform'] }
     " }
+    "
 " Langs
 
 
@@ -101,7 +104,6 @@ call plug#end()
 "}
 
 " General {
-set background=dark
 filetype plugin indent on   " Automatically detect file types.
 syntax on                   " Syntax highlighting
 set mouse=a                 " Automatically enable mouse usage
@@ -269,6 +271,9 @@ let mapleader = "\<Space>"
 " - save file
 nnoremap <Leader>w :w<CR>
 
+" Enable folding with the spacebar
+" nnoremap <space> za
+
 nnoremap <C-n> :bnext<CR>
 nnoremap <C-p> :bprevious<CR>
 
@@ -308,13 +313,17 @@ filetype indent on
 " syntax highlight on
 syntax on
 set background=dark
-colorscheme gruvbox
+colorscheme solarized
 " }
 
 " Save all on lost focus
 au FocusLost * :wa
 
 " Plugin options {
+    " vim-easy-align {
+    xmap ga <Plug>(EasyAlign)
+    nmap ga <Plug>(EasyAlign)
+    " }
 
     " fzf {
     nmap ; :Buffers<CR>
