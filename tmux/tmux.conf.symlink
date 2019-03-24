@@ -110,7 +110,9 @@ setw -g pane-base-index 1   # make pane numbering consistent with windows
 ############################################################################
 if-shell 'test "$(uname)" = "Darwin"' 'source ~/.tmux-osx.conf'
 
-# Make sure TPM is cloned $ git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
+if "test ! -d ~/.tmux/plugins/tpm" \
+   "run 'git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm && ~/.tmux/plugins/tpm/bin/install_plugins'"
+
 set -g @plugin 'tmux-plugins/tpm'
 set -g @plugin 'tmux-plugins/tmux-sensible'
 set -g @plugin 'tmux-plugins/tmux-resurrect'
