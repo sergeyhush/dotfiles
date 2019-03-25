@@ -68,7 +68,6 @@ call plug#begin('~/.vim/plugged')
 
     " Python {
     Plug 'python-mode/python-mode', { 'for': 'python' }
-    " Plug 'python-rope/ropevim', { 'for': 'python' }
     Plug 'fisadev/vim-isort', { 'for': 'python' }
     Plug 'jeetsukumaran/vim-pythonsense', { 'for': 'python' }
     Plug 'tmhedberg/SimpylFold', { 'for': 'python' }
@@ -297,6 +296,10 @@ imap jk <Esc>
 
 nnoremap <silent><leader>t :TagbarToggle<CR>
 map <Leader><Tab> :bprevious<CR>
+
+" Ale quick error/warning navigation
+nmap <silent> ]g <Plug>(ale_previous_wrap)
+nmap <silent> [g <Plug>(ale_next_wrap)]
 " }
 
 " GUI {
@@ -374,7 +377,11 @@ au FocusLost * :wa
 
     " Ale {
     " let g:ale_fix_on_save = 1
-    let b:ale_linters = ['flake8']
+    highlight ALEErrorSign ctermfg=9
+    let g:ale_completion_enabled = 1
+    let g:ale_lint_on_text_changed = 'never' "run only after file is saved
+    let g:ale_lint_on_enter = 0 " do not lint right after the file is open
+    let b:ale_linters = {'python': ['flake8']}
     let b:ale_fixers = [
                 \   'remove_trailing_lines',
                 \   'isort',
@@ -382,6 +389,9 @@ au FocusLost * :wa
                 \   'yapf',
                 \]
     nnoremap <buffer> <silent> <LocalLeader>= :ALEFix<CR>
+    noremap <Leader>gd :ALEGoToDefinition<CR>
+    noremap <Leader>lf :ALEFix<CR>
+    noremap <Leader>gr :ALEFindReferences<CR>
     " }
 
     " CtrlP {
