@@ -89,7 +89,6 @@ call plug#begin('~/.vim/plugged')
     " }
 
     " Ansible {
-    Plug 'chase/vim-ansible-yaml', { 'for': ['yaml'] }
     Plug 'pearofducks/ansible-vim'
     " }
     " Hashicorp {
