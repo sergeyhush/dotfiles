@@ -16,8 +16,14 @@ unset pyenvdir
 
 if [ $FOUND_PYENV -eq 0 ] ; then
     # Check if installed automatically (via Homebrew for example)
-    pyenvdir=$(brew --prefix pyenv 2> /dev/null)
-    if [ $? -eq 0 -a -d $pyenvdir/bin ] ; then
+    BREW_PREFIX=$(brew --prefix 2> /dev/null)
+    if [ $? -eq 0 -a -d $BREW_PREFIX/opt/pyenv ]; then
+        pyenvdir=$BREW_PREFIX/opt/pyenv
+    else
+        pyenvdir=$(brew --prefix pyenv 2> /dev/null)
+    fi
+
+    if [ -d $pyenvdir/bin ] ; then
         FOUND_PYENV=1
         export PYENV_ROOT=$pyenvdir
         export PATH=${pyenvdir}/bin:$PATH
