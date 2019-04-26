@@ -1,5 +1,5 @@
 if [[ "$OSTYPE" != darwin* ]]; then
-    return 1
+    return 0
 fi
 
 # Flush DNS cache

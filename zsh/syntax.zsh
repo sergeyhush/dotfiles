@@ -1,6 +1,6 @@
 ZSH_HIGHLIGHT_HIGHLIGHTERS=(${zhighlighters[@]})
 
-source "${0:h}/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh" || return 1
+source "$ZSH_HOME/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh" || return 1
 
 # color overrides
 ZSH_HIGHLIGHT_STYLES[default]='none'

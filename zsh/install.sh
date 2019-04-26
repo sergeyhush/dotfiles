@@ -9,9 +9,9 @@ case "$(uname -s)" in
 esac
 
 ZSH_DIR=$HOME/.zsh
-if [ ! -d $ZSH_DIR/zsh-autosuggestions ]; then
-    git clone https://github.com/zsh-users/zsh-autosuggestions $ZSH_DIR/zsh-autosuggestions
-fi
-if [ ! -d $ZSH_DIR/zsh-syntax-highlighting ]; then
-    git clone https://github.com/zsh-users/zsh-syntax-highlighting.git $ZSH_DIR/zsh-syntax-highlighting
-fi
+mkdir -p "$ZSH_DIR"
+for repo in zsh-autosuggestions zsh-syntax-highlighting; do
+    if [ ! -d "$ZSH_DIR/$repo" ]; then
+        git clone https://github.com/zsh-users/$repo "$ZSH_DIR/$repo"
+    fi
+done

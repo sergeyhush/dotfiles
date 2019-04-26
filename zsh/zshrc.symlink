@@ -1,30 +1,41 @@
 # Autoload module functions
-() {
-  setopt LOCAL_OPTIONS EXTENDED_GLOB
+# () {
+#   setopt LOCAL_OPTIONS EXTENDED_GLOB
 
-  # autoload searches fpath for function locations; add enabled module function paths
-  fpath=(${HOME}/.zsh/functions ${fpath})
-  autoload -U ${HOME}/.zsh/functions/*(:t)
-}
+#   # autoload searches fpath for function locations; add enabled module function paths
+#   fpath=(${HOME}/.zsh/functions ${fpath})
+#   autoload -U ${HOME}/.zsh/functions/*(:t)
+# }
 
-configs=(
-    aliases.zsh
-    aliases_git.zsh
-    async.zsh
-    autocompletion.zsh
-    autosuggestions.zsh
-    directory.zsh
-    dotenv.zsh
-    environment.zsh
-    fasd.zsh
-    fzf.zsh
-    history.zsh
-    prompt.zsh
-    python.zsh
-    sdkman.zsh
-    syntax.zsh
-    tmux.zsh
-    localrc.zsh
-)
+export DOTFILES="${"${(%):-%N}":A:h:h}"
+export ZSH_HOME="$HOME/.zsh"
 
-for config in $configs; source ~/.zsh/$config
+# all of our zsh files
+typeset -U config_files
+config_files=($DOTFILES/**/*.zsh)
+
+# load the path files first
+for file in ${(M)config_files:#*/path.zsh}
+do
+    echo "Path -> $file"
+    source $file
+done
+
+# load everything but the path and completion files
+for file in ${${config_files:#*/path.zsh}:#*/completion.zsh}
+do
+    echo "Other -> $file"
+    source $file
+done
+
+# autocompletion systems
+autoload -U compinit
+compinit
+# autoload -U ~/.zsh/completion/*(:t)
+for file in ${(M)config_files:#*/completion.zsh}
+do
+    echo "Autocomplete -> $file"
+    source $file
+done
+
+unset config_files
