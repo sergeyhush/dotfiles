@@ -55,7 +55,7 @@ call plug#begin('~/.vim/plugged')
     "
     " Colors {
     Plug 'altercation/vim-colors-solarized'
-    Plug 'dracula/vim'
+    Plug 'dracula/vim', {'as': 'dracula'}
     Plug 'blueyed/vim-diminactive'
     Plug 'morhetz/gruvbox'
     " }
@@ -318,7 +318,7 @@ syntax enable
 let g:solarized_termtrans = 1
 let g:solarized_termcolors=256
 set background=dark
-colorscheme solarized
+colorscheme dracula
 " }
 
 " Save all on lost focus
