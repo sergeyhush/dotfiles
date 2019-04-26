@@ -17,14 +17,12 @@ config_files=($DOTFILES/**/*.zsh)
 # load the path files first
 for file in ${(M)config_files:#*/path.zsh}
 do
-    echo "Path -> $file"
     source $file
 done
 
 # load everything but the path and completion files
 for file in ${${config_files:#*/path.zsh}:#*/completion.zsh}
 do
-    echo "Other -> $file"
     source $file
 done
 
@@ -34,7 +32,6 @@ compinit
 # autoload -U ~/.zsh/completion/*(:t)
 for file in ${(M)config_files:#*/completion.zsh}
 do
-    echo "Autocomplete -> $file"
     source $file
 done
 
