@@ -93,6 +93,7 @@ call plug#begin('~/.vim/plugged')
     " }
     " Hashicorp {
     Plug 'hashivim/vim-terraform', { 'for': ['terraform'] }
+    Plug 'juliosueiras/vim-terraform-completion'
     " }
     "
 " Langs
