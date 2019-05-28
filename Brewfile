@@ -112,4 +112,5 @@ brew "vim", args: ['--with-override-system-vi']
 brew "wget"
 brew "wifi-password"
 brew "youtube-dl"
+brew "zlib"
 brew "zsh"
