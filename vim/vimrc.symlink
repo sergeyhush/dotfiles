@@ -273,8 +273,8 @@ nnoremap <Leader>w :w<CR>
 " Enable folding with the spacebar
 " nnoremap <space> za
 
-nnoremap <C-n> :bnext<CR>
-nnoremap <C-p> :bprevious<CR>
+nnoremap <Tab> :bnext<CR>
+nnoremap <S-Tab> :bprevious<CR>
 
 nmap <C-j> <C-w>j
 nmap <C-k> <C-w>k
