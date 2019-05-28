@@ -15,3 +15,7 @@ for repo in zsh-autosuggestions zsh-syntax-highlighting; do
         git clone https://github.com/zsh-users/$repo "$ZSH_DIR/$repo"
     fi
 done
+
+if [ ! -d "ZSH_DIR/zplug" ]; then
+    git clone https://github.com/zplug/zplug "$ZSH_DIR/zplug"
+fi
