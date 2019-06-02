@@ -35,7 +35,7 @@ call plug#begin('~/.vim/plugged')
     Plug 'majutsushi/tagbar', { 'on': 'TagbarToggle' }
     Plug 'tpope/vim-dispatch'
     Plug '/usr/local/opt/fzf' | Plug 'junegunn/fzf.vim'
-    Plug 'rking/ag.vim'
+    Plug 'mileszs/ack.vim'
     Plug 'wellle/targets.vim'
     Plug 'davidhalter/jedi-vim'
     Plug 'easymotion/vim-easymotion'
@@ -273,8 +273,6 @@ nnoremap <Leader>w :w<CR>
 " Enable folding with the spacebar
 " nnoremap <space> za
 
-nnoremap <Tab> :bnext<CR>
-nnoremap <S-Tab> :bprevious<CR>
 
 nmap <C-j> <C-w>j
 nmap <C-k> <C-w>k
@@ -296,6 +294,9 @@ imap jk <Esc>
 
 nnoremap <silent><leader>t :TagbarToggle<CR>
 map <Leader><Tab> :bprevious<CR>
+nnoremap <Tab> :bnext<CR>
+nnoremap <S-Tab> :bprevious<CR>
+map <Leader>/ :Ack<Space>
 
 " Ale quick error/warning navigation
 nmap <silent> ]g <Plug>(ale_previous_wrap)
@@ -369,7 +370,9 @@ au FocusLost * :wa
 
     " ag {
     if executable('ag')
+        let g:ackprg = 'ag --vimgrep'
         set grepprg=ag\ --nogroup\ --nocolor
+
         if exists("g:ctrlp_user_command")
             unlet g:ctrlp_user_command
         endif
