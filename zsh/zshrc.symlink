@@ -33,9 +33,7 @@ unset config_files
 
 source "$ZPLUG_HOME/init.zsh"
 zplug "zplug/zplug", hook-build:'zplug --self-manage'
-
 zplug "mafredri/zsh-async", from:github, defer:0
-
 zplug "clvv/fasd", as:command, use:fasd
 zplug "junegunn/fzf", as:command
 zplug "zsh-users/zsh-autosuggestions"
@@ -47,9 +45,7 @@ zplug "plugins/docker-compose", from:oh-my-zsh, if:'[[ $commands[docker-compose]
 #     *  must be loaded after executing compinit command and sourcing
 #        other plugins (taken care of with `defer` option)
 zplug "zsh-users/zsh-syntax-highlighting", defer:2
-
-
-zplug "sergeyhush/pure", from:github, use:pure.zsh, as:theme
+zplug "sindresorhus/pure", from:github, use:pure.zsh, as:theme
 zplug "plugins/aws", from:oh-my-zsh
 
 # fzf
@@ -58,8 +54,8 @@ zplug 'junegunn/fzf', \
     use:'bin/{fzf,fzf-tmux}', \
     if:"[[ $OSTYPE == linux* || $OSTYPE == darwin* ]]", \
         hook-build:'./install --key-bindings --completion --no-update-rc'
-zplug "junegunn/fzf", from:github, use:"shell/completion.zsh"
-zplug "junegunn/fzf", from:github, use:"shell/key-bindings.zsh"
+        zplug "junegunn/fzf", from:github, use:"shell/completion.zsh"
+        zplug "junegunn/fzf", from:github, use:"shell/key-bindings.zsh"
 
 if ! zplug check; then
     zplug install
@@ -92,5 +88,11 @@ if zplug check 'zsh-users/zsh-syntax-highlighting'; then
     ZSH_HIGHLIGHT_STYLES[assign]='none'
 fi
 
+# change the prompt success color
+zstyle :prompt:pure:prompt:success color white
 
 fpath=("$HOME/bin" $fpath)
+
+if [ -f "$HOME/.localrc" ]; then
+    source "$HOME/.localrc"
+fi
