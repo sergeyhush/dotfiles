@@ -2,7 +2,6 @@
 "
 " Basic {
 set nocompatible              " be iMproved, required
-
 set encoding=utf-8
 " }
 
@@ -18,56 +17,59 @@ endif
 call plug#begin('~/.vim/plugged')
 
     " General {
-    Plug 'tpope/vim-repeat'
-    Plug 'tpope/vim-surround'
-    Plug 'Townk/vim-autoclose'
-    Plug 'Chiel92/vim-autoformat'
-    Plug 'sheerun/vim-polyglot'
-    Plug 'tpope/vim-commentary'
-    Plug 'nathanaelkane/vim-indent-guides'
-    Plug 'tpope/vim-sensible'
-    Plug 'ctrlpvim/ctrlp.vim'
-    Plug 'tacahiroy/ctrlp-funky'
-    Plug 'vim-airline/vim-airline'
-    Plug 'benmills/vimux'
-    Plug 'ervandew/supertab'
-    Plug 'terryma/vim-multiple-cursors'
-    Plug 'majutsushi/tagbar', { 'on': 'TagbarToggle' }
-    Plug 'tpope/vim-dispatch'
     Plug '/usr/local/opt/fzf' | Plug 'junegunn/fzf.vim'
-    Plug 'mileszs/ack.vim'
-    Plug 'wellle/targets.vim'
+    Plug 'Chiel92/vim-autoformat'
+    Plug 'Townk/vim-autoclose'
+    Plug 'benmills/vimux'
+    Plug 'christoomey/vim-tmux-navigator'
+    Plug 'craigemery/vim-autotag'
+    Plug 'ctrlpvim/ctrlp.vim'
     Plug 'davidhalter/jedi-vim'
     Plug 'easymotion/vim-easymotion'
-    Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
+    Plug 'ervandew/supertab'
     Plug 'janko-m/vim-test'
-    Plug 'kana/vim-textobj-user' | Plug 'kana/vim-textobj-function'
-    Plug 'michaeljsmith/vim-indent-object'
-    Plug 'christoomey/vim-tmux-navigator'
-    Plug 'terryma/vim-expand-region'
-    Plug 'craigemery/vim-autotag'
-    Plug 'w0rp/ale'
-    Plug 'rizzatti/dash.vim'
     Plug 'junegunn/vim-easy-align'
+    Plug 'kana/vim-textobj-user' | Plug 'kana/vim-textobj-function'
+    Plug 'majutsushi/tagbar', { 'on': 'TagbarToggle' }
+    Plug 'michaeljsmith/vim-indent-object'
+    Plug 'mileszs/ack.vim'
+    Plug 'nathanaelkane/vim-indent-guides'
+    Plug 'rizzatti/dash.vim'
+    Plug 'sheerun/vim-polyglot'
+    Plug 'tacahiroy/ctrlp-funky'
     Plug 'terryma/vim-expand-region'
+    Plug 'terryma/vim-expand-region'
+    Plug 'terryma/vim-multiple-cursors'
+    Plug 'tpope/vim-commentary'
+    Plug 'tpope/vim-dispatch'
     Plug 'tpope/vim-endwise'
+    Plug 'tpope/vim-repeat'
+    Plug 'tpope/vim-sensible'
+    Plug 'tpope/vim-surround'
+    Plug 'tpope/vim-vinegar'
+    Plug 'vim-airline/vim-airline'
+    Plug 'w0rp/ale'
+    Plug 'wellle/targets.vim'
+    " Still testing out
+    Plug 'liuchengxu/vim-which-key', { 'on': ['WhichKey', 'WhichKey!'] }
     " }
-    "
+    
     " Colors {
     Plug 'altercation/vim-colors-solarized'
-    Plug 'dracula/vim', {'as': 'dracula'}
     Plug 'blueyed/vim-diminactive'
+    Plug 'dracula/vim', {'as': 'dracula'}
     Plug 'morhetz/gruvbox'
+    Plug 'tomasiser/vim-code-dark'
     " }
 
     " Git {
-    Plug 'tpope/vim-git'
-    Plug 'tpope/vim-fugitive'
     Plug 'airblade/vim-gitgutter'
+    Plug 'tpope/vim-fugitive'
+    Plug 'tpope/vim-git'
     " }
 
     " Python {
-    Plug 'python-mode/python-mode', { 'for': 'python' }
+    Plug 'python-mode/python-mode', { 'for': 'python', 'branch': 'develop' }
     Plug 'fisadev/vim-isort', { 'for': 'python' }
     Plug 'jeetsukumaran/vim-pythonsense', { 'for': 'python' }
     Plug 'tmhedberg/SimpylFold', { 'for': 'python' }
@@ -79,7 +81,6 @@ call plug#begin('~/.vim/plugged')
 
     " Golang {
     Plug 'fatih/vim-go', { 'for': 'go', 'do': ':GoUpdateBinaries' }
-    " Plug 'nsf/gocode', { 'rtp': 'vim' }
     Plug 'mdempsky/gocode', { 'rtp': 'vim', 'do': '~/.vim/plugged/gocode/vim/symlink.sh' }
     " }
 
@@ -91,14 +92,12 @@ call plug#begin('~/.vim/plugged')
     " Ansible {
     Plug 'pearofducks/ansible-vim'
     " }
+
     " Hashicorp {
     Plug 'hashivim/vim-terraform', { 'for': ['terraform'] }
     Plug 'juliosueiras/vim-terraform-completion'
     " }
     "
-" Langs
-
-
 call plug#end()
 "}
 
@@ -308,6 +307,50 @@ if $TERM == "xterm"
     set t_Co=256              " 256 colors
 endif
 " }
+"
+
+" Which-key Config {
+let g:which_key_map = {}
+let g:maplocalleader = ','
+set timeoutlen=500
+
+autocmd! User vim-which-key call which_key#register('<Space>', 'g:which_key_map')
+
+
+nnoremap <silent> <leader> :<c-u>WhichKey '<Space>'<CR>
+vnoremap <silent> <leader> :<c-u>WhichKeyVisual '<Space>'<CR>
+
+nnoremap <silent> <localleader> :<c-u>WhichKey ','<CR>
+vnoremap <silent> <localleader> :<c-u>WhichKeyVisual ','<CR>
+
+
+let g:which_key_map.e = {
+            \ 'name' : '+errors'                              ,
+            \ 'n' : ['<Plug>(ale_next)'     , 'next-error']     ,
+            \ 'p' : ['<Plug>(ale_previous)' , 'previous-error'] ,
+            \ }
+
+let g:which_key_map.f = {
+            \ 'name' : '+find/files/fold' ,
+            \ '0' : ['set foldlevel=0'    , '0-fold-level']                    ,
+            \ '1' : ['set foldlevel=1'    , '1-fold-level']                    ,
+            \ '2' : ['set foldlevel=2'    , '2-fold-level']                    ,
+            \ '3' : ['set foldlevel=3'    , '3-fold-level']                    ,
+            \ '4' : ['set foldlevel=4'    , '4-fold-level']                    ,
+            \ '5' : ['set foldlevel=5'    , '5-fold-level']                    ,
+            \ '6' : ['set foldlevel=6'    , '6-fold-level']                    ,
+            \ '7' : ['set foldlevel=7'    , '7-fold-level']                    ,
+            \ '8' : ['set foldlevel=8'    , '8-fold-level']                    ,
+            \ '9' : ['set foldlevel=9'    , '9-fold-level']                    ,
+            \ 'b' : ['BLines'             , 'fzf-find-current-buffer']         ,
+            \ 'f' : ['Files ~'            , 'files-in-home-direcotry']         ,
+            \ 's' : ['save'               , 'save-file']                       ,
+            \ '?' : ['Files'              , 'files-in-current-direcotry']      ,
+            \ 'R' : ['source $MYVIMRC'    , 'reload-vimrc']                    ,
+            \ }
+
+
+" }
 
 " allow plugins by file type (required for plugins!)
 filetype plugin on
@@ -316,11 +359,12 @@ filetype indent on
 " UI {
 " syntax highlight on
 set t_Co=256
+set t_ut=
 syntax enable
 let g:solarized_termtrans = 1
 let g:solarized_termcolors=256
 set background=dark
-colorscheme dracula
+colorscheme codedark
 " }
 
 " Save all on lost focus
@@ -336,27 +380,6 @@ au FocusLost * :wa
     nmap ; :Buffers<CR>
     nmap <Leader>f :Files<CR>
     nmap <Leader>t :Tags<CR>
-    " }
-
-    " NERDTree {
-    noremap <F2> :NERDTreeToggle<CR>
-    " nnorema <silent> <F3> :NERDTreeFind<CR>
-    let NERDTreeIgnore=['\.pyc', '\.o', '\.class', '\.lo']
-    let g:NERDTreeChDirMode=2
-    let g:NERDTreeIgnore=['\.rbc$', '\~$', '\.pyc$', '\.db$', '\.sqlite$', '__pycache__']
-    let g:NERDTreeSortOrder=['^__\.py$', '\/$', '*', '\.swp$', '\.bak$', '\~$']
-    let g:NERDTreeShowBookmarks=1
-    let g:nerdtree_tabs_focus_on_files=1
-    let g:NERDTreeMapOpenInTabSilent = '<RightMouse>'
-    let g:NERDTreeWinSize = 20
-    set wildignore+=*/tmp/*,*.so,*.swp,*.zip,*.pyc,*.db,*.sqlite
-    " }
-
-    " NERDCommenter {
-    " Add spaces after comment delimiters by default
-    let g:NERDSpaceDelims = 1
-    " Allow commenting and inverting empty lines (useful when commenting a region)
-    let g:NERDCommentEmptyLines = 1
     " }
 
     " vimux {
@@ -376,7 +399,9 @@ au FocusLost * :wa
         if exists("g:ctrlp_user_command")
             unlet g:ctrlp_user_command
         endif
+        " Use ag in CtrlP for listing files. Lightning fast and respects .gitignore
         let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
+        " ag is fast enough that CtrlP doesn't need to cache
         let g:ctrlp_use_caching = 0
     endif
     " }
@@ -401,8 +426,6 @@ au FocusLost * :wa
     " }
 
     " CtrlP {
-    "let g:ctrlp_cache_dir = $HOME . '/.cache/ctrlp'
-    " let g:ctrlp_user_command = ['.git', 'cd %s && git ls-files . -co --exclude-standard', 'find %s -type f']
     let g:ctrlp_prompt_mappings = {
                 \ 'AcceptSelection("e")': ['<space>', '<cr>', '<2-LeftMouse>'],
                 \ }
@@ -410,6 +433,8 @@ au FocusLost * :wa
 
     " vim-go {
     let g:go_fmt_command = "goimports""
+    let g:go_def_mode='gopls'
+    let g:go_info_mode='gopls'
     " }
 
     " Pymode {
@@ -424,6 +449,7 @@ au FocusLost * :wa
         let g:pymode_doc = 1
         let g:pymode_virtualenv = 1
         let g:pymode_lint_ignore = "E501"
+        let g:pymode_python = 'python3'
     endif
     " }
 
