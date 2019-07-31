@@ -40,6 +40,7 @@ zplug "zsh-users/zsh-autosuggestions"
 zplug "zsh-users/zsh-completions"
 zplug "plugins/docker", from:oh-my-zsh, if:'[[ $commands[docker] ]]'
 zplug "plugins/docker-compose", from:oh-my-zsh, if:'[[ $commands[docker-compose] ]]'
+zplug "djui/alias-tips"
 
 # Fish-like syntax highlighting
 #     *  must be loaded after executing compinit command and sourcing

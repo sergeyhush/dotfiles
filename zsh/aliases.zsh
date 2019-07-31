@@ -9,8 +9,8 @@ alias flushdns="dscacheutil -flushcache;sudo killall -HUP mDNSResponder"
 alias play="ANSIBLE_HOST_KEY_CHECKING=False ANSIBLE_SSH_ARGS='-o UserKnownHostsFile=/dev/null' ansible-playbook"
 
 alias "cd.."="cd ../"
-alias v="vim"
-alias vi="vim"
+alias v="nvim"
+alias vi="nvim"
 alias e='emacsclient -n -c -a "" -- "$@"'
 
 #ls
