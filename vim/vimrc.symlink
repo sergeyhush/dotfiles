@@ -295,7 +295,15 @@ nnoremap <silent><leader>t :TagbarToggle<CR>
 map <Leader><Tab> :bprevious<CR>
 nnoremap <Tab> :bnext<CR>
 nnoremap <S-Tab> :bprevious<CR>
-map <Leader>/ :Ack<Space>
+nmap <Leader>/ :Ag<Space>
+nmap <Leader>b :Buffers<CR>
+nmap <Leader>c :Commands<CR>
+nmap <Leader>f :Files<CR>
+nmap <Leader>q :q<CR>
+nmap <Leader>s :Filetypes<CR>
+nmap <Leader>t :BTags<CR>
+nmap <Leader>T :Tags<CR>
+
 
 " Ale quick error/warning navigation
 nmap <silent> ]g <Plug>(ale_previous_wrap)
@@ -376,19 +384,9 @@ au FocusLost * :wa
     nmap ga <Plug>(EasyAlign)
     " }
 
-    " fzf {
-    nmap ; :Buffers<CR>
-    nmap <Leader>f :Files<CR>
-    nmap <Leader>t :Tags<CR>
-    " }
-
     " vimux {
     " Prompt for a command to run
     map <Leader>vp :VimuxPromptCommand<CR>
-    " }
-
-    " Gundo {
-    nnoremap <Leader>u :GundoToggle<CR>
     " }
 
     " ag {
