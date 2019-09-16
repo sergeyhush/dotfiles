@@ -27,8 +27,10 @@ set-option -g default-shell /bin/zsh
 # large history
 set -g history-limit 60000
 
-#colors
+# Default terminal is 256 colors
 set -g default-terminal "screen-256color"
+# Add truecolor support
+set-option -ga terminal-overrides ",xterm-256color:Tc"
 
 #basic settings
 set-window-option -g xterm-keys on # for vim
@@ -97,6 +99,9 @@ bind - split-window -v # split pane vertically
 
 # use vim motion keys while in copy mode
 setw -g mode-keys vi
+bind-key -T copy-mode-vi 'v' send-keys -X begin-selection
+# bind-key -t vi-copy 'v' begin-selection
+# bind-key -t vi-copy 'y' copy-selection
 
 set -g escape-time 1
 set -g base-index 1         # start windows numbering at 1
