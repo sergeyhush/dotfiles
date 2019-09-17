@@ -1,51 +1,41 @@
-# Setup Pyenv
-# Check if installed manually
-FOUND_PYENV=0
-pyenvdirs=("$HOME/.pyenv" "/usr/local/pyenv" "/opt/pyenv")
+# This plugin loads pyenv into the current shell and provides prompt info via
+# the 'pyenv_prompt_info' function. Also loads pyenv-virtualenv if available.
 
-for pyenvdir in "${pyenvdirs[@]}" ; do
-    if [ -d $pyenvdir/bin -a $FOUND_PYENV -eq 0 ] ; then
-        FOUND_PYENV=1
-        export PYENV_ROOT=$pyenvdir
-        export PATH=${pyenvdir}/bin:$PATH
-        eval "$(pyenv init - zsh)"
-        break
-    fi
-done
-unset pyenvdir
+FOUND_PYENV=$+commands[pyenv]
 
-if [ $FOUND_PYENV -eq 0 ] ; then
-    # Check if installed automatically (via Homebrew for example)
-    BREW_PREFIX=$(brew --prefix 2> /dev/null)
-    if [ $? -eq 0 -a -d $BREW_PREFIX/opt/pyenv ]; then
-        pyenvdir=$BREW_PREFIX/opt/pyenv
-    else
-        pyenvdir=$(brew --prefix pyenv 2> /dev/null)
-    fi
+if [[ $FOUND_PYENV -ne 1 ]]; then
+    pyenvdirs=("$HOME/.pyenv" "/usr/local/pyenv" "/opt/pyenv" "/usr/local/opt/pyenv")
+    for dir in $pyenvdirs; do
+        if [[ -d $dir/bin ]]; then
+            export PATH="$PATH:$dir/bin"
+            FOUND_PYENV=1
+            break
+        fi
+    done
+fi
 
-    if [ -d $pyenvdir/bin ] ; then
-        FOUND_PYENV=1
-        export PYENV_ROOT=$pyenvdir
-        export PATH=${pyenvdir}/bin:$PATH
-        eval "$(pyenv init - zsh)"
+if [[ $FOUND_PYENV -ne 1 ]]; then
+    if (( $+commands[brew] )) && dir=$(brew --prefix pyenv 2>/dev/null); then
+        if [[ -d $dir/bin ]]; then
+            export PATH="$PATH:$dir/bin"
+            FOUND_PYENV=1
+        fi
     fi
 fi
 
-# Setup Virutalenvwrapper
-export WORKON_HOME=$HOME/.virtualenvs
-virtualenvwrapper='virtualenvwrapper.sh'
-
-# source ${${virtualenvwrapper}:c}
-pyenv virtualenvwrapper
-
-if ! type workon &>/dev/null; then
-    print "shell function 'workon' not defined.\n"\
-        "Please check ${virtualenvwrapper}" >&2
-    return
+if [[ $FOUND_PYENV -eq 1 ]]; then
+    eval "$(pyenv init - zsh)"
+    if (( $+commands[pyenv-virtualenv-init] )); then
+        eval "$(pyenv virtualenv-init - zsh)"
+    fi
+    function pyenv_prompt_info() {
+        echo "$(pyenv version-name)"
+    }
+else
+    # fallback to system python
+    function pyenv_prompt_info() {
+        echo "system: $(python -V 2>&1 | cut -f 2 -d ' ')"
+    }
 fi
 
-if [[ "$WORKON_HOME" == "" ]]; then
-  print "\$WORKON_HOME is not defined so virtualenvwrapper will not work" >&2
-  return
-fi
-
+unset FOUND_PYENV pyenvdirs dir
