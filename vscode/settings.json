@@ -1,3 +1,9 @@
 {
-    "workbench.colorTheme": "Dracula"
+    "workbench.colorTheme": "Dracula",
+    "vim.insertModeKeyBindings": [
+        {
+            "before": ["j", "k"],
+            "after": ["<Esc>"]
+        }
+    ]
 }
