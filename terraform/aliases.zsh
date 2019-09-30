@@ -1,2 +1,2 @@
 alias tf=terraform
-alias tfplan="terrafrom plan -out=tfplan"
+alias tfplan="terraform plan -out=tfplan"
