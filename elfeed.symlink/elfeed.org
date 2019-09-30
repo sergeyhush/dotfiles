@@ -1,6 +1,0 @@
-* Blogs                                                              :elfeed:
-** Software Development                                                 :dev:
-*** Emacs                                                    :emacs:mustread:
-**** http://planet.emacsen.org/atom.xml
-*** General                                                         :general:
-**** https://news.ycombinator.com/rss
