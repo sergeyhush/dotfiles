@@ -5,5 +5,27 @@
             "before": ["j", "k"],
             "after": ["<Esc>"]
         }
+    ],
+    "vim.leader": "<space>",
+    "vim.easymotion": true,
+    "vim.sneak": true,
+    "vim.useSystemClipboard": true,
+    "vim.visualModeKeyBindingsNonRecursive": [
+        {
+            "before": [
+                ">"
+            ],
+            "commands": [
+                "editor.action.indentLines"
+            ]
+        },
+        {
+            "before": [
+                "<"
+            ],
+            "commands": [
+                "editor.action.outdentLines"
+            ]
+        },
     ]
 }
