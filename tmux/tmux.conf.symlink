@@ -60,23 +60,54 @@ set -q -g status-utf8 on                  # expect UTF-8 (tmux < 2.2)
 setw -q -g utf8 on
 
 ############################################################################
+# Theme
+############################################################################
+color_orange="colour166" # 208, 166
+color_purple="colour134" # 135, 134
+color_green="colour076" # 070
+color_blue="colour39"
+color_yellow="colour220"
+color_red="colour160"
+color_black="colour232"
+color_white="white" # 015
+
+color_dark="$color_black"
+color_light="$color_white"
+color_session_text="$color_blue"
+color_status_text="colour245"
+color_main="$color_orange"
+color_secondary="$color_purple"
+color_level_ok="$color_green"
+color_level_warn="$color_yellow"
+color_level_stress="$color_red"
+color_window_off_indicator="colour088"
+color_window_off_status_bg="colour238"
+color_window_off_status_current_bg="colour254"
+
+############################################################################
 # Status Bar
 ############################################################################
 set-option -g status on
 set -g status-interval 5
+set -g status-position top
 set -g status-justify left
-set-option -g status-interval 5
-# set color for status bar
-set-option -g status-style fg=yellow,bg=colour235
-# set-option -g status-attr dim
+set -g status-right-length 100
 
+set -g mode-style "fg=default,bg=$color_main"
+set -g message-style "fg=$color_main,bg=$color_dark"
+set -g status-style "fg=$color_status_text,bg=$color_dark"
+setw -g window-status-format " #I:#W "
+setw -g window-status-activity-style "fg=$color_main"
+setw -g window-status-current-style "fg=$color_light,bold,bg=$color_main"
+setw -g window-status-current-format "#[fg=$color_dark,bg=$color_main]$separator_powerline_right#[default] #I:#W# #[fg=$color_main,bg=$color_dark]$separator_powerline_right#[default]"
 
-# set window list colors - red for active and cyan for inactive
-set-option -g window-status-activity-style fg=brightblue,bg=colour236
-# set-window-option -g window-status-attr dim
+# outline for active pane
+setw -g pane-active-border-style "fg=$color_main"
 
-set-option -g window-status-current-style fg=brightred,bg=colour236
-# set-window-option -g window-status-current-attr bright
+# Widgets
+wg_session="#[fg=$color_session_text] #S #[default]"
+
+set -g status-left "$wg_session"
 
 ############################################################################
 # Unbindings
