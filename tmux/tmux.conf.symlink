@@ -118,9 +118,6 @@ unbind C-b # unbind default leader key
 ############################################################################
 # Bindings
 ############################################################################
-# reload tmux conf
-bind-key r source-file ~/.tmux.conf \; display '~/.tmux.conf sourced'
-
 bind-key L last-window
 
 # new split in current pane (horizontal / vertical)
