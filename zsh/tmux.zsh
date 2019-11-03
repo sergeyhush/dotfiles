@@ -1,4 +1,4 @@
-DEFAULT_SESSION='dsession'
+DEFAULT_SESSION='dev'
 
 # Only run if tmux is actually installed
 if which tmux &> /dev/null
