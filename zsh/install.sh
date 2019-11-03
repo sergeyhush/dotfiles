@@ -1,12 +1,4 @@
 #!/bin/sh
-echo "> ZSH installation"
-
-case "$(uname -s)" in
-    Darwin*)
-        sudo dscl . -create "/Users/$USER" UserShell /usr/local/bin/zsh;;
-    Linux*)
-        sudo chsh -s $(which zsh) $USER;;
-esac
 
 ZSH_DIR=$HOME/.zsh
 mkdir -p "$ZSH_DIR"
