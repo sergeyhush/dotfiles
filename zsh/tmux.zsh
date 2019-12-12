@@ -4,6 +4,6 @@ DEFAULT_SESSION='dev'
 if which tmux &> /dev/null
 then
     if [[ -z "$TMUX" && -z "$INSIDE_EMACS" && -z "$EMACS" && -z "$VIM" ]]; then
-        tmux attach-session -t $DEFAULT_SESSION || tmux new-session -s $DEFAULT_SESSION
+        tmux attach-session -d -t $DEFAULT_SESSION || tmux new-session -s $DEFAULT_SESSION
     fi
 fi
