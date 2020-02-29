@@ -48,7 +48,7 @@ call plug#begin('~/.vim/plugged')
     Plug 'tpope/vim-surround'
     Plug 'tpope/vim-vinegar'
     Plug 'vim-airline/vim-airline'
-    Plug 'w0rp/ale'
+    " Plug 'w0rp/ale'
     Plug 'wellle/targets.vim'
     " Still testing out
     Plug 'liuchengxu/vim-which-key', { 'on': ['WhichKey', 'WhichKey!'] }
@@ -258,6 +258,17 @@ set softtabstop=4               " Let backspace delete indent
 set nojoinspaces                " Prevents inserting two spaces after punctuation on a join (J)
 set splitright                  " Puts new vsplit windows to the right of the current
 set splitbelow                  " Puts new split windows to the bottom of the current         "
+
+" JSON
+augroup json_autocmd
+  autocmd!
+  autocmd FileType json set autoindent
+  autocmd FileType json set formatoptions=tcq2l
+  autocmd FileType json set textwidth=78 shiftwidth=2
+  autocmd FileType json set softtabstop=2 tabstop=8
+  autocmd FileType json set expandtab
+  " autocmd FileType json set foldmethod=syntax
+augroup END
 " }
 
 " Key Mappings {
@@ -460,6 +471,10 @@ au FocusLost * :wa
     autocmd VimEnter,Colorscheme * :hi IndentGuidesOdd  guibg=darkgrey ctermbg=8
     autocmd VimEnter,Colorscheme * :hi IndentGuidesEven guibg=darkgrey ctermbg=61
     autocmd VimEnter * :IndentGuidesEnable
+    " }
+    
+    " vim-terraform {
+    " let g:terraform_fmt_on_save=1
     " }
 
     " Autoformat {
