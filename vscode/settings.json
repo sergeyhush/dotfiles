@@ -27,5 +27,30 @@
                 "editor.action.outdentLines"
             ]
         },
-    ]
+    ],
+    "python.formatting.provider": "black",
+    "python.pythonPath": "/Users/ssudakovich/.pyenv/versions/3.7.4/bin/python",
+    "editor.minimap.enabled": false,
+    "editor.renderControlCharacters": true,
+    "C_Cpp.updateChannel": "Insiders",
+    "go.formatTool": "goimports",
+    "local-history.path": "~/.vscode/",
+    "editor.formatOnSave": true,
+    "yaml.schemas": {
+        "file:///Users/ssudakovich/.vscode/extensions/atlassian.atlascode-2.4.2/resources/schemas/pipelines-schema.json": "bitbucket-pipelines.yml"
+    },
+    "atlascode.jira.jqlList": [
+        {
+            "id": "ba51f4bd-0032-452a-8930-0575c033eece",
+            "enabled": true,
+            "name": "My snowflakecomputing Issues",
+            "query": "assignee = currentUser() ORDER BY lastViewed DESC ",
+            "siteId": "6020aaef-9082-4a4e-a21a-d47b98ba3ddc",
+            "monitor": true
+        }
+    ],
+    "terminal.integrated.shell.osx": "/bin/zsh",
+    "kite.showWelcomeNotificationOnStartup": false,
+    "workbench.editor.enablePreview": false,
+    "window.zoomLevel": 1
 }
