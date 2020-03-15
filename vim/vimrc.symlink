@@ -53,6 +53,7 @@ call plug#begin('~/.vim/plugged')
     " Still testing out
     Plug 'liuchengxu/vim-which-key', { 'on': ['WhichKey', 'WhichKey!'] }
     Plug 'neoclide/coc.nvim', {'branch': 'release'}
+    Plug 'junegunn/goyo.vim'
     " }
     
     " Colors {
