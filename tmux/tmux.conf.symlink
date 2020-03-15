@@ -134,7 +134,9 @@ bind-key -T copy-mode-vi 'v' send-keys -X begin-selection
 # bind-key -t vi-copy 'v' begin-selection
 # bind-key -t vi-copy 'y' copy-selection
 
-set -g escape-time 1
+set -g escape-time 10       # faster command sequences
+set -sg repeat-time 600     # increase repeat timeout
+
 set -g base-index 1         # start windows numbering at 1
 setw -g pane-base-index 1   # make pane numbering consistent with windows
 
