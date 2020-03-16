@@ -11,20 +11,25 @@ config_files=($DOTFILES/**/*.zsh)
 # load the path files first
 for file in ${(M)config_files:#*/path.zsh}
 do
-    source $file
+    source "$file"
 done
 
 # load everything but the path and completion files
 for file in ${${config_files:#*/path.zsh}:#*/completion.zsh}
 do
-    source $file
+    source "$file"
 done
 
 # autocompletion systems
-autoload -U compinit && compinit
+autoload -Uz compinit
+for dump in ~/.zcompdump(N.mh+24); do
+  compinit
+done
+compinit -C
+
 for file in ${(M)config_files:#*/completion.zsh}
 do
-    source $file
+    source "$file"
 done
 
 unset config_files
