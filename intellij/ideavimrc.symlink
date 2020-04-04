@@ -5,3 +5,4 @@ source ~/intelli-space/major.vim
 source ~/intelli-space/hybrid.vim
 
 imap jk <Esc>
+set ideajoin
