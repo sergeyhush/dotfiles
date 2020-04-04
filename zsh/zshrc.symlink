@@ -61,9 +61,7 @@ zplug 'junegunn/fzf', \
         zplug "junegunn/fzf", from:github, use:"shell/completion.zsh"
         zplug "junegunn/fzf", from:github, use:"shell/key-bindings.zsh"
 
-if ! zplug check; then
-    zplug install
-fi
+zplug check || zplug install
 zplug load
 
 if zplug check 'zsh-users/zsh-syntax-highlighting'; then
