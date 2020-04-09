@@ -12,51 +12,42 @@ if empty(glob('~/.vim/autoload/plug.vim'))
     autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
 endif
 " }
+"
 
 " Vim plugins {
 call plug#begin('~/.vim/plugged')
 
     " General {
     Plug '/usr/local/opt/fzf' | Plug 'junegunn/fzf.vim'
-    Plug 'Chiel92/vim-autoformat'
-    Plug 'Townk/vim-autoclose'
-    Plug 'benmills/vimux'
     Plug 'christoomey/vim-tmux-navigator'
     Plug 'craigemery/vim-autotag'
-    Plug 'ctrlpvim/ctrlp.vim'
-    Plug 'davidhalter/jedi-vim'
-    Plug 'easymotion/vim-easymotion'
     Plug 'ervandew/supertab'
-    Plug 'janko-m/vim-test'
-    Plug 'junegunn/vim-easy-align'
     Plug 'kana/vim-textobj-user' | Plug 'kana/vim-textobj-function'
-    Plug 'majutsushi/tagbar', { 'on': 'TagbarToggle' }
-    Plug 'michaeljsmith/vim-indent-object'
-    Plug 'mileszs/ack.vim'
     Plug 'nathanaelkane/vim-indent-guides'
-    Plug 'rizzatti/dash.vim'
     Plug 'sheerun/vim-polyglot'
-    Plug 'tacahiroy/ctrlp-funky'
-    Plug 'terryma/vim-expand-region'
-    Plug 'terryma/vim-expand-region'
-    Plug 'terryma/vim-multiple-cursors'
     Plug 'tpope/vim-commentary'
     Plug 'tpope/vim-dispatch'
     Plug 'tpope/vim-endwise'
     Plug 'tpope/vim-repeat'
     Plug 'tpope/vim-sensible'
     Plug 'tpope/vim-surround'
-    Plug 'tpope/vim-vinegar'
     Plug 'vim-airline/vim-airline'
-    " Plug 'w0rp/ale'
+    Plug 'w0rp/ale'
     Plug 'wellle/targets.vim'
+    Plug 'editorconfig/editorconfig-vim'
     " Still testing out
     Plug 'liuchengxu/vim-which-key', { 'on': ['WhichKey', 'WhichKey!'] }
     Plug 'neoclide/coc.nvim', {'branch': 'release'}
     Plug 'junegunn/goyo.vim'
-    Plug 'editorconfig/editorconfig-vim'
+    " Rarely used
+    Plug 'michaeljsmith/vim-indent-object'
+    Plug 'junegunn/vim-easy-align'
+    Plug 'easymotion/vim-easymotion'
+    " Plug 'terryma/vim-expand-region'
+    " Plug 'terryma/vim-multiple-cursors'
+    " Plug 'tpope/vim-vinegar'
     " }
-    
+
     " Colors {
     Plug 'altercation/vim-colors-solarized'
     Plug 'blueyed/vim-diminactive'
@@ -73,12 +64,7 @@ call plug#begin('~/.vim/plugged')
 
     " Python {
     Plug 'python-mode/python-mode', { 'for': 'python', 'branch': 'develop' }
-    Plug 'jeetsukumaran/vim-pythonsense', { 'for': 'python' }
-    Plug 'tmhedberg/SimpylFold', { 'for': 'python' }
-    " }
-
-    " Ruby {
-    Plug 'vim-ruby/vim-ruby', { 'for': 'ruby' }
+    " Plug 'jeetsukumaran/vim-pythonsense', { 'for': 'python' }
     " }
 
     " Golang {
@@ -86,20 +72,10 @@ call plug#begin('~/.vim/plugged')
     Plug 'mdempsky/gocode', { 'rtp': 'vim', 'do': '~/.vim/plugged/gocode/vim/symlink.sh' }
     " }
 
-    " Groovy {
-    Plug 'vim-scripts/groovy.vim'
-    Plug 'tfnico/vim-gradle'
-    " }
-
-    " Ansible {
-    Plug 'pearofducks/ansible-vim'
-    " }
-
-    " Hashicorp {
+    " Terraform {
     Plug 'hashivim/vim-terraform', { 'for': ['terraform'] }
     Plug 'juliosueiras/vim-terraform-completion'
     " }
-    "
 call plug#end()
 "}
 
@@ -261,7 +237,11 @@ set nojoinspaces                " Prevents inserting two spaces after punctuatio
 set splitright                  " Puts new vsplit windows to the right of the current
 set splitbelow                  " Puts new split windows to the bottom of the current         "
 
-" JSON
+" }
+
+" FILETYPES  {{{ ==============================================================
+
+" JSON {{{ -------------------------------------------------------------------
 augroup json_autocmd
   autocmd!
   autocmd FileType json set autoindent
@@ -269,9 +249,10 @@ augroup json_autocmd
   autocmd FileType json set textwidth=78 shiftwidth=2
   autocmd FileType json set softtabstop=2 tabstop=8
   autocmd FileType json set expandtab
-  " autocmd FileType json set foldmethod=syntax
+  autocmd FileType json set foldmethod=syntax
 augroup END
-" }
+" }}}
+
 
 " Key Mappings {
 
@@ -436,12 +417,6 @@ au FocusLost * :wa
     noremap <Leader>gr :ALEFindReferences<CR>
     " }
 
-    " CtrlP {
-    let g:ctrlp_prompt_mappings = {
-                \ 'AcceptSelection("e")': ['<space>', '<cr>', '<2-LeftMouse>'],
-                \ }
-    " }
-
     " vim-go {
     let g:go_fmt_command = "goimports""
     let g:go_def_mode='gopls'
@@ -474,12 +449,12 @@ au FocusLost * :wa
     autocmd VimEnter,Colorscheme * :hi IndentGuidesEven guibg=darkgrey ctermbg=61
     autocmd VimEnter * :IndentGuidesEnable
     " }
-    
-    " vim-terraform {
-    " let g:terraform_fmt_on_save=1
-    " }
 
     " Autoformat {
     " au BufWrite * :Autoformat
+    " }
+    "
+    " add yaml stuffs {
+    autocmd FileType yaml setlocal ts=2 sts=2 sw=2
     " }
 " }
