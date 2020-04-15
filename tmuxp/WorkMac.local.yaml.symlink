@@ -1,7 +1,0 @@
-session_name: home
-windows:
-- window_name: home
-  panes:
-    - shell_command:
-      - blank
-        - zsh
