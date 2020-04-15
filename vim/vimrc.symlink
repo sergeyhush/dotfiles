@@ -286,9 +286,10 @@ cmap w!! w !sudo tee % >/dev/null
 imap jk <Esc>
 
 nnoremap <silent><leader>t :TagbarToggle<CR>
-map <Leader><Tab> :bprevious<CR>
-nnoremap <Tab> :bnext<CR>
-nnoremap <S-Tab> :bprevious<CR>
+" Get used to Ctrl-O and Ctrl-I instead
+" map <Leader><Tab> :bprevious<CR>
+" nnoremap <Tab> :bnext<CR>
+" nnoremap <S-Tab> :bprevious<CR>
 nmap <Leader>/ :Ag<Space>
 nmap <Leader>b :Buffers<CR>
 nmap <Leader>c :Commands<CR>
@@ -399,18 +400,17 @@ au FocusLost * :wa
     " }
 
     " Ale {
-    " let g:ale_fix_on_save = 1
-    highlight ALEErrorSign ctermfg=9
-    let g:ale_completion_enabled = 1
-    let g:ale_lint_on_text_changed = 'never' "run only after file is saved
-    let g:ale_lint_on_enter = 0 " do not lint right after the file is open
-    let b:ale_linters = {'python': ['flake8']}
-    let b:ale_fixers = [
-                \   'remove_trailing_lines',
-                \   'isort',
-                \   'ale#fixers#generic_python#BreakUpLongLines',
-                \   'yapf',
-                \]
+    let b:ale_linters = {
+      'python': ['flake8'],
+      'go': ['go', 'golint', 'errcheck']
+    }
+    " Disabling highlighting
+	let g:ale_set_highlights = 0
+
+	" Only run linting when saving the file
+	let g:ale_lint_on_text_changed = 'never'
+	let g:ale_lint_on_enter = 0<Paste>
+
     nnoremap <buffer> <silent> <LocalLeader>= :ALEFix<CR>
     noremap <Leader>gd :ALEGoToDefinition<CR>
     noremap <Leader>lf :ALEFix<CR>
