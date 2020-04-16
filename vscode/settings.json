@@ -37,7 +37,7 @@
     "local-history.path": "~/.vscode/",
     "editor.formatOnSave": true,
     "yaml.schemas": {
-        "file:///Users/ssudakovich/.vscode/extensions/atlassian.atlascode-2.4.9/resources/schemas/pipelines-schema.json": "bitbucket-pipelines.yml"
+        "file:///Users/ssudakovich/.vscode/extensions/atlassian.atlascode-2.4.11/resources/schemas/pipelines-schema.json": "bitbucket-pipelines.yml"
     },
     "atlascode.jira.jqlList": [
         {
