@@ -1,9 +1,5 @@
 [core]
-	excludesfile = ~/.gitignore_global
-[includeIf "gitdir:~/personal"]
-    path = .gitconfig.personal
-[includeIf "gitdir:~/work/"]
-    path = ~/work/.gitconfig
+    excludesfile = ~/.gitignore_global
 [user]
 	email = sergey@sudakovich.com
 	name = Sergey Sudakovich
