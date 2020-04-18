@@ -4,3 +4,6 @@
     path = .gitconfig.personal
 [includeIf "gitdir:~/work/"]
     path = ~/work/.gitconfig
+[user]
+	email = sergey@sudakovich.com
+	name = Sergey Sudakovich
