@@ -401,9 +401,10 @@ au FocusLost * :wa
 
     " Ale {
     let b:ale_linters = {
-    \ 'python': ['flake8'],
+    \ 'python': ['flake8', 'mypy', 'pylint'],
     \ 'go': ['go', 'golint', 'errcheck']
     \}
+    let g:ale_fixers = {'python': ['black', 'isort']}
     " Disabling highlighting
 	let g:ale_set_highlights = 0
 
