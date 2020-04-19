@@ -35,16 +35,18 @@ unset config_files
 
 source "$ZPLUG_HOME/init.zsh"
 zplug "zplug/zplug", hook-build:'zplug --self-manage'
-zplug "mafredri/zsh-async", from:github, defer:0
-zplug "clvv/fasd", as:command, use:fasd
-zplug "junegunn/fzf", as:command
+
+zplug "clvv/fasd",              as:command, use:fasd
+zplug "junegunn/fzf",           as:command
+zplug "plugins/docker",         from:oh-my-zsh, if:'[[ $commands[docker] ]]'
+zplug "plugins/docker-compose", from:oh-my-zsh, if:'[[ $commands[docker-compose] ]]'
+zplug "plugins/z",              from:oh-my-zsh
+zplug "plugins/fancy-ctrl-z",   from:oh-my-zsh
+zplug "plugins/pyenv",          from:oh-my-zsh
+zplug "mafredri/zsh-async",     from:github, defer:0
+zplug "djui/alias-tips"
 zplug "zsh-users/zsh-autosuggestions"
 zplug "zsh-users/zsh-completions"
-zplug "plugins/docker", from:oh-my-zsh, if:'[[ $commands[docker] ]]'
-zplug "plugins/docker-compose", from:oh-my-zsh, if:'[[ $commands[docker-compose] ]]'
-zplug "djui/alias-tips"
-zplug "plugins/z",                 from:oh-my-zsh
-zplug "plugins/fancy-ctrl-z",      from:oh-my-zsh
 
 # Fish-like syntax highlighting
 #     *  must be loaded after executing compinit command and sourcing
