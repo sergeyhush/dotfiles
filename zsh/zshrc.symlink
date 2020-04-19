@@ -2,7 +2,6 @@ export DOTFILES="${"${(%):-%N}":A:h:h}"
 export ZSH_HOME="$HOME/.zsh"
 export ZPLUG_HOME="$HOME/.zsh/zplug"
 export FZF_BASE="/usr/local/opt/fzf"
-export AWS_DEFAULT_PROFILE="sfc-dev"
 
 # all of our zsh files
 typeset -U config_files
@@ -44,13 +43,18 @@ zplug "zsh-users/zsh-completions"
 zplug "plugins/docker", from:oh-my-zsh, if:'[[ $commands[docker] ]]'
 zplug "plugins/docker-compose", from:oh-my-zsh, if:'[[ $commands[docker-compose] ]]'
 zplug "djui/alias-tips"
+zplug "plugins/z",                 from:oh-my-zsh
+zplug "plugins/fancy-ctrl-z",      from:oh-my-zsh
 
 # Fish-like syntax highlighting
 #     *  must be loaded after executing compinit command and sourcing
 #        other plugins (taken care of with `defer` option)
 zplug "zsh-users/zsh-syntax-highlighting", defer:2
+zplug "zdharma/fast-syntax-highlighting"
 zplug "sindresorhus/pure", from:github, use:pure.zsh, as:theme
-zplug "plugins/aws", from:oh-my-zsh
+zplug "plugins/aws",       from:oh-my-zsh
+zplug "plugins/tmux",      from:oh-my-zsh
+
 
 # fzf
 zplug 'junegunn/fzf', \
@@ -61,10 +65,15 @@ zplug 'junegunn/fzf', \
         zplug "junegunn/fzf", from:github, use:"shell/completion.zsh"
         zplug "junegunn/fzf", from:github, use:"shell/key-bindings.zsh"
 
-zplug check || zplug install
-zplug load
 
+zplug check || zplug install
+
+# =============================================================================
+#                                   Startup
+# =============================================================================
 if zplug check 'zsh-users/zsh-syntax-highlighting'; then
+    typeset -gA ZSH_HIGHLIGHT_STYLES ZSH_HIGHLIGHT_PATTERNS
+
     ZSH_HIGHLIGHT_STYLES[default]='none'
     ZSH_HIGHLIGHT_STYLES[unknown-token]='fg=red'
     ZSH_HIGHLIGHT_STYLES[reserved-word]='fg=yellow'
@@ -90,11 +99,20 @@ if zplug check 'zsh-users/zsh-syntax-highlighting'; then
     ZSH_HIGHLIGHT_STYLES[assign]='none'
 fi
 
+if zplug check 'plugins/tmux'; then
+    ZSH_TMUX_AUTOSTART=true
+    ZSH_TMUX_AUTOSTART_ONCE=true
+    if [[ $OSTYPE = (darwin)* ]]; then
+        ZSH_TMUX_ITERM2=true
+    fi
+fi
+
+zplug load
+
+
 # change the prompt success color
 zstyle :prompt:pure:prompt:success color white
 
 fpath=("$HOME/bin" $fpath)
 
-if [ -f "$HOME/.localrc" ]; then
-    source "$HOME/.localrc"
-fi
+[ -f ~/.localrc ] && source ~/.localrc

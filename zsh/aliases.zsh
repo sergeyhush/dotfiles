@@ -1,7 +1,6 @@
 # aliases
 
 alias reload!='. ~/.zshrc'
-alias syncwork='rsync -avze ssh ~/work/licenseing monster-01.cumulus:work/'
 alias dhcpon='sudo /bin/launchctl load -w /System/Library/LaunchDaemons/bootps.plist'
 alias dhcpoff='sudo /bin/launchctl unload -w /System/Library/LaunchDaemons/bootps.plist'
 alias jcli="java -jar ~/bin/jenkins-cli.jar -s $CI_SERVER_URL_WITH_U_P"
