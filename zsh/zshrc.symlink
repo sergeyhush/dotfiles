@@ -104,9 +104,6 @@ fi
 if zplug check 'plugins/tmux'; then
     ZSH_TMUX_AUTOSTART=true
     ZSH_TMUX_AUTOSTART_ONCE=true
-    if [[ $OSTYPE = (darwin)* ]]; then
-        ZSH_TMUX_ITERM2=true
-    fi
 fi
 
 zplug load
