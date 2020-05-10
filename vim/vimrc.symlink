@@ -20,8 +20,7 @@ call plug#begin('~/.vim/plugged')
     " General {
     Plug '/usr/local/opt/fzf' | Plug 'junegunn/fzf.vim'
     Plug 'christoomey/vim-tmux-navigator'
-    Plug 'craigemery/vim-autotag'
-    Plug 'ervandew/supertab'
+    Plug 'ludovicchabant/vim-gutentags'
     Plug 'kana/vim-textobj-user' | Plug 'kana/vim-textobj-function'
     Plug 'nathanaelkane/vim-indent-guides'
     Plug 'sheerun/vim-polyglot'
@@ -457,5 +456,9 @@ au FocusLost * :wa
     "
     " add yaml stuffs {
     autocmd FileType yaml setlocal ts=2 sts=2 sw=2
+    " }
+
+    " CoC {
+    let g:coc_global_extensions = ['coc-tsserver']
     " }
 " }
