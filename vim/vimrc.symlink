@@ -35,6 +35,7 @@ call plug#begin('~/.vim/plugged')
     Plug 'wellle/targets.vim'
     Plug 'editorconfig/editorconfig-vim'
     " Still testing out
+    Plug 'mbbill/undotree'
     Plug 'liuchengxu/vim-which-key', { 'on': ['WhichKey', 'WhichKey!'] }
     Plug 'neoclide/coc.nvim', {'branch': 'release'}
     Plug 'junegunn/goyo.vim'
@@ -373,6 +374,10 @@ colorscheme codedark
 au FocusLost * :wa
 
 " Plugin options {
+    " vim-gutentags {
+    let g:gutentags_cache_dir = expand('~/.cache/tags')
+    " }
+
     " vim-easy-align {
     xmap ga <Plug>(EasyAlign)
     nmap ga <Plug>(EasyAlign)
@@ -403,7 +408,10 @@ au FocusLost * :wa
     \ 'python': ['flake8', 'mypy', 'pylint'],
     \ 'go': ['go', 'golint', 'errcheck']
     \}
-    let g:ale_fixers = {'python': ['black', 'isort']}
+    let g:ale_fixers = {
+    \ 'python': ['black', 'isort'],
+    \ 'json': ['jq']
+    \}
     " Disabling highlighting
 	let g:ale_set_highlights = 0
 
