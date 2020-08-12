@@ -37,7 +37,7 @@ source "$ZPLUG_HOME/init.zsh"
 zplug "zplug/zplug", hook-build:'zplug --self-manage'
 
 zplug "clvv/fasd",              as:command, use:fasd
-zplug "junegunn/fzf",           as:command
+# zplug "junegunn/fzf",           as:command
 zplug "plugins/docker",         from:oh-my-zsh, if:'[[ $commands[docker] ]]'
 zplug "plugins/docker-compose", from:oh-my-zsh, if:'[[ $commands[docker-compose] ]]'
 zplug "plugins/z",              from:oh-my-zsh
@@ -53,7 +53,8 @@ zplug "zsh-users/zsh-completions"
 #        other plugins (taken care of with `defer` option)
 zplug "zsh-users/zsh-syntax-highlighting", defer:2
 zplug "zdharma/fast-syntax-highlighting"
-zplug "sindresorhus/pure", from:github, use:pure.zsh, as:theme
+# zplug "sindresorhus/pure", from:github, use:pure.zsh, as:theme
+zplug "denysdovhan/spaceship-prompt", use:spaceship.zsh, from:github, as:theme
 zplug "plugins/aws",       from:oh-my-zsh
 zplug "plugins/tmux",      from:oh-my-zsh
 
@@ -108,10 +109,62 @@ fi
 
 zplug load
 
+if zplug check 'denysdovhan/spaceship-prompt'; then
+    SPACESHIP_PROMPT_ORDER=(
+        time
+        # user
+        # host
+        dir
+        git
+        # golang
+        # docker
+        # venv
+        # pyenv
+        exec_time
+        line_sep
+        jobs
+        exit_code
+        char
+    )
+
+    SPACESHIP_DIR_PREFIX='' # disable directory prefix, cause it's not the first section
+    # SPACESHIP_DIR_TRUNC='3' # show only last directory
+
+    SPACESHIP_DOCKER_PREFIX="docker:("
+    SPACESHIP_DOCKER_SUFFIX=") "
+    SPACESHIP_DOCKER_SYMBOL=""
+
+    SPACESHIP_GIT_BRANCH_PREFIX="" # disable branch prefix too
+    SPACESHIP_GIT_BRANCH_SUFFIX="" # remove space after branch name
+    SPACESHIP_GIT_PREFIX='git:('
+    SPACESHIP_GIT_SUFFIX=") "
+    SPACESHIP_GIT_STATUS_PREFIX=""
+    SPACESHIP_GIT_STATUS_SUFFIX=""
+    SPACESHIP_GIT_SYMBOL="" # disable git prefix
+
+    SPACESHIP_GOLANG_PREFIX="go:("
+    SPACESHIP_GOLANG_SUFFIX=") "
+    SPACESHIP_GOLANG_SYMBOL=""
+
+    SPACESHIP_HOST_PREFIX="@:(" # Result will look like this: username@:(hostname)
+    SPACESHIP_HOST_SUFFIX=") "
+
+    SPACESHIP_PYENV_PREFIX="python:("
+    SPACESHIP_PYENV_SUFFIX=") "
+    SPACESHIP_PYENV_SYMBOL=""
+
+    SPACESHIP_USER_PREFIX="" # remove `with` before username
+    SPACESHIP_USER_SUFFIX="" # remove space before host
+
+    SPACESHIP_VENV_PREFIX="venv:("
+    SPACESHIP_VENV_SUFFIX=") "
+fi
 
 # change the prompt success color
 zstyle :prompt:pure:prompt:success color white
 
 fpath=("$HOME/bin" $fpath)
+
+export EDITOR='nvim'
 
 [ -f ~/.localrc ] && source ~/.localrc
