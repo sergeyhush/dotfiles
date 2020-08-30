@@ -2,8 +2,13 @@
     "workbench.colorTheme": "Dracula",
     "vim.insertModeKeyBindings": [
         {
-            "before": ["j", "k"],
-            "after": ["<Esc>"]
+            "before": [
+                "j",
+                "k"
+            ],
+            "after": [
+                "<Esc>"
+            ]
         }
     ],
     "vim.leader": "<space>",
@@ -37,7 +42,7 @@
     "local-history.path": "~/.vscode/",
     "editor.formatOnSave": true,
     "yaml.schemas": {
-        "file:///Users/ssudakovich/.vscode/extensions/atlassian.atlascode-2.6.3/resources/schemas/pipelines-schema.json": "bitbucket-pipelines.yml"
+        "file:///Users/ssudakovich/.vscode/extensions/atlassian.atlascode-2.7.0/resources/schemas/pipelines-schema.json": "bitbucket-pipelines.yml"
     },
     "atlascode.jira.jqlList": [
         {
@@ -49,9 +54,10 @@
             "monitor": true
         }
     ],
-    "terminal.integrated.shell.osx": "/bin/zsh",
+    "terminal.integrated.shell.osx": "/bin/bash",
     "kite.showWelcomeNotificationOnStartup": false,
     "workbench.editor.enablePreview": false,
     "window.zoomLevel": 1,
+    "cSpell.language": "en,en-GB",
     "go.useLanguageServer": true
 }
