@@ -1,2 +1,3 @@
-mutt/mutt.symlink/cache
 git/gitconfig.work*
+config.symlink/coc/
+!config.symlink/**/coc-settings.json
