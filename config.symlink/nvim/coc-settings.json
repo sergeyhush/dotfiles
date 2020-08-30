@@ -4,11 +4,14 @@
             "command": "gopls",
             "rootPatterns": ["go.mod", ".vim/", ".git/", ".hg/"],
             "filetypes": ["go"]
+        },
+        "terraform": {
+            "command": "terraform-ls",
+            "args": ["serve"],
+            "filetypes": ["terraform", "tf"],
+            "initializationOptions": {},
+            "settings": {}
+
         }
-    },
-    "terraform": {
-        "command": "terraform-lsp",
-        "filetypes": ["terraform"],
-        "initializationOptions": {}
     }
 }
