@@ -1,7 +1,6 @@
 export DOTFILES="${"${(%):-%N}":A:h:h}"
 export ZSH_HOME="$HOME/.zsh"
 export ZPLUG_HOME="$HOME/.zsh/zplug"
-# export FZF_BASE="/usr/local/opt/fzf"
 
 # load zsh config files
 config_files=(~/.zsh/*.zsh(N))
@@ -9,32 +8,11 @@ for file in ${config_files}
 do
   source $file
 done
-
-# all of our zsh files
-typeset -U config_files
-config_files=($DOTFILES/**/*.zsh)
-
-# load the path files first
-for file in ${(M)config_files:#*/path.zsh}
-do
-    source "$file"
-done
-
-# load everything but the path and completion files
-for file in ${${config_files:#*/path.zsh}:#*/completion.zsh}
-do
-    source "$file"
-done
-
-for file in ${(M)config_files:#*/completion.zsh}
-do
-    source "$file"
-done
-
 unset config_files
 
 source "$ZPLUG_HOME/init.zsh"
 
+zplug "zplug/zplug", hook-build:'zplug --self-manage'
 zplug "clvv/fasd",              as:command, use:fasd
 zplug "plugins/z",              from:oh-my-zsh
 zplug "plugins/fancy-ctrl-z",   from:oh-my-zsh
