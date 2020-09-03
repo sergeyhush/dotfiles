@@ -2,27 +2,21 @@ export ZPLUG_HOME="$HOME/.zsh/zplug"
 source "$ZPLUG_HOME/init.zsh"
 
 zplug "zplug/zplug", hook-build:'zplug --self-manage'
-zplug "clvv/fasd",              as:command, use:fasd
-zplug "plugins/z",              from:oh-my-zsh
+
+zplug "lib/directories",        from:oh-my-zsh
 zplug "plugins/fancy-ctrl-z",   from:oh-my-zsh
+zplug "plugins/fzf",            from:oh-my-zsh
+zplug "plugins/golang",         from:oh-my-zsh
 zplug "plugins/pyenv",          from:oh-my-zsh, if:"(( $+commands[pyenv] ))"
+zplug "plugins/tmux",           from:oh-my-zsh
+zplug "plugins/z",              from:oh-my-zsh
+
 zplug "mafredri/zsh-async",     from:github, defer:0
 zplug "djui/alias-tips"
 zplug "zsh-users/zsh-completions"
 zplug "zsh-users/zsh-autosuggestions"
 zplug "zsh-users/zsh-syntax-highlighting", defer:2
 zplug "denysdovhan/spaceship-prompt", use:spaceship.zsh, from:github, as:theme
-zplug "plugins/tmux",      from:oh-my-zsh
-
-# fzf
-zplug 'junegunn/fzf', \
-    as:command, \
-    use:'bin/{fzf,fzf-tmux}', \
-    if:"[[ $OSTYPE == linux* || $OSTYPE == darwin* ]]", \
-        hook-build:'./install --key-bindings --completion --no-update-rc'
-
-zplug "junegunn/fzf", from:github, use:"shell/completion.zsh"
-zplug "junegunn/fzf", from:github, use:"shell/key-bindings.zsh"
 
 zplug check || zplug install
 
