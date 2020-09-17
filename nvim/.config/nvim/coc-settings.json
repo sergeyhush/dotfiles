@@ -12,8 +12,12 @@
       "initializationOptions": {},
       "settings": {}
     }
-
   },
+
+  "python.formatting.provider": "black",
+  "python.linting.enabled": true,
+  "suggest.enablePreview": true,
+
   "coc.preferences.formatOnSaveFiletypes": [
     "markdown",
     "Markdown"
