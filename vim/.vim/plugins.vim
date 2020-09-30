@@ -33,6 +33,7 @@ call plug#begin('~/.vim/plugged')
     Plug 'neoclide/coc.nvim', {'branch': 'release'}
     Plug 'junegunn/goyo.vim'
     Plug 'tpope/vim-obsession'
+    Plug 'vito-c/jq.vim'
     " Rarely used
     Plug 'michaeljsmith/vim-indent-object'
     Plug 'junegunn/vim-easy-align'
