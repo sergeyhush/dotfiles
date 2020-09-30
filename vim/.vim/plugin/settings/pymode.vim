@@ -11,3 +11,5 @@ else
     let g:pymode_lint_ignore = "E501"
     let g:pymode_python = 'python3'
 endif
+
+call coc#config('python', {'pythonPath': $PYENV_VIRTUAL_ENV})
