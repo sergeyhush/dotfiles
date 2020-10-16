@@ -1,0 +1,200 @@
+" vim: set sw=4 ts=4 sts=4 et tw=78 foldmarker={,} foldlevel=0 foldmethod=marker spell:
+"
+" Basic {
+set nocompatible              " be iMproved, required
+set encoding=utf-8
+" }
+
+" Auto-install vim-plug {
+if empty(glob('~/.vim/autoload/plug.vim'))
+    silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
+                \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+    autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
+endif
+" }
+"
+
+" Vim plugins {
+call plug#begin('~/.vim/plugged')
+
+    " General {
+    Plug '/usr/local/opt/fzf' | Plug 'junegunn/fzf.vim'
+    Plug 'christoomey/vim-tmux-navigator'
+    Plug 'ludovicchabant/vim-gutentags'
+    Plug 'kana/vim-textobj-user' | Plug 'kana/vim-textobj-function'
+    Plug 'nathanaelkane/vim-indent-guides'
+    Plug 'sheerun/vim-polyglot'
+    Plug 'tpope/vim-commentary'
+    Plug 'tpope/vim-dispatch'
+    Plug 'tpope/vim-endwise'
+    Plug 'tpope/vim-repeat'
+    Plug 'tpope/vim-sensible'
+    Plug 'tpope/vim-surround'
+    Plug 'vim-airline/vim-airline'
+    " Plug 'w0rp/ale'
+    Plug 'wellle/targets.vim'
+    Plug 'editorconfig/editorconfig-vim'
+    " Still testing out
+    Plug 'mbbill/undotree'
+    Plug 'liuchengxu/vim-which-key', { 'on': ['WhichKey', 'WhichKey!'] }
+    Plug 'neoclide/coc.nvim', {'branch': 'release'}
+    Plug 'junegunn/goyo.vim'
+    Plug 'tpope/vim-obsession'
+    " Rarely used
+    Plug 'michaeljsmith/vim-indent-object'
+    Plug 'junegunn/vim-easy-align'
+    Plug 'easymotion/vim-easymotion'
+    " Plug 'terryma/vim-expand-region'
+    " Plug 'terryma/vim-multiple-cursors'
+    " Plug 'tpope/vim-vinegar'
+    " }
+
+    " Colors {
+    Plug 'altercation/vim-colors-solarized'
+    Plug 'blueyed/vim-diminactive'
+    Plug 'dracula/vim', {'as': 'dracula'}
+    Plug 'morhetz/gruvbox'
+    Plug 'tomasiser/vim-code-dark'
+    " }
+
+    " Git {
+    Plug 'airblade/vim-gitgutter'
+    Plug 'tpope/vim-fugitive'
+    Plug 'tpope/vim-git'
+    " }
+
+    " Python {
+    Plug 'python-mode/python-mode', { 'for': 'python', 'branch': 'develop' }
+    " Plug 'jeetsukumaran/vim-pythonsense', { 'for': 'python' }
+    " }
+
+    " Golang {
+    Plug 'fatih/vim-go', { 'for': 'go', 'do': ':GoUpdateBinaries' }
+    Plug 'mdempsky/gocode', { 'rtp': 'vim', 'do': '~/.vim/plugged/gocode/vim/symlink.sh' }
+    " }
+
+    " Terraform {
+    Plug 'hashivim/vim-terraform', { 'for': ['terraform'] }
+    Plug 'juliosueiras/vim-terraform-completion'
+    " }
+call plug#end()
+"}
+let configs = [
+            \"general",
+            \"ui",
+            \]
+for file in configs
+  let x = expand("~/.vim/".file.".vim")
+  if filereadable(x)
+    execute 'source' x
+  endif
+endfor
+
+let vimsettings = '~/.vim/plugin/settings'
+for fpath in split(globpath(vimsettings, '*.vim'), '\n')
+  exe 'source' fpath
+endfor
+
+
+" }
+
+" Vim UI {
+set tabpagemax=15               " Only show 15 tabs
+set showmode                    " Display the current mode
+
+set cursorline                  " Highlight current line   "
+set backspace=indent,eol,start  " Backspace for dummies
+set linespace=0                 " No extra spaces between rows
+set number                      " Line numbers on
+set showmatch                   " Show matching brackets/parenthesis
+set incsearch                   " Find as you type search
+set hlsearch                    " Highlight search terms
+set winminheight=0              " Windows can be 0 line high
+set ignorecase                  " Case insensitive search
+set smartcase                   " Case sensitive when uc present
+set wildmenu                    " Show list instead of just completing
+set wildmode=list:longest,full  " Command <Tab> completion, list matches, then longest common part, then all.
+set whichwrap=b,s,h,l,<,>,[,]   " Backspace and cursor keys wrap too
+set scrolljump=5                " Lines to scroll when cursor leaves screen
+set scrolloff=3                 " Minimum lines to keep above and below cursor
+set foldenable                  " Auto fold code
+set list
+set listchars=tab:›\ ,trail:•,extends:#,nbsp:. " Highlight problematic whitespace                "
+
+if has('statusline')
+    set laststatus=2
+
+    set statusline =%#identifier#
+    set statusline+=[%t]    "tail of the filename
+    set statusline+=%*
+    "display a warning if fileformat isnt unix
+    set statusline+=%#warningmsg#
+    set statusline+=%{&ff!='unix'?'['.&ff.']':''}
+    set statusline+=%*
+
+    "display a warning if file encoding isnt utf-8
+    set statusline+=%#warningmsg#
+    set statusline+=%{(&fenc!='utf-8'&&&fenc!='')?'['.&fenc.']':''}
+    set statusline+=%*
+
+    set statusline+=%h      "help file flag
+    set statusline+=%y      "filetype
+
+    "read only flag
+    set statusline+=%#identifier#
+    set statusline+=%r
+    set statusline+=%*
+
+    "modified flag
+    set statusline+=%#identifier#
+    set statusline+=%m
+    set statusline+=%*
+
+    set statusline+=%{fugitive#statusline()}
+
+    set statusline+=%=      "left/right separator
+    set statusline+=%{StatuslineCurrentHighlight()}\ \ "current highlight
+    set statusline+=%c,     "cursor column
+    set statusline+=%l/%L   "cursor line/total lines
+    set statusline+=\ %P    "percent through file
+endif
+
+"return the syntax highlight group under the cursor ''
+function! StatuslineCurrentHighlight()
+    let name = synIDattr(synID(line('.'),col('.'),1),'name')
+    if name == ''
+        return ''
+    else
+        return '[' . name . ']'
+    endif
+endfunction
+
+" }
+
+" Formatting {
+set nowrap                      " Do not wrap long lines
+set autoindent                  " Indent at the same level of the previous line
+set shiftwidth=4                " Use indents of 4 spaces
+set expandtab                   " Tabs are spaces, not tabs
+set tabstop=4                   " An indentation every four columns
+set softtabstop=4               " Let backspace delete indent
+set nojoinspaces                " Prevents inserting two spaces after punctuation on a join (J)
+set splitright                  " Puts new vsplit windows to the right of the current
+set splitbelow                  " Puts new split windows to the bottom of the current         "
+
+" }
+
+" UI {
+" syntax highlight on
+set t_Co=256
+set t_ut=
+syntax enable
+let g:solarized_termtrans = 1
+let g:solarized_termcolors=256
+set background=dark
+colorscheme codedark
+" }
+
+" Save all on lost focus
+au FocusLost * :wa
+
