@@ -2,7 +2,7 @@
   "window.zoomLevel": 1,
   "go.formatTool": "goimports",
   "yaml.schemas": {
-    "file:///Users/ssudakovich/.vscode/extensions/atlassian.atlascode-2.7.1/resources/schemas/pipelines-schema.json": "bitbucket-pipelines.yml"
+    "file:///Users/ssudakovich/.vscode/extensions/atlassian.atlascode-2.8.3/resources/schemas/pipelines-schema.json": "bitbucket-pipelines.yml"
   },
   "vim.insertModeKeyBindings": [
     {
@@ -14,5 +14,6 @@
 	"<Esc>"
       ]
     }
-  ]
+  ],
+  "vim.useSystemClipboard": true
 }
