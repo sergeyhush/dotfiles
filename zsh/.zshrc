@@ -14,5 +14,4 @@ do
 done
 unset config_files
 
-
 [ -f ~/.localrc ] && source ~/.localrc

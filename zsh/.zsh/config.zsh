@@ -4,6 +4,9 @@
 export EDITOR=nvim
 export VISUAL=nvim
 
+bindkey -M viins 'jk' vi-cmd-mode
+
+
 #
 # Language
 #
