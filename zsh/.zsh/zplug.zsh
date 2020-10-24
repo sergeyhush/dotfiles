@@ -1,13 +1,15 @@
 export ZPLUG_HOME="$HOME/.zsh/zplug"
 source "$ZPLUG_HOME/init.zsh"
 
-zplug "zplug/zplug", hook-build:'zplug --self-manage'
+# zplug "zplug/zplug", hook-build:'zplug --self-manage'
+zplug "zplug/zplug"
 
 zplug "lib/directories",        from:oh-my-zsh
 zplug "plugins/fancy-ctrl-z",   from:oh-my-zsh
 zplug "plugins/fzf",            from:oh-my-zsh
 zplug "plugins/golang",         from:oh-my-zsh
-zplug "plugins/pyenv",          from:oh-my-zsh, if:"(( $+commands[pyenv] ))"
+# zplug "plugins/pyenv",          from:oh-my-zsh, if:"(( $+commands[pyenv] ))"
+zplug "davidparsson/zsh-pyenv-lazy"
 zplug "plugins/tmux",           from:oh-my-zsh
 zplug "plugins/z",              from:oh-my-zsh
 
