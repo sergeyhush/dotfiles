@@ -25,3 +25,7 @@ fzf-open-file-or-dir() {
 }
 zle     -N   fzf-open-file-or-dir
 bindkey '^P' fzf-open-file-or-dir
+
+if (( $+commands[rg] )); then
+  export FZF_DEFAULT_COMMAND='rg --files'
+fi
