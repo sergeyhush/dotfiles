@@ -24,23 +24,24 @@ call plug#begin('~/.vim/plugged')
     Plug 'tpope/vim-sensible'
     Plug 'tpope/vim-surround'
     Plug 'vim-airline/vim-airline'
-    " Plug 'w0rp/ale'
     Plug 'wellle/targets.vim'
     Plug 'editorconfig/editorconfig-vim'
-    " Still testing out
-    Plug 'mbbill/undotree'
-    Plug 'liuchengxu/vim-which-key', { 'on': ['WhichKey', 'WhichKey!'] }
     Plug 'neoclide/coc.nvim', {'branch': 'release'}
-    Plug 'junegunn/goyo.vim'
-    Plug 'tpope/vim-obsession'
-    Plug 'vito-c/jq.vim'
-    " Rarely used
     Plug 'michaeljsmith/vim-indent-object'
     Plug 'junegunn/vim-easy-align'
     Plug 'easymotion/vim-easymotion'
+    Plug 'tpope/vim-vinegar'
+    " Plug 'tpope/vim-obsession'
+    " Plug 'mbbill/undotree'
+    " Plug 'vito-c/jq.vim'
+    " Plug 'junegunn/goyo.vim'
+    " Plug 'w0rp/ale'
     " Plug 'terryma/vim-expand-region'
     " Plug 'terryma/vim-multiple-cursors'
     " Plug 'tpope/vim-vinegar'
+
+    Plug 'fatih/vim-go', { 'for': 'go', 'do': ':GoUpdateBinaries' }
+    " Plug 'mdempsky/gocode', { 'rtp': 'vim', 'do': '~/.vim/plugged/gocode/vim/symlink.sh' }
     " }
 
     " Colors {
@@ -59,17 +60,11 @@ call plug#begin('~/.vim/plugged')
 
     " Python {
     Plug 'python-mode/python-mode', { 'for': 'python', 'branch': 'develop' }
-    " Plug 'jeetsukumaran/vim-pythonsense', { 'for': 'python' }
-    " }
-
-    " Golang {
-    Plug 'fatih/vim-go', { 'for': 'go', 'do': ':GoUpdateBinaries' }
-    Plug 'mdempsky/gocode', { 'rtp': 'vim', 'do': '~/.vim/plugged/gocode/vim/symlink.sh' }
     " }
 
     " Terraform {
-    Plug 'hashivim/vim-terraform', { 'for': ['terraform'] }
-    Plug 'juliosueiras/vim-terraform-completion'
+    " Plug 'hashivim/vim-terraform', { 'for': ['terraform'] }
+    " Plug 'juliosueiras/vim-terraform-completion'
     " }
 call plug#end()
 "}

@@ -41,20 +41,8 @@ nmap <Leader>s :Filetypes<CR>
 nmap <Leader>t :BTags<CR>
 nmap <Leader>T :Tags<CR>
 
-
-" Ale quick error/warning navigation
-nmap <silent> ]g <Plug>(ale_previous_wrap)
-nmap <silent> [g <Plug>(ale_next_wrap)]
-
-" ==== vim-which-key
-nnoremap <silent> <leader> :<c-u>WhichKey '<Space>'<CR>
-vnoremap <silent> <leader> :<c-u>WhichKeyVisual '<Space>'<CR>
-nnoremap <silent> <localleader> :<c-u>WhichKey ','<CR>
-vnoremap <silent> <localleader> :<c-u>WhichKeyVisual ','<CR>
-
 " ==== vim-easy-align
 xmap ga <Plug>(EasyAlign)
 nmap ga <Plug>(EasyAlign)
 
 " ==== vimux
-map <Leader>vp :VimuxPromptCommand<CR>

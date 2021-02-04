@@ -9,4 +9,4 @@ set splitright                  " Puts new vsplit windows to the right of the cu
 set splitbelow                  " Puts new split windows to the bottom of the current         "
 
 " Save all on lost focus
-au FocusLost * :wa
+au FocusLost * silent! wa
