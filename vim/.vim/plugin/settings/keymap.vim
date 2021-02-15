@@ -32,7 +32,7 @@ nnoremap <silent><leader>t :TagbarToggle<CR>
 " map <Leader><Tab> :bprevious<CR>
 " nnoremap <Tab> :bnext<CR>
 " nnoremap <S-Tab> :bprevious<CR>
-nmap <Leader>/ :Ag<Space>
+nmap <Leader>/ :Rg<Space>
 nmap <Leader>b :Buffers<CR>
 nmap <Leader>c :Commands<CR>
 nmap <Leader>f :Files<CR>
