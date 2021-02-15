@@ -16,10 +16,12 @@
 
   "python.formatting.provider": "black",
   "python.linting.enabled": true,
-  "suggest.enablePreview": true,
 
-  "coc.preferences.formatOnSaveFiletypes": [
-    "markdown",
-    "Markdown"
-  ]
+  "diagnostic-languageserver.filetypes": {
+    "markdown": [ "write-good", "markdownlint"],
+    "sh": "shellcheck"
+  },
+  "diagnostic-languageserver.formatFiletypes": {
+    "sh": "shfmt"
+  }
 }
