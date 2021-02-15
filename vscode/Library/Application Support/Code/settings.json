@@ -31,10 +31,9 @@
             "commands": [
                 "editor.action.outdentLines"
             ]
-        },
+        }
     ],
     "python.formatting.provider": "black",
-    "python.pythonPath": "/Users/ssudakovich/.pyenv/versions/3.7.4/bin/python",
     "editor.minimap.enabled": false,
     "editor.renderControlCharacters": true,
     "C_Cpp.updateChannel": "Insiders",
@@ -54,7 +53,6 @@
             "monitor": true
         }
     ],
-    "terminal.integrated.shell.osx": "/bin/bash",
     "kite.showWelcomeNotificationOnStartup": false,
     "workbench.editor.enablePreview": false,
     "window.zoomLevel": 1,
