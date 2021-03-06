@@ -57,8 +57,6 @@ ZSH_HIGHLIGHT_STYLES[back-double-quoted-argument]='fg=cyan'
 ZSH_HIGHLIGHT_STYLES[assign]='none'
 
 ZSH_TMUX_AUTOSTART=true
-ZSH_TMUX_AUTOSTART_ONCE=true
-ZSH_TMUX_ITERM2=true
 
 SPACESHIP_PROMPT_ORDER=(
     time
