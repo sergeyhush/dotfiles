@@ -70,3 +70,5 @@ function! InitializeDirectories()
     endfor
 endfunction
 call InitializeDirectories()
+
+tnoremap <Esc> <C-\><C-n>
