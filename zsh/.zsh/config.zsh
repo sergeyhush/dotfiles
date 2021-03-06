@@ -5,7 +5,10 @@ export EDITOR=nvim
 export VISUAL=nvim
 
 bindkey -M viins 'jk' vi-cmd-mode
-
+# Edit the current command line in $EDITOR
+autoload -U edit-command-line
+zle -N edit-command-line
+bindkey '\C-x\C-e' edit-command-line
 
 #
 # Language
