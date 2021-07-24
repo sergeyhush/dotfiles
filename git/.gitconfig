@@ -1,5 +1,5 @@
 [core]
-    excludesfile = ~/.gitignore_global
+    	excludesfile = ~/.gitignore_global
 	editor = nvim
 [user]
 	name = Sergey Sudakovich
@@ -10,3 +10,5 @@
 	required = true
 [init]
 	templateDir = /Users/ssudakovich/.git-template
+[includeIf "gitdir:~/work/"]
+	path = ~/work/.gitconfig
