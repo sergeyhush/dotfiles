@@ -1,3 +1,11 @@
 git/gitconfig.work*
 config.symlink/coc/
 !config.symlink/**/coc-settings.json
+
+#VSCode
+!vscode/Library/Application\ Support/Code
+vscode/Library/Application\ Support/Code/*
+!vscode/Library/Application\ Support/Code/User
+vscode/Library/Application\ Support/Code/User/*
+!vscode/Library/Application\ Support/Code/User/keybindings.json
+!vscode/Library/Application\ Support/Code/User/settings.json
