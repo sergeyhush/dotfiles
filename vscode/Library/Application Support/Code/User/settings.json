@@ -15,5 +15,6 @@
       ]
     }
   ],
-  "vim.useSystemClipboard": true
+  "vim.useSystemClipboard": true,
+  "workbench.colorTheme": "Dracula"
 }
