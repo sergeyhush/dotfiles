@@ -31,6 +31,7 @@ call plug#begin('~/.vim/plugged')
     Plug 'junegunn/vim-easy-align'
     Plug 'easymotion/vim-easymotion'
     Plug 'tpope/vim-vinegar'
+    Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}  " We recommend updating the parsers on update
     " Plug 'tpope/vim-obsession'
     " Plug 'mbbill/undotree'
     " Plug 'vito-c/jq.vim'
