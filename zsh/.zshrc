@@ -15,6 +15,7 @@ promptinit
 # Plugins
 # =============================================================================
 plugins=(
+    ~/.zsh/ohmyzsh/plugins/vi-mode/vi-mode.plugin.zsh
     ~/.zsh/alias-tips/alias-tips.plugin.zsh
     ~/.zsh/ohmyzsh/lib/directories.zsh
     ~/.zsh/ohmyzsh/plugins/dotenv/dotenv.plugin.zsh
