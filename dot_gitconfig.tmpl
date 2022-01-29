@@ -1,0 +1,8 @@
+[user]
+	name = Sergey Sudakovich
+[init]
+	templateDir = {{ .chezmoi.homeDir }}/.git-template
+[includeIf "gitdir:~/work/"]
+	path = ~/work/.gitconfig
+[includeIf "gitdir:~/go/"]
+	path = ~/work/.gitconfig

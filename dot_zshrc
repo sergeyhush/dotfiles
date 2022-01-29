@@ -1,0 +1,87 @@
+# use bare zsh for VSCode
+if [[ "$TERM_PROGRAM" = "vscode" ]]; then
+    exit 0
+fi
+
+
+autoload -Uz compinit promptinit
+compinit
+promptinit
+
+# =============================================================================
+# Plugins config
+# =============================================================================
+ZSH_TMUX_AUTOSTART=true
+SPACESHIP_PROMPT_ORDER=(
+    time
+    dir
+    git
+    exec_time
+    line_sep
+    jobs
+    exit_code
+    char
+)
+
+SPACESHIP_DIR_PREFIX='' # disable directory prefix, cause it's not the first section
+# SPACESHIP_DIR_TRUNC='3' # show only last directory
+
+SPACESHIP_DOCKER_PREFIX="docker:("
+SPACESHIP_DOCKER_SUFFIX=") "
+SPACESHIP_DOCKER_SYMBOL=""
+
+SPACESHIP_GIT_BRANCH_PREFIX="" # disable branch prefix too
+SPACESHIP_GIT_BRANCH_SUFFIX="" # remove space after branch name
+SPACESHIP_GIT_PREFIX='git:('
+SPACESHIP_GIT_SUFFIX=") "
+SPACESHIP_GIT_STATUS_PREFIX=""
+SPACESHIP_GIT_STATUS_SUFFIX=""
+SPACESHIP_GIT_SYMBOL="" # disable git prefix
+
+SPACESHIP_GOLANG_PREFIX="go:("
+SPACESHIP_GOLANG_SUFFIX=") "
+SPACESHIP_GOLANG_SYMBOL=""
+
+SPACESHIP_HOST_PREFIX="@:(" # Result will look like this: username@:(hostname)
+SPACESHIP_HOST_SUFFIX=") "
+
+SPACESHIP_PYENV_PREFIX="python:("
+SPACESHIP_PYENV_SUFFIX=") "
+SPACESHIP_PYENV_SYMBOL=""
+
+SPACESHIP_USER_PREFIX="" # remove `with` before username
+SPACESHIP_USER_SUFFIX="" # remove space before host
+
+SPACESHIP_VENV_PREFIX="venv:("
+SPACESHIP_VENV_SUFFIX=") "
+
+source ~/.zsh/plugins/ohmyzsh/plugins/vi-mode/vi-mode.plugin.zsh
+source ~/.zsh/plugins/alias-tips/alias-tips.plugin.zsh
+source ~/.zsh/plugins/ohmyzsh/lib/directories.zsh
+source ~/.zsh/plugins/ohmyzsh/plugins/dotenv/dotenv.plugin.zsh
+source ~/.zsh/plugins/ohmyzsh/plugins/fancy-ctrl-z/fancy-ctrl-z.plugin.zsh
+source ~/.zsh/plugins/ohmyzsh/plugins/golang/golang.plugin.zsh
+source ~/.zsh/plugins/ohmyzsh/plugins/pyenv/pyenv.plugin.zsh
+source ~/.zsh/plugins/ohmyzsh/plugins/tmux/tmux.plugin.zsh
+source ~/.zsh/plugins/ohmyzsh/plugins/z/z.plugin.zsh
+source ~/.zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
+source ~/.zsh/plugins/k/k.sh
+source ~/.zsh/plugins/ohmyzsh/plugins/fzf/fzf.plugin.zsh
+source ~/.zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+
+config_files=(~/.zsh/aliases/*.zsh(N))
+for file in ${config_files}
+do
+    source $file
+done
+unset config_files
+
+setopt inc_append_history
+
+# Default theme
+prompt spaceship
+
+[ -f ~/.localrc ] && source ~/.localrc
+
+fpath=(~/.zsh/functions ~/.zsh/zsh-completions/src $fpath)
+autoload -U $fpath[1]/*(.:t)

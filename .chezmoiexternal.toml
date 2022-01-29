@@ -1,0 +1,55 @@
+[".zsh/plugins/k"]
+    type = "archive"
+    url = "https://github.com/supercrabtree/k/archive/master.tar.gz"
+    exact = true
+    stripComponents = 1
+    refreshPeriod = "168h"
+
+[".zsh/plugins/forgit"]
+    type = "archive"
+    url = "https://github.com/wfxr/forgit/archive/master.tar.gz"
+    exact = true
+    stripComponents = 1
+    refreshPeriod = "168h"
+
+[".zsh/plugins/spaceship-prompt"]
+    type = "archive"
+    url = "https://github.com/denysdovhan/spaceship-prompt/archive/master.tar.gz"
+    exact = true
+    stripComponents = 1
+    refreshPeriod = "168h"
+
+[".zsh/plugins/ohmyzsh"]
+    type = "archive"
+    url = "https://github.com/ohmyzsh/ohmyzsh/archive/master.tar.gz"
+    exact = true
+    stripComponents = 1
+    refreshPeriod = "168h"
+
+[".zsh/plugins/zsh-syntax-highlighting"]
+    type = "archive"
+    url = "https://github.com/zsh-users/zsh-syntax-highlighting/archive/master.tar.gz"
+    exact = true
+    stripComponents = 1
+    refreshPeriod = "168h"
+
+[".zsh/plugins/zsh-completions"]
+    type = "archive"
+    url = "https://github.com/zsh-users/zsh-completions/archive/master.tar.gz"
+    exact = true
+    stripComponents = 1
+    refreshPeriod = "168h"
+
+[".zsh/plugins/zsh-autosuggestions"]
+    type = "archive"
+    url = "https://github.com/zsh-users/zsh-autosuggestions/archive/master.tar.gz"
+    exact = true
+    stripComponents = 1
+    refreshPeriod = "168h"
+
+[".zsh/plugins/alias-tips"]
+    type = "archive"
+    url = "https://github.com/djui/alias-tips/archive/master.tar.gz"
+    exact = true
+    stripComponents = 1
+    refreshPeriod = "168h"
