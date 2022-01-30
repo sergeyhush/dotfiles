@@ -1,0 +1,10 @@
+name: Bootstrap setup
+on: [push]
+jobs:
+  build_and_test:
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@master
+      - name: Full install
+        run: |
+          ./bootstrap.sh
