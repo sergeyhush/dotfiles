@@ -14,8 +14,7 @@ if ! command -v brew &>/dev/null 2>&1; then
     ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
 fi
 brew analytics off
-brew update
-# Install packages
+brew bundle
 brew cleanup || true
 
 # Chezmoi
