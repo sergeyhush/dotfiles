@@ -1,3 +1,6 @@
+fpath=(~/.zsh/functions $fpath)
+autoload -U $fpath[1]/*(.:t)
+
 autoload -Uz compinit promptinit
 compinit
 promptinit
@@ -6,16 +9,6 @@ promptinit
 # Plugins config
 # =============================================================================
 ZSH_TMUX_AUTOSTART=true
-SPACESHIP_PROMPT_ORDER=(
-    time
-    dir
-    git
-    exec_time
-    line_sep
-    jobs
-    exit_code
-    char
-)
 
 source ~/.zsh/plugins/ohmyzsh/plugins/vi-mode/vi-mode.plugin.zsh
 source ~/.zsh/plugins/alias-tips/alias-tips.plugin.zsh
@@ -40,8 +33,6 @@ unset config_files
 
 setopt inc_append_history
 
-fpath=(~/.zsh/functions ~/.zsh/zsh-completions/src $fpath)
-autoload -U $fpath[1]/*(.:t)
 
 [ -f ~/.localrc ] && source ~/.localrc
 
