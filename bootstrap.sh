@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
 set -euo pipefail
+set -x
 
 if test "${CI:-}"; then
     set -x # For better debugging
