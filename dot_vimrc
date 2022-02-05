@@ -1,4 +1,5 @@
-" General
+" vim: ft=vim fdm=marker
+" General {{{
 set nocompatible              " be iMproved, required
 set encoding=utf-8
 filetype plugin indent on   " Automatically detect file types.
@@ -21,6 +22,29 @@ set noerrorbells         " don't beep
 " tabs and spaces handling
 set copyindent
 set smarttab
+" }}}
+
+" Key bindgings {{{
+nnoremap <SPACE> <Nop>
+" Space Leader
+let mapleader=" "
+" Make 'jk' act as Escape
+imap jk <Esc>
+
+nmap <C-j> <C-w>j
+nmap <C-k> <C-w>k
+nmap <C-h> <C-w>h
+nmap <C-l> <C-w>l
+tnoremap <C-h> <C-\><C-N><C-w>h
+tnoremap <C-j> <C-\><C-N><C-w>j
+tnoremap <C-k> <C-\><C-N><C-w>k
+tnoremap <C-l> <C-\><C-N><C-w>l
+
+nnoremap <Down> gj
+nnoremap <Up> gk
+vnoremap <Down> gj
+vnoremap <Up> gk
+" }}}
 
 if has('clipboard')
     if has('unnamedplus')
@@ -34,14 +58,14 @@ if has('clipboard')
 endif
 " }
 
-" Setup backup {
+" Setup backup {{{
 set backup                  " Backups are nice ...
 if has('persistent_undo')
     set undofile                " So is persistent undo ...
     set undolevels=1000         " Maximum number of changes that can be undone
     set undoreload=10000        " Maximum number lines to save for undo on a buffer reload
 endif   "
-" }
+"}}}
 
 function! InitializeDirectories()
     let parent = $HOME
@@ -76,16 +100,13 @@ call InitializeDirectories()
 
 tnoremap <Esc> <C-\><C-n>
 
-" Plugins {
-" Auto-install vim-plug {
+" Plugins {{{
 if empty(glob('~/.vim/autoload/plug.vim'))
     silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
                 \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
     autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
 endif
-" }
 call plug#begin('~/.vim/plugged')
-    " General {
     Plug '/usr/local/opt/fzf' | Plug 'junegunn/fzf.vim'
     Plug 'christoomey/vim-tmux-navigator'
     Plug 'easymotion/vim-easymotion'
@@ -109,30 +130,24 @@ call plug#begin('~/.vim/plugged')
     Plug 'wellle/targets.vim'
     Plug 'vim-syntastic/syntastic'
     Plug 'szw/vim-maximizer'
-    Plug 'kassio/neoterm'
-    " }
-    " Golang {
-    Plug 'fatih/vim-go', { 'for': 'go', 'do': ':GoUpdateBinaries' }
-    " }
-    " Colors {
+    " Plug 'neovim/nvim-lspconfig'
+    " Colors
     Plug 'altercation/vim-colors-solarized'
     Plug 'blueyed/vim-diminactive'
     Plug 'dracula/vim', {'as': 'dracula'}
     Plug 'tomasiser/vim-code-dark'
-    " }
-    " Git {
+    " Git
     Plug 'airblade/vim-gitgutter'
     Plug 'tpope/vim-fugitive'
     Plug 'tpope/vim-git'
-    " }
-    " Python {
+    Plug 'TimUntersberger/neogit'
+    " Languages
+    " Plug 'fatih/vim-go', { 'for': 'go', 'do': ':GoUpdateBinaries' }
     Plug 'python-mode/python-mode', { 'for': 'python', 'branch': 'develop' }
-    " }
 call plug#end()
-"}
-"
+"}}}
 
-" UI {
+" UI {{{
 set tabpagemax=15               " Only show 15 tabs
 set showmode                    " Display the current mode
 set cursorline                  " Highlight current line   "
@@ -163,10 +178,9 @@ let g:solarized_termtrans = 1
 let g:solarized_termcolors=256
 set background=dark
 colorscheme codedark
-" }
-"
+" }}}
 
-" Formatting {
+" Formatting {{{
 set nowrap                      " Do not wrap long lines
 set autoindent                  " Indent at the same level of the previous line
 set shiftwidth=4                " Use indents of 4 spaces
@@ -178,26 +192,37 @@ set splitright                  " Puts new vsplit windows to the right of the cu
 set splitbelow                  " Puts new split windows to the bottom of the current         "
 
 au FocusLost * silent! wa       " Save all on lost focus
-" }
-"
+" }}}
 
-" Plugin: Syntastic {
+" Plugin: Syntastic {{{
 set statusline+=%#warningmsg#
 set statusline+=%{SyntasticStatuslineFlag()}
 set statusline+=%*
 
 let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_auto_loc_list = 1
-let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_open = 0
 let g:syntastic_check_on_wq = 0
-" }
+"}}}
 
-" Plugin: vim-maximizer {
+" Plugin: fzf {{{
+nmap <Leader>/ :Rg<Space>
+nmap <Leader>fb :Buffers<CR>
+nmap <Leader>ff :Files<CR>
+nmap <Leader>ft :Tags<CR>
+nmap <Leader>c :Commands<CR>
+nmap <Leader>q :q<CR>
+nmap <Leader>s :Filetypes<CR>
+nmap <Leader>t :BTags<CR>
+"}}}
+
+" Plugin: vim-maximizer {{{
 nnoremap <leader>z :MaximizerToggle!<CR>
-" }
+" }}}
 
-" Plugin: neoterm {
-" }
+" Plugin: neogit {{{
+nnoremap <leader>gg :Neogit<CR>
+" }}}
 
 " Plugin settings {
 let vimsettings = '~/.vim/plugin/settings'
@@ -205,3 +230,59 @@ for fpath in split(globpath(vimsettings, '*.vim'), '\n')
   exe 'source' fpath
 endfor
 " }
+
+" Plugin: vim-indent-guides {{{
+let g:indent_guides_enable_on_vim_startup = 1
+let g:indent_guides_auto_colors = 0
+let g:indent_guides_start_level = 2
+let g:indent_guides_guide_size = 1
+let g:indent_guides_color_change_percent = 5
+autocmd VimEnter,Colorscheme * :hi IndentGuidesOdd  guibg=darkgrey ctermbg=8
+autocmd VimEnter,Colorscheme * :hi IndentGuidesEven guibg=darkgrey ctermbg=61
+autocmd VimEnter * :IndentGuidesEnable
+" }}}
+
+" Plugin: vim-go {{{
+let g:go_fmt_command = "goimports""
+let g:go_def_mode='gopls'
+let g:go_info_mode='gopls'
+" }}}
+
+" Plugin: coc {{{
+let g:coc_global_extensions = ['coc-tsserver', 'coc-prettier']
+" Use tab for trigger completion with characters ahead and navigate.
+" Use command ':verbose imap <tab>' to make sure tab is not mapped by other plugin.
+inoremap <silent><expr> <TAB>
+            \ pumvisible() ? "\<C-n>" :
+            \ <SID>check_back_space() ? "\<TAB>" :
+            \ coc#refresh()
+inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
+
+function! s:check_back_space() abort
+    let col = col('.') - 1
+    return !col || getline('.')[col - 1]  =~# '\s'
+endfunction
+
+" Use <c-space> to trigger completion.
+if has('nvim')
+    inoremap <silent><expr> <c-space> coc#refresh()
+else
+    inoremap <silent><expr> <c-@> coc#refresh()
+endif
+
+" Use `[g` and `]g` to navigate diagnostics
+" Use `:CocDiagnostics` to get all diagnostics of current buffer in location list.
+nmap <silent> [g <Plug>(coc-diagnostic-prev)
+nmap <silent> ]g <Plug>(coc-diagnostic-next)
+
+" GoTo code navigation.
+nmap <silent> gd <Plug>(coc-definition)
+nmap <silent> gy <Plug>(coc-type-definition)
+nmap <silent> gi <Plug>(coc-implementation)
+nmap <silent> gr <Plug>(coc-references)
+
+" FIXME make it work with fzf
+" Formatting selected code.
+" xmap <leader>f  <Plug>(coc-format-selected)
+" nmap <leader>f  <Plug>(coc-format-selected)
+"}}}
