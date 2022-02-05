@@ -4,6 +4,9 @@
 {{- else -}}
 {{-   $email = promptString "email" -}}
 {{- end -}}
+{{- $personal := false -}}
+
 
 [data]
     email = {{ $email | quote }}
+    personal = {{ $personal }}
