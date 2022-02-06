@@ -1,11 +1,12 @@
 {{- $email := "" -}}
-{{- if (env "CI") -}}
-{{- $email = "test@test.com" -}}
-{{- end -}}
 {{- if (hasKey . "email") -}}
 {{-   $email = .email -}}
 {{- else -}}
-{{-   $email = promptString "email" -}}
+{{-   if (env "CI") -}}
+{{-     $email = "test@test.com" -}}
+{{-   else -}}
+{{-     $email = promptString "email" -}}
+{{-   end -}}
 {{- end -}}
 {{- $personal := false -}}
 
