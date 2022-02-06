@@ -8,6 +8,13 @@ if test "${CI:-}"; then
     export HOMEBREW_NO_AUTO_UPDATE=1
 fi
 
+# Chezmoi
+if ! command -v chezmoi &>/dev/null; then
+    curl --fail --location --silent https://git.io/chezmoi | BINDIR="$HOME/bin" sh
+    sudo mv "$HOME"/bin/chezmoi /usr/local/bin
+fi
+chezmoi init sergeyhush --apply --force --branch chezmoi
+
 # Homebrew
 if ! command -v brew &>/dev/null 2>&1; then
     echo "Installing homebrew..."
@@ -16,10 +23,3 @@ fi
 brew analytics off
 brew bundle --global
 brew cleanup || true
-
-# Chezmoi
-if ! command -v chezmoi &>/dev/null; then
-    curl --fail --location --silent https://git.io/chezmoi | BINDIR="$HOME/bin" sh
-    sudo mv "$HOME"/bin/chezmoi /usr/local/bin
-fi
-chezmoi init sergeyhush --apply --force --branch chezmoi
