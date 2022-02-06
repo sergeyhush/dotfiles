@@ -1,11 +1,13 @@
 {{- $email := "" -}}
+{{- if (env "CI") -}}
+{{- $email := "test@test.com -}}
+{{- end -}}
 {{- if (hasKey . "email") -}}
 {{-   $email = .email -}}
 {{- else -}}
 {{-   $email = promptString "email" -}}
 {{- end -}}
 {{- $personal := false -}}
-
 
 [data]
     email = {{ $email | quote }}
