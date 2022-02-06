@@ -90,7 +90,6 @@ brew "tree"
 brew "vault"
 brew "wget"
 brew "yank"
-brew "yq"
 brew "zlib"
 brew "zsh"
 brew "hashicorp/tap/terraform-ls"
@@ -112,3 +111,8 @@ cask "snowflake-snowsql"
 cask "stats"
 cask "vagrant"
 cask "virtualbox"
+
+{{- if .personal }}
+brew "yq"
+{{- end }}
+
