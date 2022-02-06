@@ -1,6 +1,6 @@
 {{- $email := "" -}}
 {{- if (env "CI") -}}
-{{- $email := "test@test.com -}}
+{{- $email = "test@test.com" -}}
 {{- end -}}
 {{- if (hasKey . "email") -}}
 {{-   $email = .email -}}
