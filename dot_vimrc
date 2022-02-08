@@ -24,21 +24,20 @@ set copyindent
 set smarttab
 " }}}
 
-" Key bindgings {{{
+" Key bindings {{{
 nnoremap <SPACE> <Nop>
-" Space Leader
 let mapleader=" "
-" Make 'jk' act as Escape
-imap jk <Esc>
 
 nmap <C-j> <C-w>j
 nmap <C-k> <C-w>k
 nmap <C-h> <C-w>h
 nmap <C-l> <C-w>l
+
 tnoremap <C-h> <C-\><C-N><C-w>h
 tnoremap <C-j> <C-\><C-N><C-w>j
 tnoremap <C-k> <C-\><C-N><C-w>k
 tnoremap <C-l> <C-\><C-N><C-w>l
+tnoremap <Esc> <C-\><C-n>
 
 nnoremap <Down> gj
 nnoremap <Up> gk
@@ -64,8 +63,7 @@ if has('persistent_undo')
     set undofile                " So is persistent undo ...
     set undolevels=1000         " Maximum number of changes that can be undone
     set undoreload=10000        " Maximum number lines to save for undo on a buffer reload
-endif   "
-"}}}
+endif
 
 function! InitializeDirectories()
     let parent = $HOME
@@ -97,8 +95,8 @@ function! InitializeDirectories()
     endfor
 endfunction
 call InitializeDirectories()
+"}}}
 
-tnoremap <Esc> <C-\><C-n>
 
 " Plugins {{{
 if empty(glob('~/.vim/autoload/plug.vim'))
@@ -130,18 +128,16 @@ call plug#begin('~/.vim/plugged')
     Plug 'wellle/targets.vim'
     Plug 'vim-syntastic/syntastic'
     Plug 'szw/vim-maximizer'
+    Plug 'jdhao/better-escape.vim'
     " Plug 'neovim/nvim-lspconfig'
-    " Colors
     Plug 'altercation/vim-colors-solarized'
     Plug 'blueyed/vim-diminactive'
     Plug 'dracula/vim', {'as': 'dracula'}
     Plug 'tomasiser/vim-code-dark'
-    " Git
     Plug 'airblade/vim-gitgutter'
     Plug 'tpope/vim-fugitive'
     Plug 'tpope/vim-git'
     Plug 'TimUntersberger/neogit'
-    " Languages
     " Plug 'fatih/vim-go', { 'for': 'go', 'do': ':GoUpdateBinaries' }
     Plug 'python-mode/python-mode', { 'for': 'python', 'branch': 'develop' }
 call plug#end()
@@ -168,7 +164,6 @@ set scrolloff=3                 " Minimum lines to keep above and below cursor
 set foldenable                  " Auto fold code
 set list
 set listchars=tab:›\ ,trail:•,extends:#,nbsp:. " Highlight problematic whitespace                "
-
 
 " syntax highlight on
 set t_Co=256
