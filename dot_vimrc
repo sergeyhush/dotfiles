@@ -22,6 +22,17 @@ set noerrorbells         " don't beep
 " tabs and spaces handling
 set copyindent
 set smarttab
+
+if has('clipboard')
+    if has('unnamedplus')
+        set clipboard=unnamed,unnamedplus
+    else
+        set clipboard=unnamed
+    endif
+    if $TMUX == ''
+        set clipboard=unnamed
+    endif
+endif
 " }}}
 
 " Key bindings {{{
@@ -43,58 +54,25 @@ nnoremap <Down> gj
 nnoremap <Up> gk
 vnoremap <Down> gj
 vnoremap <Up> gk
+
+nnoremap <leader>T      :vsplit +terminal<cr>
 " }}}
 
-if has('clipboard')
-    if has('unnamedplus')
-        set clipboard=unnamed,unnamedplus
-    else
-        set clipboard=unnamed
-    endif
-    if $TMUX == ''
-        set clipboard=unnamed
-    endif
-endif
-" }
 
 " Setup backup {{{
-set backup                  " Backups are nice ...
-if has('persistent_undo')
-    set undofile                " So is persistent undo ...
-    set undolevels=1000         " Maximum number of changes that can be undone
-    set undoreload=10000        " Maximum number lines to save for undo on a buffer reload
+if !isdirectory($HOME.'/.vim/files') && exists('*mkdir')
+    call mkdir($HOME.'/.vim/files')
 endif
 
-function! InitializeDirectories()
-    let parent = $HOME
-    let prefix = '.vim'
-    let common_dir = parent . '/'. prefix
-    let dir_list = {
-                \ 'backup_files': 'backupdir',
-                \ 'views': 'viewdir',
-                \ 'swap_files': 'directory' }
-
-    if has('persistent_undo')
-        let dir_list['undo_files'] = 'undodir'
-    endif
-
-    for [dirname, settingname] in items(dir_list)
-        let directory = common_dir . '/' . dirname . '/'
-        if exists("*mkdir")
-            if !isdirectory(directory)
-                call mkdir(directory, "p")
-            endif
-        endif
-        if !isdirectory(directory)
-            echo "Warning: Unable to create backup directory: " . directory
-            echo "Try: mkdir -p " . directory
-        else
-            let directory = substitute(directory, " ", "\\\\ ", "g")
-            exec "set " . settingname . "=" . directory
-        endif")
-    endfor
-endfunction
-call InitializeDirectories()
+set backup                  " Backups are nice ...
+set backupdir   =$HOME/.vim/files/backup/
+set backupext   =-vimbackup
+set backupskip  =
+set directory   =$HOME/.vim/files/swap//
+set updatecount =100
+set undofile
+set undodir     =$HOME/.vim/files/undo/
+set viminfo     ='100,n$HOME/.vim/files/info/viminfo
 "}}}
 
 
@@ -218,13 +196,6 @@ nnoremap <leader>z :MaximizerToggle!<CR>
 " Plugin: neogit {{{
 nnoremap <leader>gg :Neogit<CR>
 " }}}
-
-" Plugin settings {
-let vimsettings = '~/.vim/plugin/settings'
-for fpath in split(globpath(vimsettings, '*.vim'), '\n')
-  exe 'source' fpath
-endfor
-" }
 
 " Plugin: vim-indent-guides {{{
 let g:indent_guides_enable_on_vim_startup = 1
