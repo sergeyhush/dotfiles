@@ -1,10 +1,10 @@
 [user]
 	name = Sergey Sudakovich
 [init]
-	templateDir = {{.homeDir}}/git-template
-[includeIf "gitdir:{{.homeDir}}/work/"]
-	path = {{.homeDir}}/work/.gitconfig
-[includeIf "gitdir:{{.homeDir}}/go/"]
-	path = {{.homeDir}}/work/.gitconfig
+	templateDir = {{.chezmoi.homeDir}}/git-template
+[includeIf "gitdir:{{.chezmoi.homeDir}}/work/"]
+	path = {{.chezmoi.homeDir}}/work/.gitconfig
+[includeIf "gitdir:{{.chezmoi.homeDir}}/go/"]
+	path = {{.chezmoi.homeDir}}/work/.gitconfig
 [core]
-	excludesfile = {{.homeDir}}/gitignore
+	excludesfile = {{.chezmoi.homeDir}}/gitignore
