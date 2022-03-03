@@ -6,6 +6,7 @@ if test "${CI:-}"; then
     set -x # For better debugging
     # Source: https://discuss.circleci.com/t/brew-link-step-failing-on-python-dependency/33925/8?u=ashishb
     export HOMEBREW_NO_AUTO_UPDATE=1
+    export HOMEBREW_NO_INSTALL_CLEANUP=1
 fi
 
 # Chezmoi
