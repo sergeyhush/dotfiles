@@ -2,7 +2,7 @@
 [ -f ~/.local_aliases ] && source ~/.local_aliases
 
 fpath=(~/.zsh/functions $fpath)
-autoload -U $fpath[1]/*(.:t)
+autoload -Uz $fpath[1]/*(.:t)
 
 autoload -Uz compinit promptinit
 compinit
@@ -36,4 +36,5 @@ unset config_files
 
 setopt inc_append_history
 
+eval "$(zoxide init zsh)"
 eval "$(starship init zsh)"
