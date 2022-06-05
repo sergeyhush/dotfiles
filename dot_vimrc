@@ -1,27 +1,59 @@
-" vim: ft=vim fdm=marker
-" General {{{
-set nocompatible              " be iMproved, required
-set encoding=utf-8
 filetype plugin indent on   " Automatically detect file types.
 syntax on                   " Syntax highlighting
-set mouse=a                 " Automatically enable mouse usage
-set mousehide               " Hide the mouse cursor while typing
-scriptencoding utf-8    "
+syntax enable
+
+set autoindent                  " Indent at the same level of the previous line
 set autowrite                 " write content on :make
-set shortmess+=filmnrxoOtT          " Abbrev. of messages (avoids 'hit enter')
-set viewoptions=folds,options,cursor,unix,slash " Better Unix / Windows compatibility
-set virtualedit=onemore             " Allow for cursor beyond last character
-set history=1000                    " Store a ton of history (default is 20)
-set spell                           " Spell checking on
+set background=dark
+set backspace=indent,eol,start  " Backspace for dummies
+set copyindent
+set cursorline                  " Highlight current line   "
+set encoding=utf-8             " The encoding displayed
+set expandtab                   " Tabs are spaces, not tabs
+set fileencoding=utf-8  " The encoding written to file.
+set foldenable                  " Auto fold code
 set hidden                          " Allow buffer switching without saving
-set iskeyword-=.                    " '.' is an end of word designator
+set history=1000                    " Store a ton of history (default is 20)
+set hlsearch                    " Highlight search terms
+set ignorecase                  " Case insensitive search
+set incsearch                   " Find as you type search
 set iskeyword-=#                    " '#' is an end of word designator
 set iskeyword-=-                    " '-' is an end of word designator         "
-set visualbell           " don't beep
+set iskeyword-=.                    " '.' is an end of word designator
+set linespace=0                 " No extra spaces between rows
+set list
+set listchars=tab:›\ ,trail:•,extends:#,nbsp:. " Highlight problematic whitespace                "
+set mouse=a                 " Automatically enable mouse usage
+set mousehide               " Hide the mouse cursor while typing
+set nocompatible              " be iMproved, required
 set noerrorbells         " don't beep
-" tabs and spaces handling
-set copyindent
+set nojoinspaces                " Prevents inserting two spaces after punctuation on a join (J)
+set nowrap                      " Do not wrap long lines
+set number                      " Line numbers on
+set scrolljump=5                " Lines to scroll when cursor leaves screen
+set scrolloff=3                 " Minimum lines to keep above and below cursor
+set shiftwidth=4                " Use indents of 4 spaces
+set shortmess+=filmnrxoOtT          " Abbrev. of messages (avoids 'hit enter')
+set showmatch                   " Show matching brackets/parenthesis
+set showmode                    " Display the current mode
+set smartcase                   " Case sensitive when uc present
 set smarttab
+set softtabstop=4               " Let backspace delete indent
+set spell                           " Spell checking on
+set splitbelow                  " Puts new split windows to the bottom of the current         "
+set splitright                  " Puts new vsplit windows to the right of the current
+set tabpagemax=15               " Only show 15 tabs
+set tabstop=4                   " An indentation every four columns
+set viewoptions=folds,options,cursor,unix,slash " Better Unix / Windows compatibility
+set virtualedit=onemore             " Allow for cursor beyond last character
+set visualbell           " don't beep
+set whichwrap=b,s,h,l,<,>,[,]   " Backspace and cursor keys wrap too
+set wildmenu                    " Show list instead of just completing
+set wildmode=list:longest,full  " Command <Tab> completion, list matches, then longest common part, then all.
+set winminheight=0              " Windows can be 0 line high
+
+let g:solarized_termtrans = 1
+let g:solarized_termcolors=256
 
 if has('clipboard')
     if has('unnamedplus')
@@ -33,223 +65,22 @@ if has('clipboard')
         set clipboard=unnamed
     endif
 endif
-" }}}
 
-" Key bindings {{{
+" Key bindings
 nnoremap <SPACE> <Nop>
 let mapleader=" "
-
 nmap <C-j> <C-w>j
 nmap <C-k> <C-w>k
 nmap <C-h> <C-w>h
 nmap <C-l> <C-w>l
-
 tnoremap <C-h> <C-\><C-N><C-w>h
 tnoremap <C-j> <C-\><C-N><C-w>j
 tnoremap <C-k> <C-\><C-N><C-w>k
 tnoremap <C-l> <C-\><C-N><C-w>l
 tnoremap <Esc> <C-\><C-n>
-
 nnoremap <Down> gj
 nnoremap <Up> gk
 vnoremap <Down> gj
 vnoremap <Up> gk
 
-nnoremap <leader>T      :vsplit +terminal<cr>
-" }}}
-
-
-" Setup backup {{{
-if !isdirectory($HOME.'/.vim/files') && exists('*mkdir')
-    call mkdir($HOME.'/.vim/files')
-endif
-
-set backup                  " Backups are nice ...
-set backupdir   =$HOME/.vim/files/backup/
-set backupext   =-vimbackup
-set backupskip  =
-set directory   =$HOME/.vim/files/swap//
-set updatecount =100
-set undofile
-set undodir     =$HOME/.vim/files/undo/
-set viminfo     ='100,n$HOME/.vim/files/info/viminfo
-"}}}
-
-
-" Plugins {{{
-if empty(glob('~/.vim/autoload/plug.vim'))
-    silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
-                \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-    autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
-endif
-call plug#begin('~/.vim/plugged')
-    Plug '/usr/local/opt/fzf' | Plug 'junegunn/fzf.vim'
-    Plug 'christoomey/vim-tmux-navigator'
-    Plug 'easymotion/vim-easymotion'
-    Plug 'editorconfig/editorconfig-vim'
-    Plug 'junegunn/vim-easy-align'
-    Plug 'kana/vim-textobj-user' | Plug 'kana/vim-textobj-function'
-    Plug 'ludovicchabant/vim-gutentags'
-    Plug 'michaeljsmith/vim-indent-object'
-    Plug 'nathanaelkane/vim-indent-guides'
-    Plug 'neoclide/coc.nvim', {'branch': 'release'}
-    Plug 'nvim-lua/plenary.nvim'
-    Plug 'sheerun/vim-polyglot'
-    Plug 'tpope/vim-commentary'
-    Plug 'tpope/vim-dispatch'
-    Plug 'tpope/vim-endwise'
-    Plug 'tpope/vim-repeat'
-    Plug 'tpope/vim-sensible'
-    Plug 'tpope/vim-surround'
-    Plug 'tpope/vim-vinegar'
-    Plug 'vim-airline/vim-airline'
-    Plug 'wellle/targets.vim'
-    Plug 'vim-syntastic/syntastic'
-    Plug 'szw/vim-maximizer'
-    Plug 'jdhao/better-escape.vim'
-    " Plug 'neovim/nvim-lspconfig'
-    Plug 'altercation/vim-colors-solarized'
-    Plug 'blueyed/vim-diminactive'
-    Plug 'dracula/vim', {'as': 'dracula'}
-    Plug 'tomasiser/vim-code-dark'
-    Plug 'airblade/vim-gitgutter'
-    Plug 'tpope/vim-fugitive'
-    Plug 'tpope/vim-git'
-    Plug 'nvim-lua/plenary.nvim'
-    Plug 'TimUntersberger/neogit'
-    Plug 'fatih/vim-go', { 'for': 'go', 'do': ':GoUpdateBinaries' }
-    Plug 'python-mode/python-mode', { 'for': 'python', 'branch': 'develop' }
-call plug#end()
-"}}}
-
-" UI {{{
-set tabpagemax=15               " Only show 15 tabs
-set showmode                    " Display the current mode
-set cursorline                  " Highlight current line   "
-set backspace=indent,eol,start  " Backspace for dummies
-set linespace=0                 " No extra spaces between rows
-set number                      " Line numbers on
-set showmatch                   " Show matching brackets/parenthesis
-set incsearch                   " Find as you type search
-set hlsearch                    " Highlight search terms
-set winminheight=0              " Windows can be 0 line high
-set ignorecase                  " Case insensitive search
-set smartcase                   " Case sensitive when uc present
-set wildmenu                    " Show list instead of just completing
-set wildmode=list:longest,full  " Command <Tab> completion, list matches, then longest common part, then all.
-set whichwrap=b,s,h,l,<,>,[,]   " Backspace and cursor keys wrap too
-set scrolljump=5                " Lines to scroll when cursor leaves screen
-set scrolloff=3                 " Minimum lines to keep above and below cursor
-set foldenable                  " Auto fold code
-set list
-set listchars=tab:›\ ,trail:•,extends:#,nbsp:. " Highlight problematic whitespace                "
-
-" syntax highlight on
-set t_Co=256
-set t_ut=
-syntax enable
-let g:solarized_termtrans = 1
-let g:solarized_termcolors=256
-set background=dark
-colorscheme codedark
-" }}}
-
-" Formatting {{{
-set nowrap                      " Do not wrap long lines
-set autoindent                  " Indent at the same level of the previous line
-set shiftwidth=4                " Use indents of 4 spaces
-set expandtab                   " Tabs are spaces, not tabs
-set tabstop=4                   " An indentation every four columns
-set softtabstop=4               " Let backspace delete indent
-set nojoinspaces                " Prevents inserting two spaces after punctuation on a join (J)
-set splitright                  " Puts new vsplit windows to the right of the current
-set splitbelow                  " Puts new split windows to the bottom of the current         "
-
 au FocusLost * silent! wa       " Save all on lost focus
-" }}}
-
-" Plugin: Syntastic {{{
-set statusline+=%#warningmsg#
-set statusline+=%{SyntasticStatuslineFlag()}
-set statusline+=%*
-
-let g:syntastic_always_populate_loc_list = 1
-let g:syntastic_auto_loc_list = 1
-let g:syntastic_check_on_open = 0
-let g:syntastic_check_on_wq = 0
-"}}}
-
-" Plugin: fzf {{{
-nmap <Leader>/ :Rg<Space>
-nmap <Leader>fb :Buffers<CR>
-nmap <Leader>ff :Files<CR>
-nmap <Leader>ft :Tags<CR>
-nmap <Leader>c :Commands<CR>
-nmap <Leader>q :q<CR>
-nmap <Leader>s :Filetypes<CR>
-nmap <Leader>t :BTags<CR>
-"}}}
-
-" Plugin: vim-maximizer {{{
-nnoremap <leader>z :MaximizerToggle!<CR>
-" }}}
-
-" Plugin: neogit {{{
-nnoremap <leader>gg :Neogit<CR>
-" }}}
-
-" Plugin: vim-indent-guides {{{
-let g:indent_guides_enable_on_vim_startup = 1
-let g:indent_guides_auto_colors = 0
-let g:indent_guides_start_level = 2
-let g:indent_guides_guide_size = 1
-let g:indent_guides_color_change_percent = 5
-autocmd VimEnter,Colorscheme * :hi IndentGuidesOdd  guibg=darkgrey ctermbg=8
-autocmd VimEnter,Colorscheme * :hi IndentGuidesEven guibg=darkgrey ctermbg=61
-autocmd VimEnter * :IndentGuidesEnable
-" }}}
-
-" Plugin: vim-go {{{
-let g:go_fmt_command = "goimports""
-let g:go_def_mode='gopls'
-let g:go_info_mode='gopls'
-" }}}
-
-" Plugin: coc {{{
-let g:coc_global_extensions = ['coc-tsserver', 'coc-prettier']
-" Use tab for trigger completion with characters ahead and navigate.
-" Use command ':verbose imap <tab>' to make sure tab is not mapped by other plugin.
-inoremap <silent><expr> <TAB>
-            \ pumvisible() ? "\<C-n>" :
-            \ <SID>check_back_space() ? "\<TAB>" :
-            \ coc#refresh()
-inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
-
-function! s:check_back_space() abort
-    let col = col('.') - 1
-    return !col || getline('.')[col - 1]  =~# '\s'
-endfunction
-
-" Use <c-space> to trigger completion.
-if has('nvim')
-    inoremap <silent><expr> <c-space> coc#refresh()
-else
-    inoremap <silent><expr> <c-@> coc#refresh()
-endif
-
-" Use `[g` and `]g` to navigate diagnostics
-" Use `:CocDiagnostics` to get all diagnostics of current buffer in location list.
-nmap <silent> [g <Plug>(coc-diagnostic-prev)
-nmap <silent> ]g <Plug>(coc-diagnostic-next)
-
-" GoTo code navigation.
-nmap <silent> gd <Plug>(coc-definition)
-nmap <silent> gy <Plug>(coc-type-definition)
-nmap <silent> gi <Plug>(coc-implementation)
-nmap <silent> gr <Plug>(coc-references)
-
-" FIXME make it work with fzf
-" Formatting selected code.
-" xmap <leader>f  <Plug>(coc-format-selected)
-" nmap <leader>f  <Plug>(coc-format-selected)
-"}}}
