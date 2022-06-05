@@ -1,1 +1,4 @@
 bootstrap.sh
+.zsh/plugins
+.zsh/plugins/*
+.zsh/plugins/**/*
