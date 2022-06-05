@@ -26,10 +26,12 @@ packer.reset()
 -- use {'lewis6991/impatient.nvim', config = [[require('impatient')]]}
 
 use "wbthomason/packer.nvim"
-
+use "mhinz/vim-startify"
+use {"akinsho/nvim-toggleterm.lua", config= [[require('config.nvim-toggleterm')]]}
 use {
-  "nvim-telescope/telescope.nvim",
-  requires = {{ "nvim-lua/plenary.nvim" } }, config = [[require('config.telescope')]],
+    "nvim-telescope/telescope.nvim",
+    requires = {{ "nvim-lua/plenary.nvim" }},
+    config = [[require('config.telescope')]]
 }
 
 -- config for built-in LSP client
@@ -55,6 +57,8 @@ use {
   requires = { "nvim-lua/plenary.nvim" }, cmd = "Neogit", config = [[require('config.neogit')]],
 }
 
+use "f-person/git-blame.nvim"
+
 use {
   "max397574/better-escape.nvim",
   config = function() require("better_escape").setup() end
@@ -62,6 +66,7 @@ use {
 
 use {"tpope/vim-commentary", event=VimEnter}
 use {"tpope/vim-vinegar", event=VimEnter}
+use "tpope/vim-surround"
 
 -- Statusline
 use {
@@ -79,7 +84,6 @@ use({
 })
 
 use 'editorconfig/editorconfig-vim'
-
 
 use {'dracula/vim', as='dracula'}
 use {"lifepillar/vim-gruvbox8", opt = true}
