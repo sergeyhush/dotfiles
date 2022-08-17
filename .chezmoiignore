@@ -2,3 +2,4 @@ bootstrap.sh
 .zsh/plugins
 .zsh/plugins/*
 .zsh/plugins/**/*
+.config/nvim/plugin/packer_compiled.lua
