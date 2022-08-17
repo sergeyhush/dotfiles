@@ -24,7 +24,7 @@ require('go').setup({
     lsp_cfg = true, -- true: use non-default gopls setup specified in go/lsp.lua
     lsp_gofumpt = false, -- true: set default gofmt in gopls format to gofumpt
     lsp_on_attach = function(client, bufnr)
-        require("functions").custom_lsp_attach(client, bufnr)
+        require("utils").custom_lsp_attach(client, bufnr)
         local wk = require("which-key")
         local default_options = { silent = true }
         wk.register({
