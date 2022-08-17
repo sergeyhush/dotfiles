@@ -131,3 +131,6 @@ use {
 use {'ray-x/go.nvim', requires = "ray-x/guihua.lua", config =[[require('config.go')]]}
 use({ "tweekmonster/startuptime.vim" })
 
+use({ "RRethy/vim-illuminate", config = [[require('illuminate')]] })
+
+
