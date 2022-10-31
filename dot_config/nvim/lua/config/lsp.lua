@@ -35,15 +35,15 @@ local custom_attach = function(client, bufnr)
   })
 
   -- Set some key bindings conditional on server capabilities
-  if client.resolved_capabilities.document_formatting then
+  if client.server_capabilities.document_formatting then
     vim.keymap.set("n", "<space>f", vim.lsp.buf.formatting_sync, opts)
   end
-  if client.resolved_capabilities.document_range_formatting then
+  if client.server_capabilities.document_range_formatting then
     vim.keymap.set("x", "<space>f", vim.lsp.buf.range_formatting, opts)
   end
 
   -- The blow command will highlight the current variable and its usages in the buffer.
-  if client.resolved_capabilities.document_highlight then
+  if client.server_capabilities.document_highlight then
     vim.cmd([[
       hi! link LspReferenceRead Visual
       hi! link LspReferenceText Visual
@@ -62,8 +62,7 @@ local custom_attach = function(client, bufnr)
   end
 end
 
-local capabilities = lsp.protocol.make_client_capabilities()
-capabilities = require('cmp_nvim_lsp').update_capabilities(capabilities)
+local capabilities = require('cmp_nvim_lsp').default_capabilities()
 capabilities.textDocument.completion.completionItem.snippetSupport = true
 
 local lspconfig = require("lspconfig")
@@ -181,6 +180,11 @@ if vim.g.is_mac or vim.g.is_linux and sumneko_binary_path ~= "" then
     },
     capabilities = capabilities,
   })
+end
+
+-- setup marksman
+if utils.executable('marksman') then
+    lspconfig.marksman.setup({})
 end
 
 -- Change diagnostic signs.

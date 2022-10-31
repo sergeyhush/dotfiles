@@ -2,10 +2,11 @@ local lsp_installer = require "nvim-lsp-installer"
 
 -- Include the servers you want to have installed by default below
 local servers = {
-  "bashls",
-  "pyright",
-  "yamlls",
-  "gopls",
+    "bashls",
+    "pyright",
+    "yamlls",
+    "gopls",
+    "marksman",
 }
 
 lsp_installer.setup({

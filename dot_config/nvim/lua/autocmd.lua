@@ -8,7 +8,14 @@ local sync_packer = function()
     vim.cmd("runtime lua/plugins.lua")
     require("packer").sync()
 end
+
 api.nvim_create_autocmd({ "BufWritePost" }, {
     pattern = { "plugins.lua" },
     callback = sync_packer,
+})
+
+api.nvim_create_autocmd({"BufWritePre"},{
+    pattern = {"*.go"},
+    -- callback = vim.lsp.buf.formatting_sync,
+    command = "silent! lua require('go.format').goimport()"
 })
