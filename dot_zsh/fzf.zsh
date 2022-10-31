@@ -26,6 +26,8 @@ fzf-open-file-or-dir() {
 zle     -N   fzf-open-file-or-dir
 bindkey '^P' fzf-open-file-or-dir
 
-if (( $+commands[rg] )); then
-  export FZF_DEFAULT_COMMAND='rg --files'
+if (( $+commands[fd] )); then
+  export FZF_DEFAULT_COMMAND="fd --type file --follow --hidden --exclude .git . $HOME/work/src"
+  export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
+  export FZF_ALT_C_COMMAND="fd -t d --hidden --follow --exclude \".git\" . $HOME/work/src"
 fi
