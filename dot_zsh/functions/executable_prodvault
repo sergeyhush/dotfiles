@@ -1,0 +1,11 @@
+#!/bin/sh
+# Metavault
+export OKTA_USER=ssudakovich
+prodvault() {
+    export VAULT_ADDR=https://prod-metavault.int.snowflakecomputing.com:8200
+    echo -n "Yubikey Code: "
+    read DUO_PASS
+    export VAULT_TOKEN=$(vault login -token-only -method=okta username=$OKTA_USER passcode=$DUO_PASS)
+    vault token lookup
+}
+prodvault

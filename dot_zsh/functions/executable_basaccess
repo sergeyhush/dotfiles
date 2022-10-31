@@ -1,0 +1,358 @@
+#!/usr/bin/env bash
+# Please refer to README.txt for details.
+
+if [ -z "${AWS_USER}" ]; then
+  AWS_USER=${USER}
+fi
+
+# List of accounts in the format
+# <profile> <account-id> <region> [<stage>]
+ACCOUNTS="
+sfc-dev               185886769098 us-west-2
+sfc-prod              686874466970 us-west-2
+sfc-eu-prod           223822729661 eu-central-1
+sfc-aus-prod          786066637783 ap-southeast-2
+sfc-va-prod           314557530643 us-east-1
+sfc-network-test      366414607577 us-east-1
+sfc-network-test-2    764388345453 us-west-2
+sfc-ca-ont-prod       828204517824 ca-central-1
+sfc-test              009233416343 us-west-2
+sfc-mgmt              613026235390 us-west-2
+sfc-prod-analytics    882227952177 us-west-2
+sfc-bastion           560628228422 us-west-2
+sfc-ec-bastion        458143150651 us-gov-west-1
+sfc-ec-teleport       459051176150 us-gov-west-1
+sfc-ec-prod           461561121630 us-gov-west-1
+sfc-ec-high-prod      263520041378 us-gov-west-1
+sfc-ec-high-preprod   493304995436 us-gov-west-1
+sfc-ec-k8s-mgmt       469785808070 us-gov-west-1
+sfc-ec-log            482732912569 us-gov-west-1
+sfc-ec-key-admin      461599115598 us-gov-west-1
+sfc-ec-mgmt-gov       461227273879 us-gov-west-1
+sfc-ec-mgmt           743448012363 us-west-2
+sfc-log               890547197535 us-west-2
+sfc-bastion-dev       818818425588 us-west-2
+sfc-ie-prod           806421244639 eu-west-1
+sfc-in-prod           334656926192 ap-south-1
+sfc-ops-sandbox       979401105040 us-west-2
+sfc-sg-prod           075139349114 ap-southeast-1
+sfc-security          833190679431 us-west-2
+sfc-teleport-dev      317089293510 us-west-2
+sfc-teleport-dev2     641683378026 us-west-2
+sfc-teleport-prod     226852347421 us-west-2
+sfc-teleport-nonprod  642113428790 us-west-2
+sfc-preprod           711796311365 us-west-2
+sfc-prod-datascience  598954931060 us-west-2
+sfc-oh-prod           585021324358 us-east-2
+sfc-jp-prod           436460389310 ap-northeast-1
+sfc-prod-es1          080031022953 us-west-2
+sfc-prod-es2          627467882740 us-west-2
+sfc-bastion-data      812250055440 us-west-2
+sfc-va-gov-prod       558253051926 us-east-1
+sfc-teleport          226852347421 us-west-2
+sfc-polevault         130210450992 us-west-2
+sfc-k8s-mgmt          839050380901 us-west-2
+sfc-k8s-mgmt-dev      937559181915 us-west-2 dev
+sfc-teleport-fips     846892993584 us-west-2
+sfc-uk-prod           627753942153 eu-west-2
+sfc-dev-cps           218011675317 us-west-2
+sfc-dev-temptest      466183604909 us-west-2
+sfc-or-dev-qa         481183930614 us-west-2
+sfc-or-dev-core       054733045038 us-west-2
+sfc-or-dev-networking 522677436944 us-west-2
+sfc-pki-dev           058411503462 us-west-2
+sfc-pki-prod          159866142527 us-west-2
+sfc-kr-prod           800804458756 ap-northeast-2
+sfc-preprod-ds        506257523756 us-west-2
+sfc-or-dev-ci         186770355682 us-west-2
+sfc-or-dev-qa-ds1     774383465531 us-west-2
+sfc-or-dev-snowvm     780534118117 us-west-2
+sfc-se-prod           369291825163 eu-north-1
+"
+
+# _get_account <profile>
+_get_account() {
+    echo "$ACCOUNTS" | grep "^$1\s"
+}
+
+# function acct_list() {
+#   profile="$1"
+#   region='us-west-2'
+#   stage=''
+
+#   esac
+#   echo "${id} ${region} ${stage}"
+# }
+
+function extract_cred() {
+  text="$1"
+  cred="$2"
+
+  echo "${text}" |
+    grep "${cred}" |
+    awk '{print $2}' |
+    sed 's/"//g' |
+    sed 's/,//g'
+}
+
+# set_aws_env_vars <profile> <mfa-token> <role>
+function set_aws_env_vars() {
+  local profile="$1"
+  local mfa_token="$2"
+  local role="$3"
+  local account=( _get_account "$profile" )
+  local id=${account[2]}
+  local region=${account[3]}
+
+  AWS_ACCESS_KEY_ID=$(__user_get_credentials "${profile}-key-id")
+  AWS_SECRET_ACCESS_KEY=$(__user_get_credentials "${profile}-access-key")
+
+  export AWS_ACCESS_KEY_ID
+  export AWS_SECRET_ACCESS_KEY
+  export AWS_DEFAULT_REGION="$region"
+  unset AWS_SESSION_TOKEN
+
+  printf "Logged into %s\n" "$profile"
+
+  if [[ ${ALTER_PS} ]]; then
+    PS1="$(echo ${PS} | sed "s/\\\W/\\\[\\\033[01;33m\\\]\\\${profile} \\\[\\\033[01;34m\\\]\\\W/") "
+  fi
+
+  local basearn="arn:aws:iam"
+  case "$profile" in
+      sfc-ec-mgmt)
+          ;;
+      sfc-ec-*)
+          basearn="arn:aws-us-gov:iam"
+          ;;
+  esac
+
+  local message
+  local creds
+
+  if [ -n "$mfa_token" ]; then
+      creds=$(aws sts get-session-token --duration-seconds 72000 \
+          --serial-number "${basearn}::${id}:mfa/${AWS_USER}" --token-code "$mfa_token")
+                message="Logged into $profile with MFA"
+  fi
+
+  if [ -n "$role" ]; then
+    creds=$(aws sts assume-role \
+      --role-arn "${basearn}::${id}:role/${role}" \
+      --role-session-name "${role}@${profile}")
+    message="Changed role to ${role}@${profile}"
+    if [[ ${ALTER_PS} ]]; then
+      export PS1="$(echo ${PS} | sed "s/\\\W/\\\[\\\033[01;33m\\\]\\\${role}@${profile} \\\[\\\033[01;34m\\\]\\\W/") "
+    fi
+  fi
+
+  SecretAccessKey=$(extract_cred "$creds" 'SecretAccessKey')
+  SessionToken=$(extract_cred "$creds" 'SessionToken')
+  AccessKeyId=$(extract_cred "$creds" 'AccessKeyId')
+
+  export AWS_ACCESS_KEY_ID="${AccessKeyId}"
+  export AWS_SECRET_ACCESS_KEY="${SecretAccessKey}"
+  export AWS_SESSION_TOKEN="${SessionToken}"
+  export AWS_DEFAULT_REGION="${region}"
+  export AWS_ACCT="${profile}"
+  printf "%s\n" "$message"
+}
+
+function cawscreds() {
+  if [[ "$@" ]]; then
+    role='sudo'
+  else
+    role=''
+  fi
+  set_aws_env_vars $(pwd | sed "s/\/Users\/${USER}\/Snowflake\/trunk\/Operations\/IaC\///" | awk -F '/' '{print $1}') "$1" "${role}"
+}
+
+function assume_role() {
+  id="$1"
+  role="$2"
+  profile="$3"
+  basearn=arn:aws:iam
+  if [[ "$(echo ${profile} | grep -- '-ec')" ]]; then
+  basearn=arn:aws-us-gov:iam
+  fi
+
+  assume_role=$(aws sts assume-role \
+    --role-arn ${basearn}::${id}:role/${role} \
+    --role-session-name "${role}@${acct_name}")
+  echo "Logged to ${role}@${p:Trofile}."
+
+  SecretAccessKey=$(extract_cred "${assume_role}" 'SecretAccessKey')
+  SessionToken=$(extract_cred "${assume_role}" 'SessionToken')
+  AccessKeyId=$(extract_cred "${assume_role}" 'AccessKeyId')
+
+  export AWS_ACCESS_KEY_ID="${AccessKeyId}"
+  export AWS_SECRET_ACCESS_KEY="${SecretAccessKey}"
+  export AWS_SESSION_TOKEN="${SessionToken}"
+  export AWS_DEFAULT_REGION="${region}"
+  export AWS_ACCT="${profile}"
+
+  if [[ ${ALTER_PS} ]]; then
+    export PS1="$(echo ${PS} | sed "s/\\\W/\\\[\\\033[01;33m\\\]\\\${role}@${profile} \\\[\\\033[01;34m\\\]\\\W/") "
+  fi
+}
+
+# __user_add_credentials <account> <value>
+__user_add_credentials() {
+    security add-generic-password -a "$USER" -s "$1" -w "$2" -U
+}
+
+# __user_get_credentials <account>
+__user_get_credentials() {
+  security find-generic-password -a "$USER" -s "$1" -w
+}
+
+# __save_aws_env_vars <prefix>
+__save_aws_env_vars() {
+    local prefix=$1
+    __user_add_credentials "${prefix}_AWS_ACCESS_KEY_ID" "$AWS_ACCESS_KEY_ID"
+    __user_add_credentials "${prefix}_AWS_SECRET_ACCESS_KEY" "$AWS_SECRET_ACCESS_KEY"
+    __user_add_credentials "${prefix}_AWS_SESSION_TOKEN" "$AWS_SESSION_TOKEN"
+}
+
+function basaccess() {
+  local prod_bas_mfa="$1"
+  local dev_bas_mfa="$2"
+  local data_bas_mfa="$3"
+
+  if [[ ! "$1" ]]; then
+    echo "Usage: basaccess <sfc-bastion duo token> <sfc-bastion-dev duo token>"
+    echo "       basaccess <sfc-bastion-dev duo token>"
+    return 1
+  fi
+
+  if [[ ! "$2" ]]; then
+    dev_bas_mfa="$1"
+  else
+    set_aws_env_vars sfc-bastion "${prod_bas_mfa}"
+    __save_aws_env_vars "PROD_BASTION"
+  fi
+
+  set_aws_env_vars sfc-bastion-dev "${dev_bas_mfa}"
+  __save_aws_env_vars "DEV_BASTION"
+
+  if [[ "$3" ]]; then
+      set_aws_env_vars sfc-bastion-data "${data_bas_mfa}"
+      __save_aws_env_vars "DATA_BASTION"
+  fi
+
+  if [[ ${ALTER_PS} ]]; then
+    export PS1="${PS}"
+  fi
+}
+
+function basaccess_gov() {
+  EC_BAS_MFA="$1"
+
+  if [[ ! "$1" ]]; then
+    echo "Usage: basaccess_gov <sfc-ec-bastion duo token>"
+    return 1
+  fi
+
+  set_aws_env_vars sfc-ec-bastion "${EC_BAS_MFA}"
+  security add-generic-password -a ${USER} -s EC_BASTION_AWS_ACCESS_KEY_ID -w ${AWS_ACCESS_KEY_ID} -U
+  security add-generic-password -a ${USER} -s EC_BASTION_AWS_SECRET_ACCESS_KEY -w ${AWS_SECRET_ACCESS_KEY} -U
+  security add-generic-password -a ${USER} -s EC_BASTION_AWS_SESSION_TOKEN -w ${AWS_SESSION_TOKEN} -U
+}
+
+function basaccess_ec_mgmt() {
+  EC_MGMT_MFA="$1"
+
+  if [[ ! "$1" ]]; then
+    echo "Usage: basaccess_ec_mgmt <sfc-ec-mgmt duo token>"
+    return 1
+  fi
+
+  set_aws_env_vars sfc-ec-mgmt "${EC_MGMT_MFA}"
+  security add-generic-password -a ${USER} -s EC_MGMT_AWS_ACCESS_KEY_ID -w ${AWS_ACCESS_KEY_ID} -U
+  security add-generic-password -a ${USER} -s EC_MGMT_AWS_SECRET_ACCESS_KEY -w ${AWS_SECRET_ACCESS_KEY} -U
+  security add-generic-password -a ${USER} -s EC_MGMT_AWS_SESSION_TOKEN -w ${AWS_SESSION_TOKEN} -U
+}
+
+function extract_bastion_env_vars() {
+  prefix="$1"
+
+  export AWS_ACCESS_KEY_ID=$(security find-generic-password -a ${USER} -s ${prefix}BASTION_AWS_ACCESS_KEY_ID -w)
+  export AWS_SECRET_ACCESS_KEY=$(security find-generic-password -a ${USER} -s ${prefix}BASTION_AWS_SECRET_ACCESS_KEY -w)
+  export AWS_SESSION_TOKEN=$(security find-generic-password -a ${USER} -s ${prefix}BASTION_AWS_SESSION_TOKEN -w)
+}
+
+function assume_bas_role() {
+  acct_name="$1"
+  role="$2"
+  if [[ "$(echo ${acct_name} | grep -- '-ds\|-es[1-2]')" ]]; then
+    bastion_pre='DATA_'
+  elif [[ "$(echo ${acct_name} | grep -- '-ec')" ]]; then
+    bastion_pre='EC_'
+  elif [[ "$(echo ${acct_name} | grep '^azure\|prod\|mgmt\|log\|teleport$' | grep -v 'preprod\|nonprod')" ]]; then
+    bastion_pre='PROD_'
+  else
+    bastion_pre='DEV_'
+  fi
+  id_reg=$(acct_list ${acct_name})
+  id=$(echo ${id_reg} | awk '{print $1}')
+  region=$(echo ${id_reg} | awk '{print $2}')
+  stage=$(echo ${id_reg} | awk '{print $3}')
+  if [[ ! -z "$stage" ]]; then
+     bastion_pre="$(echo "$stage" | awk '{print toupper($0)}')_"
+  fi
+  export AWS_DEFAULT_REGION="${region}"
+  export AWS_ACCT="${acct_name}"
+  extract_bastion_env_vars ${bastion_pre}
+
+  assume_role ${id} ${role} ${acct_name}
+}
+
+function bas() {
+  extract_bastion_env_vars "$(echo $1 | tr '[:lower:]' '[:upper:]')_"
+}
+
+function admin() {
+  [[ "$(echo $1 | grep -- '-ds\|-es1')" ]] && role='builder' || role='admin'
+  assume_bas_role "$1" "${role}"
+}
+
+function adminrole() {
+  [[ "$(echo $1 | grep -- '-ds\|-es1')" ]] && role='builder' || role='AdminRole'
+  assume_bas_role "$1" "${role}"
+}
+
+function poweruser() {
+  [[ "$(echo $1 | grep -- '-ec')" ]] && role='builder' || role='powerUser'
+  assume_bas_role "$1" "powerUser"
+}
+
+function builder() {
+  assume_bas_role "$1" builder
+}
+
+function visitor() {
+  assume_bas_role "$1" visitor
+}
+
+function cadmin() {
+  acct=$(pwd | sed 's/^.*\/IaC\///' | awk -F '/' '{print $1}')
+
+  admin ${acct}
+}
+function cvisitor() {
+  acct=$(pwd | sed 's/^.*\/IaC\///' | awk -F '/' '{print $1}')
+
+  visitor ${acct}
+}
+
+function renew() {
+  admin ${AWS_ACCT}
+}
+
+function ad() {
+  admin sfc-"$1"
+}
+
+function vis() {
+  visitor sfc-"$1"
+}
