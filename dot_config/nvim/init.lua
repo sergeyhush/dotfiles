@@ -1,4 +1,10 @@
+vim.defer_fn(function()
+  pcall(require, "impatient")
+end, 0)
+
 require('plugins')
-require('mappings')
 require('settings')
+require('settings.completion')
+require('mappings')
 require('autocmd')
+require('config.lsp')
