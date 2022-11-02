@@ -1,0 +1,2 @@
+neogit.setup({})
+
