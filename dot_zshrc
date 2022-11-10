@@ -58,3 +58,4 @@ HISTFILESIZE=99999
 SAVEHIST=$HISTSIZE
 
 eval "$(starship init zsh)"
+export PATH="/opt/homebrew/opt/go@1.18/bin:$PATH"
