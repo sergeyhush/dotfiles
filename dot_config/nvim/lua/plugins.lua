@@ -60,7 +60,7 @@ use {'VonHeikemen/lsp-zero.nvim',
 use {'williamboman/mason.nvim', config = [[require('config.mason')]]}
 use {'williamboman/mason-lspconfig.nvim', config = [[require('config.mason-lspconfig')]]}
 -- use {'neovim/nvim-lspconfig', config = [[require('config.lsp')]] }
-use {'neovim/nvim-lspconfig'}
+-- use {'neovim/nvim-lspconfig'}
 use {'onsails/lspkind-nvim'}
 use {'weilbith/nvim-code-action-menu', cmd = 'CodeActionMenu'}
 
