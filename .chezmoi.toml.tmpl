@@ -1,4 +1,3 @@
-{{- $email := promptStringOnce . "email" "Email address" -}}
 {{- $email := "" -}}
 {{- if (hasKey . "email") -}}
 {{-   $email = .email -}}
