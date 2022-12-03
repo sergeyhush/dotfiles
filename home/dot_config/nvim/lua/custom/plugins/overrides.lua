@@ -13,7 +13,8 @@ M.mason = {
   ensure_installed = {
     "goimports",
     "gopls",
-    "terraform-language-server",
+    "terraform-ls",
+    "lua-language-server",
   },
 }
 
