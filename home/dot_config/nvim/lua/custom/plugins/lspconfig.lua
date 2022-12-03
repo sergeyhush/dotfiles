@@ -4,10 +4,10 @@ local capabilities = require("plugins.configs.lspconfig").capabilities
 
 local lspconfig = require "lspconfig"
 local servers = { 
-     "gopls", 
+  "gopls", 
   "marksman", 
+  "sumneko_lua",
   "yamlls",
-  "lua-language-server"
 }
 
 for _, lsp in ipairs(servers) do
