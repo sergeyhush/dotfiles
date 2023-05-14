@@ -1,0 +1,4 @@
+[user]
+    name = Sergey Sudakovich
+[includeIf "gitdir:~/work/"]
+    path = ~/work/.gitconfig
