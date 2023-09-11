@@ -12,8 +12,29 @@ require("lazy").setup({
     { "LazyVim/LazyVim", import = "lazyvim.plugins" },
     -- import any extras modules here
     -- { import = "lazyvim.plugins.extras.lang.typescript" },
-    -- { import = "lazyvim.plugins.extras.lang.json" },
     -- { import = "lazyvim.plugins.extras.ui.mini-animate" },
+    { import = "lazyvim.plugins.extras.coding.yanky" },
+    { import = "lazyvim.plugins.extras.dap.core" },
+    { import = "lazyvim.plugins.extras.lang.docker" },
+    { import = "lazyvim.plugins.extras.lang.go" },
+    { import = "lazyvim.plugins.extras.lang.json" },
+    { import = "lazyvim.plugins.extras.lang.python" },
+    { import = "lazyvim.plugins.extras.lang.terraform" },
+    { import = "lazyvim.plugins.extras.test.core" },
+    { import = "lazyvim.plugins.extras.util.project" },
+    {
+      import = "lazyvim.plugins.extras.editor.mini-files",
+      opts = {
+        windows = {
+          preview = true,
+        },
+        options = {
+          -- Whether to use for editing directories
+          -- Disabled by default in LazyVim because neo-tree is used for that
+          use_as_default_explorer = false,
+        },
+      },
+    },
     -- import/override with your plugins
     { import = "plugins" },
   },
