@@ -1,6 +1,2 @@
-[user]
-    name = Sergey Sudakovich
-[url "git@github.com:"]
-    insteadOf = "https://github.com/"
 [includeIf "gitdir:~/work/"]
     path = ~/work/.gitconfig
