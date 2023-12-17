@@ -1,6 +1,23 @@
+# import = ["~/.config/alacritty/dracula.toml"]
+#
+# working_directory: "~/work/src"
 env:
   TERM: xterm-256color
+selection:
+  save_to_clipboard: true
 window:
   decorations: buttonless
 font:
   size: 14.0
+  normal:
+    family: "SFMono Nerd Font"
+    style: Medium
+  italic:
+    family: "SFMono Nerd Font"
+    style: Medium Italic
+  bold:
+    family: "SFMono Nerd Font"
+    style: Heavy
+  bold_italic:
+    family: "SFMono Nerd Font"
+    style: Heavy Italic
