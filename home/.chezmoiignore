@@ -4,3 +4,4 @@ bootstrap.sh
 .zsh/plugins/**/*
 .config/nvim/plugin/packer_compiled.lua
 .oh-my-zsh/custom/plugins
+.config/fish/fish_variables
