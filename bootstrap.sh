@@ -19,7 +19,7 @@ chezmoi init sergeyhush --apply --force --branch chezmoi
 # Homebrew
 if ! command -v brew &>/dev/null 2>&1; then
     echo "Installing homebrew..."
-    ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+    ruby -e $(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)
 fi
 brew analytics off
 brew bundle --global
