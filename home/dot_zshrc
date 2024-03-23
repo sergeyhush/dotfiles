@@ -40,15 +40,13 @@ fi
 
 plugins=(
     alias-tips
+    aws
     common-aliases
-    direnv
-    dotenv
     fd
     fzf
     gh
     git
     golang
-    iterm2
     kubectl
     pyenv
     ssh-agent
@@ -57,9 +55,12 @@ plugins=(
     vi-mode
     zoxide
     zsh-autosuggestions
+    zsh-completions
     zsh-syntax-highlighting
 )
 source "${ZSH}/oh-my-zsh.sh"
+
+zstyle ':completion:*' fzf-search-display true
 
 fpath=(~/.zsh/functions $fpath)
 autoload -Uz $fpath[1]/*(.:t)
@@ -77,3 +78,7 @@ HISTFILESIZE=99999
 SAVEHIST=$HISTSIZE
 
 eval "$(starship init zsh)"
+eval "$(atuin init zsh)"
+
+# do not need this one
+unalias t
