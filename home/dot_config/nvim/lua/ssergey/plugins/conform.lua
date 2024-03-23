@@ -3,7 +3,7 @@ return { -- Autoformat
     event = { "BufWritePre" },
     keys = {
         {
-            "<leader>f",
+            "<leader>fm",
             function()
                 require("conform").format({ async = true, lsp_fallback = true })
             end,
