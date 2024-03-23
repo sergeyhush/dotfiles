@@ -1,4 +1,8 @@
+[user]
+    name = Sergey Sudakovich
+    email = sergey.sudakovich@snowflake.com
 [includeIf "gitdir:~/work/"]
     path = ~/work/.gitconfig
-[includeIf "gitdir:~/personal/"]
-    path = ~/personal/.gitconfig
+[credential]
+	helper = cache
+	credentialStore = keychain
