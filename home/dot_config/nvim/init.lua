@@ -1,4 +1,2 @@
-require("ssergey.config.options")
-require("ssergey.config.autocmds")
-require("ssergey.config.mappings")
-require("ssergey.config.lazy")
+-- bootstrap lazy.nvim, LazyVim and your plugins
+require("config.lazy")
