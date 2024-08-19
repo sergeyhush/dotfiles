@@ -1,6 +1,6 @@
 [user]
     name = Sergey Sudakovich
-    email = sergey.sudakovich@snowflake.com
+    email = {{ .email | quote }}
 [includeIf "gitdir:~/work/"]
     path = ~/work/.gitconfig
 [credential]
