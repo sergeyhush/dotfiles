@@ -1,8 +1,0 @@
-[user]
-    name = Sergey Sudakovich
-    email = {{ .email | quote }}
-[includeIf "gitdir:~/work/"]
-    path = ~/work/.gitconfig
-[credential]
-	helper = cache
-	credentialStore = keychain
