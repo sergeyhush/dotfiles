@@ -24,3 +24,6 @@ end
 alias ss='sanssh'
 # alias ssc='export SANSSHELL_PROXY=$(sanssh clusters | fzf | xargs | awk "{print \$NF}")'
 # alias sslsip='f(){tshlsip $1 | paste -sd, -};f'
+
+# DevEnv
+sf aliases --fish-shell | source
