@@ -7,9 +7,4 @@ jobs:
       - uses: actions/checkout@master
       - name: Full install
         run: |
-          mkdir -p $HOME/.config/chezmoi/ $HOME/.local/share
-          touch $HOME/.config/chezmoi/chezmoi.toml
-          echo '  [data]' >> $HOME/.config/chezmoi/chezmoi.toml
-          echo '    email = "john.doe@example.com"' >> $HOME/.config/chezmoi/chezmoi.toml
-          echo '    fullname = "John Doe"' >> $HOME/.config/chezmoi/chezmoi.toml
           ./bootstrap.sh
