@@ -1,12 +1,6 @@
 [user]
-	email = sergey.sudakovich@snowflake.com
+	email = {{ .email | quote }}
 	name = Sergey Sudakovich
 [credential]
 	helper = 
 	helper = /usr/local/share/gcm-core/git-credential-manager
-[credential "https://dev.azure.com"]
-	useHttpPath = true
-[credential "https://github.com/snowflakedb"]
-	username = sfc-gh-ssudakovich
-[init]
-	templateDir = /Users/ssudakovich/.git-template
