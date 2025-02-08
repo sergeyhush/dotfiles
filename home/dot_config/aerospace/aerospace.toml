@@ -24,7 +24,7 @@ exec-on-workspace-change = [
 ]
 
 # Start AeroSpace at login
-start-at-login = false
+start-at-login = true
 
 # Normalizations. See: https://nikitabobko.github.io/AeroSpace/guide#normalization
 enable-normalization-flatten-containers = true
@@ -104,6 +104,15 @@ outer.right = 5
 #     activate
 # end tell'
 # '''
+
+# App shortcuts
+alt-b = 'exec-and-forget open -a /Applications/Google Chrome.app'
+alt-c = 'exec-and-forget open -a /Applications/Visual Studio Code.app/'
+alt-o = 'exec-and-forget open -a /Applications/Obsidian.app/'
+alt-s = 'exec-and-forget open -a /Applications/Slack.app/'
+alt-t = 'exec-and-forget open -a /Applications/Ghostty.app/'
+alt-z = 'exec-and-forget open -a /Applications/zoom.us.app/'
+
 
 # See: https://nikitabobko.github.io/AeroSpace/commands#layout
 ctrl-shift-alt-slash = 'layout tiles horizontal vertical'
