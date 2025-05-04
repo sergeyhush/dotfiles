@@ -1,1 +1,0 @@
-# [`EditorConfig`](https://editorconfig.org/)
