@@ -4,7 +4,7 @@ jobs:
   build_and_test:
     runs-on: macos-latest
     steps:
-      - uses: actions/checkout@master
+      - name: Checkout
+        uses: actions/checkout@v4
       - name: Full install
-        run: |
-          ./bootstrap.sh
+        run: ./bootstrap.sh
