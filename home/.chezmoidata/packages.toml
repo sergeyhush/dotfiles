@@ -1,0 +1,25 @@
+[packages.homebrew]
+    [packages.homebrew.common]
+        casks = [
+            "1password",
+            "1password-cli",
+            "flux",
+            "ghostty",
+            "git-credential-manager",
+            "obsidian",
+            "rectangle-pro",
+            "visual-studio-code",
+            "zoom",
+        ]
+        formulae = [
+            "atuin",           # Better shell history
+            "coreutils",
+            "fd",
+            "fish",
+            "fzf",
+            "jq",
+            "neovim",
+            "ripgrep",
+            "ssh-copy-id",
+            "zoxide",
+        ]

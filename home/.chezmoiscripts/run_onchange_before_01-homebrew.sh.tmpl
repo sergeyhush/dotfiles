@@ -1,0 +1,22 @@
+{{- if eq .chezmoi.os "darwin" -}}
+#!/usr/bin/env bash
+echo "> Install homebrew packages"
+
+export HOMEBREW_NO_INSTALL_UPGRADE=TRUE
+export HOMEBREW_NO_INSTALL_CLEANUP=1
+{{- if .personal }}
+export HOMEBREW_CASK_OPTS="--appdir=/Applications --fontdir=/Library/Fonts"
+{{- end }}
+
+BREW_DIR="$(brew --prefix)/bin/"
+brew update
+brew bundle --file=- <<-EOS
+{{ range .packages.homebrew.common.formulae }}
+brew {{ . | quote }}
+{{ end }}
+{{ range .packages.homebrew.common.casks }}
+cask {{ . | quote }}
+{{ end }}
+EOS
+
+{{- end }}
