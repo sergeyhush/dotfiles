@@ -9,7 +9,9 @@ echo "> Setting macOS defaults..."
 osascript -e 'tell application "System Preferences" to quit'
 
 # Ask for the administrator password upfront
+{{- if eq .env.CI "true" -}}
 sudo -v
+{{- end -}}
 
 # Disable the sound effects on boot
 sudo nvram SystemAudioVolume=" "
