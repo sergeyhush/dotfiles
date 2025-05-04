@@ -1,26 +1,19 @@
 [user]
-	email = {{ .email|quote }}
-	name = {{ .fullname }}
+email = {{ .email|quote }}
+name = {{ .fullname }}
 [init]
-	templateDir = /Users/ssudakovich/.git-template
-[url "git@github.com:"]
-     insteadOf = "https://github.com/"
+templateDir = /Users/ssudakovich/.git-template
 [credential "https://github.com"]
-         helper =
-         helper = !/opt/homebrew/bin/gh auth git-credential
+helper =
+helper = !/opt/homebrew/bin/gh auth git-credential
 [credential "https://gist.github.com"]
-         helper =
-         helper = !/opt/homebrew/bin/gh auth git-credential
-[credential]
-	helper =
-	helper = /usr/local/share/gcm-core/git-credential-manager
-[credential "https://dev.azure.com"]
-	useHttpPath = true
+helper =
+helper = !/opt/homebrew/bin/gh auth git-credential
 [filter "lfs"]
-	clean = git-lfs clean -- %f
-	smudge = git-lfs smudge -- %f
-	process = git-lfs filter-process
-	required = true
+clean = git-lfs clean -- %f
+smudge = git-lfs smudge -- %f
+process = git-lfs filter-process
+required = true
 [alias]
 # checkout and pull the default branch
 m = !git rev-parse --abbrev-ref origin/HEAD | cut -c8- | xargs -n 1 git checkout && git pull origin $(git rev-parse --abbrev-ref HEAD)
