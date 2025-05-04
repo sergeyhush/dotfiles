@@ -1,9 +1,10 @@
-fish_add_path /usr/local/bin
 fish_add_path $HOME/bin
-
-# homebrew
+fish_add_path $HOME/go/bin
 fish_add_path /opt/homebrew/bin
 fish_add_path /opt/homebrew/opt/binutils/bin
+fish_add_path /usr/local/bin
+fish_add_path /usr/local/go/bin
+
 set -gx HOMEBREW_NO_EMOJI 1
 set -gx HOMEBREW_NO_ANALYTICS 1
 
@@ -20,8 +21,6 @@ set -gx AWS_PAGER ""
 set fzf_directory_opts --bind "ctrl-o:execute($EDITOR {} &> /dev/tty)"
 
 #Golang
-fish_add_path $HOME/go/bin
-fish_add_path /usr/local/go/bin
 
 #set fish_tmux_autostart true
 
