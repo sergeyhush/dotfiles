@@ -8,12 +8,12 @@ export HOMEBREW_NO_INSTALL_CLEANUP=1
 mkdir -p $HOME/.config/chezmoi/ $HOME/.local/share
 cat  > $HOME/.config/chezmoi/chezmoi.toml << EOF
 [data]
-  fullname = "John Doe"
-  email = "john.doe@example.com"
-  personal = true
+    fullname = "John Doe"
+    email = "john.doe@example.com"
+    personal = true
 [git]
-  autoCommit = false
-  autoPush = false
+    autoCommit = false
+    autoPush = false
 EOF
 
 # Chezmoi
