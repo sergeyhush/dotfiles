@@ -1,0 +1,86 @@
+filetype plugin indent on   " Automatically detect file types.
+syntax on                   " Syntax highlighting
+syntax enable
+
+set autoindent                  " Indent at the same level of the previous line
+set autowrite                 " write content on :make
+set background=dark
+set backspace=indent,eol,start  " Backspace for dummies
+set copyindent
+set cursorline                  " Highlight current line   "
+set encoding=utf-8             " The encoding displayed
+set expandtab                   " Tabs are spaces, not tabs
+set fileencoding=utf-8  " The encoding written to file.
+set foldenable                  " Auto fold code
+set hidden                          " Allow buffer switching without saving
+set history=1000                    " Store a ton of history (default is 20)
+set hlsearch                    " Highlight search terms
+set ignorecase                  " Case insensitive search
+set incsearch                   " Find as you type search
+set iskeyword-=#                    " '#' is an end of word designator
+set iskeyword-=-                    " '-' is an end of word designator         "
+set iskeyword-=.                    " '.' is an end of word designator
+set linespace=0                 " No extra spaces between rows
+set list
+set listchars=tab:›\ ,trail:•,extends:#,nbsp:. " Highlight problematic whitespace                "
+set mouse=a                 " Automatically enable mouse usage
+set mousehide               " Hide the mouse cursor while typing
+set nocompatible              " be iMproved, required
+set noerrorbells         " don't beep
+set nojoinspaces                " Prevents inserting two spaces after punctuation on a join (J)
+set nowrap                      " Do not wrap long lines
+set number                      " Line numbers on
+set scrolljump=5                " Lines to scroll when cursor leaves screen
+set scrolloff=3                 " Minimum lines to keep above and below cursor
+set shiftwidth=4                " Use indents of 4 spaces
+set shortmess+=filmnrxoOtT          " Abbrev. of messages (avoids 'hit enter')
+set showmatch                   " Show matching brackets/parenthesis
+set showmode                    " Display the current mode
+set smartcase                   " Case sensitive when uc present
+set smarttab
+set softtabstop=4               " Let backspace delete indent
+set spell                           " Spell checking on
+set splitbelow                  " Puts new split windows to the bottom of the current         "
+set splitright                  " Puts new vsplit windows to the right of the current
+set tabpagemax=15               " Only show 15 tabs
+set tabstop=4                   " An indentation every four columns
+set viewoptions=folds,options,cursor,unix,slash " Better Unix / Windows compatibility
+set virtualedit=onemore             " Allow for cursor beyond last character
+set visualbell           " don't beep
+set whichwrap=b,s,h,l,<,>,[,]   " Backspace and cursor keys wrap too
+set wildmenu                    " Show list instead of just completing
+set wildmode=list:longest,full  " Command <Tab> completion, list matches, then longest common part, then all.
+set winminheight=0              " Windows can be 0 line high
+
+let g:solarized_termtrans = 1
+let g:solarized_termcolors=256
+
+if has('clipboard')
+    if has('unnamedplus')
+        set clipboard=unnamed,unnamedplus
+    else
+        set clipboard=unnamed
+    endif
+    if $TMUX == ''
+        set clipboard=unnamed
+    endif
+endif
+
+" Key bindings
+nnoremap <SPACE> <Nop>
+let mapleader=" "
+nmap <C-j> <C-w>j
+nmap <C-k> <C-w>k
+nmap <C-h> <C-w>h
+nmap <C-l> <C-w>l
+tnoremap <C-h> <C-\><C-N><C-w>h
+tnoremap <C-j> <C-\><C-N><C-w>j
+tnoremap <C-k> <C-\><C-N><C-w>k
+tnoremap <C-l> <C-\><C-N><C-w>l
+tnoremap <Esc> <C-\><C-n>
+nnoremap <Down> gj
+nnoremap <Up> gk
+vnoremap <Down> gj
+vnoremap <Up> gk
+
+au FocusLost * silent! wa       " Save all on lost focus

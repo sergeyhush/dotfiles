@@ -1,0 +1,15 @@
+{{- if (env "CI") -}}
+{{-     $email = "test@email.com" -}}
+{{-     $personal = true -}}
+{{- end -}}
+
+{{ $email := promptStringOnce . "email" "Email address" "sergey@sudakovich.com" }}
+{{ $personal := promptBoolOnce . "personal" "Is this a personal machine" }}
+
+[data]
+    fullname = "Sergey Sudakovich"
+    email = {{ $email | quote }}
+    personal = {{ $personal }}
+[git]
+    autoCommit = true
+    autoPush = true
