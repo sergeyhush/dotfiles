@@ -5,16 +5,7 @@ set -exuo pipefail
 export HOMEBREW_NO_AUTO_UPDATE=1
 export HOMEBREW_NO_INSTALL_CLEANUP=1
 
-mkdir -p $HOME/.config/chezmoi/ $HOME/.local/share
-cat >$HOME/.config/chezmoi/chezmoi.toml.tmpl <<EOF
-[data]
-    fullname = "John Doe"
-    email = "john.doe@example.com"
-    personal = true
-[git]
-    autoCommit = false
-    autoPush = false
-EOF
+# mkdir -p $HOME/.config/chezmoi/ $HOME/.local/share
 
 # Chezmoi
 if ! command -v chezmoi &>/dev/null; then
