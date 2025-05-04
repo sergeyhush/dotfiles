@@ -3,6 +3,10 @@ on: [push]
 jobs:
   build_and_test:
     runs-on: macos-latest
+    env:
+      CI: true
+      HOMEBREW_NO_AUTO_UPDATE: 1
+      HOMEBREW_NO_INSTALL_CLEANUP: 1
     steps:
       - name: Checkout
         uses: actions/checkout@v4
