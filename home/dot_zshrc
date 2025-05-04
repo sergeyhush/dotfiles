@@ -10,6 +10,9 @@ export BINUTILS=/opt/homebrew/opt/binutils/bin
 export ULSBIN=/usr/local/sbin
 export HOMEBREWBIN=/opt/homebrew/bin
 export DISABLE_LS_COLORS=true
+export GOPATH=$HOME/go
+export GOBIN=$GOPATH/bin
+export TFENV_ARCH=amd64
 
 # FZF
 if (( $+commands[fd] )); then
@@ -18,47 +21,14 @@ if (( $+commands[fd] )); then
   export FZF_ALT_C_COMMAND="fd -t d --hidden --follow --exclude \".git\" . $HOME/work/src"
 fi
 
-# Golang
-export GOPATH=$HOME/go
-export GOBIN=$GOPATH/bin
-
-# tfenv
-export TFENV_ARCH=amd64
-
 # pyenv
 export PYENV_ROOT="$HOME/.pyenv"
 export PYENV_BIN="$PYENV_ROOT/bin"
-eval "$(pyenv init --path)"
+if (( $+commands[pyenv] )); then
+  eval "$(pyenv init --path)"
+fi
 
 export PATH="$GOBIN:$ULSBIN:$HOMEBREWBIN:$BINUTILS:$PYENV_BIN:$PATH"
-
-# oh-my-zsh
-export ZSH="$HOME/.oh-my-zsh"
-#if [ -z "$INTELLIJ_ENVIRONMENT_READER" ]; then
-#  export ZSH_TMUX_AUTOSTART=true
-#fi
-
-plugins=(
-    alias-tips
-    aws
-    common-aliases
-    fd
-    fzf
-    gh
-    git
-    golang
-    kubectl
-    pyenv
-    ssh-agent
-    terraform
-    tmux
-    vi-mode
-    zoxide
-    zsh-autosuggestions
-    zsh-completions
-    zsh-syntax-highlighting
-)
-# source "${ZSH}/oh-my-zsh.sh"
 
 zstyle ':completion:*' fzf-search-display true
 
@@ -78,7 +48,3 @@ HISTFILESIZE=99999
 SAVEHIST=$HISTSIZE
 
 eval "$(starship init zsh)"
-
-# do not need this one
-unalias t
-# eval "$(sf aliases)"
