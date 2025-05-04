@@ -1,10 +1,20 @@
-{{- if (env "CI") -}}
-{{-     $email = "test@email.com" -}}
-{{-     $personal = true -}}
+{{- $email := "sergey@sudakovich.com" -}}
+{{- $personal := false -}}
+
+{{/* work around unreliable hostname on darwin */}}
+{{- $hostname := .chezmoi.hostname -}}
+{{- if eq .chezmoi.os "darwin" -}}
+{{-   $computerName := output "scutil" "--get" "ComputerName" | trim -}}
+{{-   if eq $computerName "Sergey’s MacBook Air" -}}
+{{-     $hostname = "sergeys-mba" -}}
+{{-   else -}}
+{{-     $hostname = $computerName -}}
+{{-   end -}}
 {{- end -}}
 
-{{ $email := promptStringOnce . "email" "Email address" "sergey@sudakovich.com" }}
-{{ $personal := promptBoolOnce . "personal" "Is this a personal machine" }}
+{{- if eq $hostname "sergeys-mba" -}}
+{{-     $personal = true -}}
+{{- end -}}
 
 [data]
     fullname = "Sergey Sudakovich"
@@ -12,4 +22,4 @@
     personal = {{ $personal }}
 [git]
     autoCommit = true
-    autoPush = true
+    autoPush = false
