@@ -81,4 +81,4 @@ eval "$(starship init zsh)"
 
 # do not need this one
 unalias t
-# eval $(sf auth aliases)
+# eval "$(sf aliases)"
