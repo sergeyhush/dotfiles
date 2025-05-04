@@ -68,12 +68,12 @@ preset = 'qwerty'
 #                 Monitor pattern is the same as for 'workspace-to-monitor-force-assignment'.
 #                 See: https://nikitabobko.github.io/AeroSpace/guide#assign-workspaces-to-monitors
 [gaps]
-inner.horizontal = 5
-inner.vertical = 5
-outer.left = 5
-outer.bottom = 5
-outer.top = 5
-outer.right = 5
+inner.horizontal = 2
+inner.vertical = 2
+outer.left = 2
+outer.bottom = 2
+outer.top = 2
+outer.right = 2
 
 # 'main' binding mode declaration
 # See: https://nikitabobko.github.io/AeroSpace/guide#binding-modes
@@ -106,7 +106,7 @@ outer.right = 5
 # '''
 
 # App shortcuts
-alt-b = 'exec-and-forget open -a /Applications/Google Chrome.app'
+alt-b = 'exec-and-forget open -a "Google Chrome"'
 alt-c = 'exec-and-forget open -a /Applications/Visual Studio Code.app/'
 alt-o = 'exec-and-forget open -a /Applications/Obsidian.app/'
 alt-s = 'exec-and-forget open -a /Applications/Slack.app/'
@@ -128,7 +128,7 @@ ctrl-shift-alt-cmd-space = 'fullscreen'
 
 # See: https://nikitabobko.github.io/AeroSpace/commands#move
 ctrl-shift-alt-cmd-h = 'move left'
-ctrl-shift-alt-cmd-j = 'move left'
+ctrl-shift-alt-cmd-j = 'move down'
 ctrl-shift-alt-cmd-k = 'move up'
 ctrl-shift-alt-cmd-l = 'move right'
 
@@ -137,15 +137,15 @@ alt-shift-minus = 'resize smart -50'
 alt-shift-equal = 'resize smart +50'
 
 # See: https://nikitabobko.github.io/AeroSpace/commands#workspace
-ctrl-shift-alt-1 = 'workspace 1'
-ctrl-shift-alt-2 = 'workspace 2'
-ctrl-shift-alt-3 = 'workspace 3'
-ctrl-shift-alt-4 = 'workspace 4'
-ctrl-shift-alt-5 = 'workspace 5'
-ctrl-shift-alt-6 = 'workspace 6'
-ctrl-shift-alt-7 = 'workspace 7'
-ctrl-shift-alt-8 = 'workspace 8'
-ctrl-shift-alt-9 = 'workspace 9'
+alt-1 = 'workspace 1'
+alt-2 = 'workspace 2'
+alt-3 = 'workspace 3'
+alt-4 = 'workspace 4'
+alt-5 = 'workspace 5'
+alt-6 = 'workspace 6'
+alt-7 = 'workspace 7'
+alt-8 = 'workspace 8'
+alt-9 = 'workspace 9'
 # ctrl-shift-alt-a = 'workspace A' # In your config, you can drop workspace bindings that you don't need
 # ctrl-shift-alt-b = 'workspace B'
 # ctrl-shift-alt-c = 'workspace C'
@@ -161,7 +161,7 @@ ctrl-shift-alt-9 = 'workspace 9'
 # ctrl-shift-alt-q = 'workspace Q'
 # ctrl-shift-alt-r = 'workspace R'
 # ctrl-shift-alt-s = 'workspace S'
-# ctrl-shift-alt-t = 'workspace T'
+# alt-t = 'workspace T'
 # ctrl-shift-alt-u = 'workspace U'
 # ctrl-shift-alt-v = 'workspace V'
 # ctrl-shift-alt-w = 'workspace W'
@@ -236,3 +236,7 @@ run = ["layout floating"]
 [[on-window-detected]]
 if.app-id = "com.mitchellh.ghostty"
 run = ["layout tiling"]
+
+[[on-window-detected]]
+if.app-name-regex-substring = 'finder'
+run = 'layout floating'
