@@ -17,9 +17,11 @@
             "fd",
             "fish",
             "fzf",
+            "git",
             "jq",
             "neovim",
             "ripgrep",
             "ssh-copy-id",
+            "starship",
             "zoxide",
         ]
