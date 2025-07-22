@@ -18,8 +18,10 @@ formulae = [
     "git",
     "jq",
     "neovim",
+    "mise",
     "ripgrep",
     "ssh-copy-id",
     "starship",
+    "uv",
     "zoxide",
 ]
