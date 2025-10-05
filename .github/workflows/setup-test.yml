@@ -11,5 +11,4 @@ jobs:
       - uses: actions/checkout@v5
       - shell: bash
         run: |
-          brew untap caskroom/versions
           ./bootstrap.sh
