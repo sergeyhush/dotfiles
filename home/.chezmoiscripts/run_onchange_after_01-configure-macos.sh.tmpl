@@ -16,9 +16,11 @@ fi
 # Disable the sound effects on boot
 sudo nvram SystemAudioVolume=" "
 
-echo "> Using fish shell"
-if [ "$SHELL" != "/opt/homebrew/bin/fish" ]; then
-    echo /opt/homebrew/bin/fish | sudo tee -a /etc/shells
-    chsh -s /opt/homebrew/bin/fish
+if [[ "$CI" != "true" ]]; then
+    echo "> Using fish shell"
+    if [ "$SHELL" != "/opt/homebrew/bin/fish" ]; then
+        echo /opt/homebrew/bin/fish | sudo tee -a /etc/shells
+        chsh -s /opt/homebrew/bin/fish
+    fi
 fi
 {{- end -}}
