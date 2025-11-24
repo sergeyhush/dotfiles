@@ -1,62 +1,113 @@
-# Set a strict global timeout (applies to all module file/dir scans)
-scan_timeout = 10
+#############################
+# Global performance settings
+#############################
+# Slightly relaxed scan timeout so git modules have time to detect repos,
+# while still keeping the prompt snappy.
+scan_timeout = 50
+command_timeout = 100
 
-[golang]
-disabled = true
-truncate_to_repo = true
-[hostname]
-disabled = true
-[package]
-disabled = true
-[status]
-disabled = true
-[hg_branch]
-disabled = true
-[dart]
-disabled = true
-[dotnet]
-disabled = true
-[elixir]
-disabled = true
-[elm]
-disabled = true
-[erlang]
-disabled = true
+#############################
+# Git modules
+#############################
+
+[git_branch]
+disabled = false
+
+[git_commit]
+disabled = false
+
+[git_state]
+disabled = false
+
 [git_status]
 disabled = true
-[git_commit]
-disabled = true
-[git_state]
-disabled = true
-[helm]
-disabled = true
-[java]
-disabled = true
-[julia]
-disabled = true
-[kotlin]
-disabled = true
-[nodejs]
-disabled = true
-[nim]
-disabled = true
-[ocaml]
-disabled = true
-[php]
-disabled = true
-[purescript]
-disabled = true
-[swift]
-disabled = true
-[zig]
-disabled = true
-[memory_usage]
-disabled = true
-[gcloud]
-disabled = true
-[openstack]
-disabled = true
+
+
+#############################
+# Enabled language modules
+#############################
+
+[golang]
+disabled = false
+
+
+#############################
+# Disabled language modules
+#############################
+
 [crystal]
 disabled = true
+
+[dart]
+disabled = true
+
+[dotnet]
+disabled = true
+
+[elixir]
+disabled = true
+
+[elm]
+disabled = true
+
+[erlang]
+disabled = true
+
+[helm]
+disabled = true
+
+[java]
+disabled = true
+
+[julia]
+disabled = true
+
+[kotlin]
+disabled = true
+
 [lua]
+disabled = true
+
+[nodejs]
+disabled = true
+
+[nim]
+disabled = true
+
+[ocaml]
+disabled = true
+
+[php]
+disabled = true
+
+[purescript]
+disabled = true
+
+[swift]
+disabled = true
+
+
+#############################
+# Disabled misc / env modules
+#############################
+
+[gcloud]
+disabled = true
+
+[hg_branch]
+disabled = true
+
+[hostname]
+disabled = true
+
+[memory_usage]
+disabled = true
+
+[openstack]
+disabled = true
+
+[package]
+disabled = true
+
+[status]
 disabled = true

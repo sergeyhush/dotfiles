@@ -1,36 +1,38 @@
-fish_add_path $HOME/bin
-fish_add_path $HOME/go/bin
-fish_add_path /opt/homebrew/bin
-fish_add_path /opt/homebrew/opt/binutils/bin
-fish_add_path /usr/local/bin
-fish_add_path /usr/local/go/bin
+# set -x fish_trace 1
 
+# homebrew
 set -gx HOMEBREW_NO_EMOJI 1
 set -gx HOMEBREW_NO_ANALYTICS 1
+set -gx HOMEBREW_PREFIX /opt/homebrew
+set -gx HOMEBREW_CELLAR /opt/homebrew/Cellar
+set -gx HOMEBREW_REPOSITORY /opt/homebrew
 
 set -U fish_greeting # disable greeting
 set -U fish_key_bindings fish_vi_key_bindings
-
 set -Ux EDITOR nvim
 set -Ux VISUAL nvim
-
 set TERM xterm-256color
 set -gx AWS_PAGER ""
-
-# fzf
+# # fzf
+fzf_configure_bindings --directory=\ct --processes=\ck
 set fzf_directory_opts --bind "ctrl-o:execute($EDITOR {} &> /dev/tty)"
 
-#Golang
-
-#set fish_tmux_autostart true
+# PATH setup
+fish_add_path $HOME/bin
+fish_add_path $HOME/.local/bin
+fish_add_path $HOMEBREW_PREFIX/bin
+fish_add_path $HOMEBREW_PREFIX/sbin
+fish_add_path /usr/local/bin
 
 if status is-interactive
-    #Pyenv
-    if type -q pyenv
-        source (pyenv init -|psub)
+    mise activate fish | source
+    if not set -q NO_FANCY_PROMPT
+        starship init fish | source
+        zoxide init fish | source
+        atuin init fish --disable-up-arrow | source
     end
-    eval (/opt/homebrew/bin/brew shellenv)
-    starship init fish | source
-    zoxide init fish | source
-    atuin init fish --disable-up-arrow | source
 end
+# sfid
+eval "$(sf aliases --fish-shell)"
+
+fish_config theme choose "Dracula Official"
