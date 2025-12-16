@@ -1,11 +1,11 @@
 [settings]
-idiomatic_version_file_enable_tools = ["node"]
+idiomatic_version_file_enable_tools = ["node","python"]
 
 [settings.python]
 compile = false
 
 [tools]
-go = "1.24"
-golangci-lint = "2.0"
-jq = "latest"
+go = "1.25.3"
+golangci-lint = "2.6.1"
+jq = "1.8.1"
 python = "3.14"
