@@ -32,7 +32,9 @@ if status is-interactive
         atuin init fish --disable-up-arrow | source
     end
 end
-# sfid
+{{- if not .personal }}
+# sfid - work machine only
 eval "$(sf aliases --fish-shell)"
+{{- end }}
 
 fish_config theme choose "Dracula Official"
