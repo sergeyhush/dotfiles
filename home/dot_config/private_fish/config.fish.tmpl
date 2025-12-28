@@ -30,11 +30,8 @@ if status is-interactive
         starship init fish | source
         zoxide init fish | source
         atuin init fish --disable-up-arrow | source
+        carapace _carapace | source
     end
 end
-{{- if not .personal }}
-# sfid - work machine only
-eval "$(sf aliases --fish-shell)"
-{{- end }}
 
-fish_config theme choose "Dracula Official"
+fish_config theme choose "Catppuccin Mocka"
