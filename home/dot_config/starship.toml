@@ -5,109 +5,38 @@
 # while still keeping the prompt snappy.
 scan_timeout = 50
 command_timeout = 100
+palette = "catppuccin_mocha"
 
 #############################
-# Git modules
+# Theme catppuccin_mocha
 #############################
+[palettes.catppuccin_mocha]
+rosewater = "#f5e0dc"
+flamingo = "#f2cdcd"
+pink = "#f5c2e7"
+mauve = "#cba6f7"
+red = "#f38ba8"
+maroon = "#eba0ac"
+peach = "#fab387"
+yellow = "#f9e2af"
+green = "#a6e3a1"
+teal = "#94e2d5"
+sky = "#89dceb"
+sapphire = "#74c7ec"
+blue = "#89b4fa"
+lavender = "#b4befe"
+text = "#cdd6f4"
+subtext1 = "#bac2de"
+subtext0 = "#a6adc8"
+overlay2 = "#9399b2"
+overlay1 = "#7f849c"
+overlay0 = "#6c7086"
+surface2 = "#585b70"
+surface1 = "#45475a"
+surface0 = "#313244"
+base = "#1e1e2e"
+mantle = "#181825"
+crust = "#11111b"
 
 [git_branch]
-disabled = false
-
-[git_commit]
-disabled = false
-
-[git_state]
-disabled = false
-
-[git_status]
-disabled = true
-
-
-#############################
-# Enabled language modules
-#############################
-
-[golang]
-disabled = false
-
-
-#############################
-# Disabled language modules
-#############################
-
-[crystal]
-disabled = true
-
-[dart]
-disabled = true
-
-[dotnet]
-disabled = true
-
-[elixir]
-disabled = true
-
-[elm]
-disabled = true
-
-[erlang]
-disabled = true
-
-[helm]
-disabled = true
-
-[java]
-disabled = true
-
-[julia]
-disabled = true
-
-[kotlin]
-disabled = true
-
-[lua]
-disabled = true
-
-[nodejs]
-disabled = true
-
-[nim]
-disabled = true
-
-[ocaml]
-disabled = true
-
-[php]
-disabled = true
-
-[purescript]
-disabled = true
-
-[swift]
-disabled = true
-
-
-#############################
-# Disabled misc / env modules
-#############################
-
-[gcloud]
-disabled = true
-
-[hg_branch]
-disabled = true
-
-[hostname]
-disabled = true
-
-[memory_usage]
-disabled = true
-
-[openstack]
-disabled = true
-
-[package]
-disabled = true
-
-[status]
-disabled = true
+format =  '[$symbol$branch(:$remote_branch)]($style)'
