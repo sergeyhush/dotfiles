@@ -1,0 +1,6 @@
+# Chezmoi private files
+**/private_*
+
+# Chezmoi encrypted files
+*.age
+key.txt
