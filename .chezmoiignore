@@ -1,3 +1,4 @@
+.config/fish/fish_variables
 .config/fish/private.fish
 .config/nvim/lazy-lock.json
 .config/tmux/plugins/
