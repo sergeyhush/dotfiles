@@ -1,7 +1,7 @@
 name: Bootstrap setup
 on: [push]
 jobs:
-  build_and_test:
+  test-macos:
     runs-on: macos-latest
     permissions:
       contents: read
@@ -14,3 +14,29 @@ jobs:
       - shell: bash
         run: |
           ./bootstrap.sh
+
+  test-linux:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    env:
+      CI: true
+    container:
+      image: rockylinux:9
+    steps:
+      - name: Install git and basic tools
+        run: |
+          dnf install -y git sudo
+      - uses: actions/checkout@v5
+      - name: Test chezmoi initialization
+        run: |
+          # Install chezmoi
+          curl --fail --location --silent https://git.io/chezmoi | BINDIR="$HOME/bin" sh
+          export PATH="$HOME/bin:$PATH"
+
+          # Initialize chezmoi (without --apply to avoid interactive prompts)
+          chezmoi init --source="$GITHUB_WORKSPACE"
+
+          # Test that yum script templates are valid
+          chezmoi execute-template < home/.chezmoiscripts/run_onchange_before_02-yum.sh.tmpl
+          chezmoi execute-template < home/.chezmoiscripts/run_onchange_after_02-configure-rocky.sh.tmpl

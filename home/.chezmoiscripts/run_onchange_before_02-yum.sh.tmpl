@@ -1,0 +1,35 @@
+{{- if eq .chezmoi.os "linux" -}}
+{{- if or (eq .chezmoi.osRelease.id "rocky") (eq .chezmoi.osRelease.id "rhel") (hasPrefix "rhel" .chezmoi.osRelease.idLike) -}}
+#!/usr/bin/env bash
+echo "> Install yum/dnf packages"
+
+set -eo pipefail
+
+# Determine package manager (dnf is preferred on modern RHEL-based systems)
+if command -v dnf &> /dev/null; then
+    PKG_MGR="dnf"
+else
+    PKG_MGR="yum"
+fi
+
+echo "> Using $PKG_MGR as package manager"
+
+# Enable EPEL repository if not already enabled (required for many packages)
+if ! rpm -q epel-release &> /dev/null; then
+    echo "> Installing EPEL repository"
+    sudo $PKG_MGR install -y epel-release
+fi
+
+# Install packages from the list
+echo "> Installing packages..."
+{{ range .packages.yum.common.packages }}
+sudo $PKG_MGR install -y {{ . | quote }}
+{{ end }}
+
+echo "> Package installation complete"
+
+# Note: Some tools like atuin, mise, starship, and uv need to be installed separately
+# See comments in packages.toml for installation URLs
+
+{{- end }}
+{{- end }}

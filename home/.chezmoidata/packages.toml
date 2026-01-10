@@ -25,3 +25,24 @@ formulae = [
     "uv",
     "zoxide",
 ]
+
+[packages.yum]
+[packages.yum.common]
+packages = [
+    "coreutils",
+    "fd-find",
+    "fish",
+    "fzf",
+    "git",
+    "jq",
+    "neovim",
+    "ripgrep",
+    "util-linux-user",  # provides chsh
+    "zoxide",
+]
+
+# These require additional setup/repos
+# atuin - install from https://atuin.sh
+# mise - install from https://mise.jdx.dev
+# starship - install from https://starship.rs
+# uv - install from https://github.com/astral-sh/uv
