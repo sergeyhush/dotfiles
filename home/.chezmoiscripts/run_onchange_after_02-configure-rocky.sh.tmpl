@@ -1,0 +1,31 @@
+{{- if eq .chezmoi.os "linux" -}}
+{{- if or (eq .chezmoi.osRelease.id "rocky") (eq .chezmoi.osRelease.id "rhel") (hasPrefix "rhel" .chezmoi.osRelease.idLike) -}}
+#!/usr/bin/env bash
+
+set -eo pipefail
+
+echo "> Configuring Rocky Linux..."
+
+# Set fish as default shell if it's installed and not already the default
+if command -v fish &> /dev/null; then
+    FISH_PATH=$(command -v fish)
+    if [ "$SHELL" != "$FISH_PATH" ]; then
+        echo "> Setting fish as default shell"
+
+        # Add fish to /etc/shells if not already present
+        if ! grep -q "$FISH_PATH" /etc/shells; then
+            echo "$FISH_PATH" | sudo tee -a /etc/shells
+        fi
+
+        # Change shell to fish
+        sudo chsh -s "$FISH_PATH" "$USER"
+        echo "> Fish shell set as default. Please log out and log back in for changes to take effect."
+    else
+        echo "> Fish is already the default shell"
+    fi
+else
+    echo "> Fish not installed, skipping shell configuration"
+fi
+
+{{- end }}
+{{- end }}
