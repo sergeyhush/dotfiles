@@ -37,6 +37,7 @@ jobs:
           # Initialize chezmoi (without --apply to avoid interactive prompts)
           chezmoi init --source="$GITHUB_WORKSPACE"
 
-          # Test that yum script templates are valid
-          chezmoi execute-template < home/.chezmoiscripts/run_onchange_before_02-yum.sh.tmpl
-          chezmoi execute-template < home/.chezmoiscripts/run_onchange_after_02-configure-rocky.sh.tmpl
+          # Validate templates render correctly by running diff (discards output)
+          # This processes all templates including loading .chezmoidata files
+          chezmoi diff > /dev/null
+          echo "✓ All templates validated successfully"
