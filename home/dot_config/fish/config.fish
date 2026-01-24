@@ -25,13 +25,16 @@ fish_add_path $HOMEBREW_PREFIX/sbin
 fish_add_path /usr/local/bin
 
 if status is-interactive
-    mise activate fish | source
+    safe_exec mise "mise activate fish | source"
     if not set -q NO_FANCY_PROMPT
-        starship init fish | source
-        zoxide init fish | source
-        atuin init fish --disable-up-arrow | source
-        carapace _carapace | source
+        safe_exec starship "starship init fish | source"
+        safe_exec zoxide "zoxide init fish | source"
+        safe_exec atuin "atuin init fish --disable-up-arrow | source"
+        safe_exec carapace "carapace _carapace | source"
     end
+
+    # sfid - moved inside is-interactive check for performance
+    safe_exec sf 'eval "\$(sf aliases --fish-shell)"'
 end
 
 fish_config theme choose "Catppuccin Mocha"
