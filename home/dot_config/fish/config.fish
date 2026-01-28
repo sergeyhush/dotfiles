@@ -34,7 +34,7 @@ if status is-interactive
     end
 
     # sfid - moved inside is-interactive check for performance
-    safe_exec sf 'eval "\$(sf aliases --fish-shell)"'
+    safe_exec sf 'sf aliases --fish-shell | source'
 end
 
 fish_config theme choose "Catppuccin Mocha"
