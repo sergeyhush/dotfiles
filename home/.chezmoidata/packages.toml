@@ -29,7 +29,6 @@ formulae = [
 [packages.yum]
 [packages.yum.common]
 packages = [
-    "coreutils",
     "fd-find",
     "fish",
     "fzf",
@@ -37,7 +36,7 @@ packages = [
     "jq",
     "neovim",
     "ripgrep",
-    "util-linux-user",  # provides chsh
+    "util-linux-user", # provides chsh
     "zoxide",
 ]
 
