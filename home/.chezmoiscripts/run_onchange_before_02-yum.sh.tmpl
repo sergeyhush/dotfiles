@@ -20,6 +20,20 @@ if ! rpm -q epel-release &> /dev/null; then
     sudo $PKG_MGR install -y epel-release
 fi
 
+# Add mise repository
+if ! test -f /etc/yum.repos.d/mise.repo; then
+    echo "> Adding mise repository"
+    sudo tee /etc/yum.repos.d/mise.repo > /dev/null <<EOF
+[mise]
+name=mise
+baseurl=https://mise.jdx.dev/rpm
+enabled=1
+gpgcheck=1
+gpgkey=https://mise.jdx.dev/gpg-key.pub
+EOF
+fi
+
+
 # Install packages from the list
 echo "> Installing packages..."
 {{ range .packages.yum.common.packages }}
@@ -28,7 +42,7 @@ sudo $PKG_MGR install -y {{ . | quote }}
 
 echo "> Package installation complete"
 
-# Note: Some tools like atuin, mise, starship, and uv need to be installed separately
+# Note: Some tools like atuin, starship, and uv need to be installed separately
 # See comments in packages.toml for installation URLs
 
 {{- end }}

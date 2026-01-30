@@ -34,6 +34,7 @@ packages = [
     "fzf",
     "git",
     "jq",
+    "mise",
     "neovim",
     "ripgrep",
     "util-linux-user", # provides chsh
@@ -42,6 +43,5 @@ packages = [
 
 # These require additional setup/repos
 # atuin - install from https://atuin.sh
-# mise - install from https://mise.jdx.dev
 # starship - install from https://starship.rs
 # uv - install from https://github.com/astral-sh/uv
